@@ -56,14 +56,14 @@ Scoring scale:
 - `3` = acceptable with mitigation
 - `1` = weakest fit / highest concern
 
-Weights total `100`; weighted score maximum is `500`.
+Weights total `100`; weighted score maximum is `500`. Weighted score is calculated as the sum of each factor score multiplied by its factor weight.
 
 | Pattern | Weighted Score / 500 | Recommendation |
 |---|---:|---|
 | Rehost to Azure VM | 365 | Keep as fallback or interim migration path |
-| Replatform to Azure Container Apps | 425 | Recommended primary migration path |
-| Rearchitect selected concerns | 345 | Apply selectively with replatform, not as standalone first wave |
-| Reengineer/full rewrite | 255 | Defer until after cloud baseline and production telemetry |
+| Replatform to Azure Container Apps | 415 | Recommended primary migration path |
+| Rearchitect selected concerns | 325 | Apply selectively with replatform, not as standalone first wave |
+| Reengineer/full rewrite | 265 | Defer until after cloud baseline and production telemetry |
 
 ## Decision Factors
 

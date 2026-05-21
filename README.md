@@ -10,6 +10,7 @@ This fork is being used for the Application Architect hands-on assessment: on-pr
 |---|---|
 | Module 1 - Application Selection and On-Premise Baseline | [`docs/01-current-state-assessment.md`](docs/01-current-state-assessment.md), [`inventory/current_state_inventory.md`](inventory/current_state_inventory.md), [`docs/current-state-architecture.mmd`](docs/current-state-architecture.mmd) |
 | Module 2 - ADDM-Style Discovery and Dependency Crawler | [`docs/02-discovery-findings-summary.md`](docs/02-discovery-findings-summary.md), [`scripts/dependency_crawler.py`](scripts/dependency_crawler.py), [`inventory/app_inventory.json`](inventory/app_inventory.json), [`inventory/egress_inventory.csv`](inventory/egress_inventory.csv), [`inventory/database_inventory.csv`](inventory/database_inventory.csv), [`inventory/dependency_graph.mmd`](inventory/dependency_graph.mmd) |
+| Module 3 - Migration Pattern Assessment | [`docs/03-migration-pattern-assessment.md`](docs/03-migration-pattern-assessment.md), [`inventory/migration_decision_matrix.csv`](inventory/migration_decision_matrix.csv), [`docs/09-adr-log.md`](docs/09-adr-log.md), [`docs/05-migration-wave-plan.md`](docs/05-migration-wave-plan.md), [`inventory/wave_plan.csv`](inventory/wave_plan.csv), [`docs/04-assumptions-risk-register.md`](docs/04-assumptions-risk-register.md), [`inventory/assumption_risk_register.csv`](inventory/assumption_risk_register.csv) |
 
 Module 1 local baseline uses `http://localhost:8081/` because Jenkins was already using port `8080` on the assessment machine.
 

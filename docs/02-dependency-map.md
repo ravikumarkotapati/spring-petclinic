@@ -49,7 +49,7 @@ Detected areas:
 | CI/CD files | GitHub Actions and Azure Pipelines-style file detection |
 | Network flows | CSV parser and ingress/egress/database/unknown classifier |
 
-## Key Findings
+## Discovery Findings Summary
 
 | Area | Finding | Evidence |
 |---|---|---|
@@ -64,6 +64,8 @@ Detected areas:
 | Egress | Maven/GitHub HTTPS, DNS and SMTP-like traffic observed | `egress_inventory.csv` |
 | Unknowns | TCP `8443` inbound and SMTP-like TCP `25` egress require validation because they are not fully explained by the source scan | `ingress_inventory.csv`, `egress_inventory.csv` |
 | Secrets | Sample DB passwords and Kubernetes secret references detected; no production secret should remain in source or pipeline logs | `app_inventory.json` |
+
+The discovery summary is intentionally split into ingress, egress, database and unknown-flow sections below so an architect can use it directly for migration wave planning, network design and app-team follow-up.
 
 ## Ingress Inventory Summary
 
@@ -114,6 +116,29 @@ The graph shows:
 | BMC Discovery / ADDM | The script approximates ADDM-style application mapping by linking runtime, packages, config, database endpoints, files, CI/CD artifacts and observed network dependencies into one inventory. |
 | ServiceNow Discovery | The generated JSON/CSV outputs can feed CMDB-style relationships: application component, VM, database, CI/CD dependency, ingress and egress relationships. |
 | Device42 / Flexera | The inventory supports software dependency, infrastructure dependency, application owner follow-up, readiness and licensing/cost conversations. |
+
+## Assignment Requirement Traceability
+
+| Module 2 Requirement | Status | Evidence |
+|---|---|---|
+| Use the starter dependency crawler or build your own Python tool | Complete | [`scripts/dependency_crawler.py`](../scripts/dependency_crawler.py) |
+| Scan source code and config files for package dependencies | Complete | `package_dependencies` in [`inventory/app_inventory.json`](../inventory/app_inventory.json) |
+| Scan for DB connection strings | Complete | `source_scan.database_connections` in [`inventory/app_inventory.json`](../inventory/app_inventory.json), plus [`inventory/database_inventory.csv`](../inventory/database_inventory.csv) |
+| Scan for ports | Complete | `source_scan.ports`, `ingress_inventory.csv`, and `egress_inventory.csv` |
+| Scan for URLs | Complete | `source_scan.urls` in [`inventory/app_inventory.json`](../inventory/app_inventory.json) |
+| Scan for secrets | Complete | `source_scan.secret_candidates` and `source_scan.findings.secret_hints` in [`inventory/app_inventory.json`](../inventory/app_inventory.json) |
+| Scan for Docker/Kubernetes files | Complete | `artifacts.docker_files` and `artifacts.kubernetes_files` in [`inventory/app_inventory.json`](../inventory/app_inventory.json) |
+| Scan for CI/CD files | Complete | `artifacts.ci_cd_files` in [`inventory/app_inventory.json`](../inventory/app_inventory.json) |
+| Parse network flow CSV representing observed VM traffic | Complete | [`sample_data/network_flows.csv`](../sample_data/network_flows.csv), parsed into `network_flows` in [`inventory/app_inventory.json`](../inventory/app_inventory.json) |
+| Classify inbound ingress | Complete | [`inventory/ingress_inventory.csv`](../inventory/ingress_inventory.csv) |
+| Classify outbound egress | Complete | [`inventory/egress_inventory.csv`](../inventory/egress_inventory.csv) |
+| Classify database dependencies | Complete | [`inventory/database_inventory.csv`](../inventory/database_inventory.csv) |
+| Classify unknown traffic | Complete | Flow `F008` in [`inventory/ingress_inventory.csv`](../inventory/ingress_inventory.csv), and follow-up questions in this document |
+| Generate JSON output | Complete | [`inventory/app_inventory.json`](../inventory/app_inventory.json), [`inventory/dependency_graph.json`](../inventory/dependency_graph.json) |
+| Generate CSV output | Complete | [`inventory/app_inventory.csv`](../inventory/app_inventory.csv), [`inventory/ingress_inventory.csv`](../inventory/ingress_inventory.csv), [`inventory/egress_inventory.csv`](../inventory/egress_inventory.csv), [`inventory/database_inventory.csv`](../inventory/database_inventory.csv) |
+| Generate Mermaid dependency graph output | Complete | [`inventory/dependency_graph.mmd`](../inventory/dependency_graph.mmd) |
+| Explain mapping to Azure Migrate dependency analysis and enterprise tools | Complete | `Mapping To Azure Migrate And Enterprise Discovery Tools` section in this document |
+| Provide discovery findings summary | Complete | `Discovery Findings Summary`, `Ingress Inventory Summary`, `Egress Inventory Summary`, and `Database Inventory Summary` sections in this document |
 
 ## Follow-Up Questions For App Team
 

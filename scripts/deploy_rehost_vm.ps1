@@ -15,7 +15,7 @@ param(
     [string]$AdminSourceIp,
 
     [string]$HttpSourceIp = "0.0.0.0/0",
-    [string]$VmSize = "Standard_B2ms",
+    [string]$VmSize = "Standard_D2s_v5",
     [string]$RepoUrl = "https://github.com/ravikumarkotapati/spring-petclinic.git",
     [string]$RepoBranch = "module4-rehost-azure-vm",
     [int]$AppPort = 8081,

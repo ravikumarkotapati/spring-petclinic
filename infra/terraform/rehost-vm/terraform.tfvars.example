@@ -7,7 +7,7 @@
   "ssh_public_key": "ssh-rsa REPLACE_WITH_PUBLIC_KEY petclinic-rehost",
   "admin_source_ip": "101.100.182.17/32",
   "http_source_ip": "0.0.0.0/0",
-  "vm_size": "Standard_B2ms",
+  "vm_size": "Standard_D2s_v5",
   "repo_url": "https://github.com/ravikumarkotapati/spring-petclinic.git",
   "repo_branch": "module4-rehost-azure-vm",
   "app_port": 8081,

@@ -1,0 +1,11 @@
+﻿flowchart LR
+    User["User Browser"] -->|"HTTP 80"| PublicIp["Azure Public IP and DNS"]
+    PublicIp -->|"TCP 80"| Nsg["Network Security Group"]
+    Admin["Admin Workstation 101.100.182.17/32"] -->|"SSH 22"| Nsg
+    Nsg --> Vm["Azure Linux VM Ubuntu 22.04"]
+    Vm --> Nginx["NGINX reverse proxy"]
+    Nginx -->|"localhost:8081"| App["Spring PetClinic Java 17 systemd service"]
+    App -->|"managed identity HTTPS 443"| KeyVault["Azure Key Vault secrets"]
+    Vm --> Monitor["Log Analytics and Azure Monitor Agent"]
+    Vm --> Backup["Recovery Services Vault backup"]
+    App -."future JDBC private endpoint".-> Db["Managed database target"]

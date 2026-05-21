@@ -11,15 +11,16 @@ This fork is being used for the Application Architect hands-on assessment: on-pr
 | Module 1 - Application Selection and On-Premise Baseline | [`docs/01-current-state-assessment.md`](docs/01-current-state-assessment.md), [`inventory/current_state_inventory.md`](inventory/current_state_inventory.md), [`docs/current-state-architecture.mmd`](docs/current-state-architecture.mmd) |
 | Module 2 - ADDM-Style Discovery and Dependency Crawler | [`docs/02-discovery-findings-summary.md`](docs/02-discovery-findings-summary.md), [`scripts/dependency_crawler.py`](scripts/dependency_crawler.py), [`inventory/app_inventory.json`](inventory/app_inventory.json), [`inventory/egress_inventory.csv`](inventory/egress_inventory.csv), [`inventory/database_inventory.csv`](inventory/database_inventory.csv), [`inventory/dependency_graph.mmd`](inventory/dependency_graph.mmd) |
 | Module 3 - Migration Pattern Assessment | [`docs/03-migration-pattern-assessment.md`](docs/03-migration-pattern-assessment.md), [`inventory/migration_decision_matrix.csv`](inventory/migration_decision_matrix.csv), [`docs/09-adr-log.md`](docs/09-adr-log.md), [`docs/05-migration-wave-plan.md`](docs/05-migration-wave-plan.md), [`inventory/wave_plan.csv`](inventory/wave_plan.csv), [`docs/04-assumptions-risk-register.md`](docs/04-assumptions-risk-register.md), [`inventory/assumption_risk_register.csv`](inventory/assumption_risk_register.csv) |
+| Module 4 - Rehost to Azure VM | [docs/06-rehost-runbook.md](docs/06-rehost-runbook.md), [docs/07-rehost-ingress-design.md](docs/07-rehost-ingress-design.md), [docs/rehost-ingress-design.mmd](docs/rehost-ingress-design.mmd), [infra/bicep/rehost-vm/main.bicep](infra/bicep/rehost-vm/main.bicep), [scripts/deploy_rehost_vm.ps1](scripts/deploy_rehost_vm.ps1), [tests/smoke_test_rehost.ps1](tests/smoke_test_rehost.ps1) |
 
 Module 1 local baseline uses `http://localhost:8081/` because Jenkins was already using port `8080` on the assessment machine.
 
 ## Understanding the Spring Petclinic application with a few diagrams
 
-See the presentation here:  
+See the presentation here:
 [Spring Petclinic Sample Application (legacy slides)](https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application?slide=20)
 
-> **Note:** These slides refer to a legacy, pre–Spring Boot version of Petclinic and may not reflect the current Spring Boot–based implementation.  
+> **Note:** These slides refer to a legacy, pre-Spring Boot version of Petclinic and may not reflect the current Spring Boot-based implementation.
 > For up-to-date information, please refer to this repository and its documentation.
 
 
@@ -138,7 +139,7 @@ The following items should be installed in your system:
 
 1. Inside IntelliJ IDEA:
 
-    In the main menu, choose `File -> Open` and select the Petclinic [pom.xml](pom.xml). Click on the `Open` button.
+    In the main menu, choose `File -> Open` and select the Petclinic [pom.xml](pom.xml). Click on the `Open` button.
 
     - CSS files are generated from the Maven build. You can build them on the command line `./mvnw generate-resources` or right-click on the `spring-petclinic` project then `Maven -> Generates sources and Update Folders`.
 

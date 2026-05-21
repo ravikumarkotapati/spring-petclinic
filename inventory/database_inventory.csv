@@ -1,0 +1,6 @@
+source,engine,host,port,database,credential_source,evidence,criticality,downtime_tolerance,azure_target_candidate,notes
+source_config,mysql,localhost,3306,petclinic,MYSQL_URL,src/main/resources/application-mysql.properties,medium,to be confirmed,Azure Database for MySQL Flexible Server,Detected from Spring datasource configuration.
+source_config,postgresql,localhost,5432,petclinic,POSTGRES_URL,src/main/resources/application-postgres.properties,medium,to be confirmed,Azure Database for PostgreSQL Flexible Server,Detected from Spring datasource configuration.
+source_config,h2,embedded,,petclinic,application property/default,src/main/resources/application.properties,medium,to be confirmed,Replace embedded H2 with managed PostgreSQL/MySQL for production,Detected from Spring datasource configuration.
+network_flow,postgresql,postgres-db-vm,5432,petclinic,not visible in network flow,F002,medium,to be confirmed,Azure Database for PostgreSQL Flexible Server,JDBC traffic to PostgreSQL profile database
+network_flow,mysql,mysql-db-vm,3306,petclinic,not visible in network flow,F003,medium,to be confirmed,Azure Database for MySQL Flexible Server,JDBC traffic to MySQL profile database

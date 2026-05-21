@@ -1,0 +1,145 @@
+# Module 2 - ADDM-Style Discovery And Dependency Map
+
+## Objective
+
+Module 2 builds an ADDM-style dependency inventory for the Spring PetClinic workload. The discovery combines source/config scanning with observed network flow evidence so the migration plan can separate confirmed dependencies from assumptions and unknowns.
+
+## How To Run Discovery
+
+Run this command from the repository root:
+
+```powershell
+python scripts\dependency_crawler.py --root . --network-flows sample_data\network_flows.csv --out inventory
+```
+
+The script uses only the Python standard library. No extra packages are required.
+
+## Evidence Produced
+
+| Evidence | Purpose |
+|---|---|
+| [`scripts/dependency_crawler.py`](../scripts/dependency_crawler.py) | Source/config/network-flow crawler |
+| [`sample_data/network_flows.csv`](../sample_data/network_flows.csv) | Observed VM traffic sample used as network dependency input |
+| [`inventory/app_inventory.json`](../inventory/app_inventory.json) | Full structured application inventory |
+| [`inventory/app_inventory.csv`](../inventory/app_inventory.csv) | Flat application inventory extract |
+| [`inventory/ingress_inventory.csv`](../inventory/ingress_inventory.csv) | Inbound traffic classification |
+| [`inventory/egress_inventory.csv`](../inventory/egress_inventory.csv) | Outbound/database traffic classification |
+| [`inventory/database_inventory.csv`](../inventory/database_inventory.csv) | Database dependency inventory and Azure target candidates |
+| [`inventory/dependency_graph.mmd`](../inventory/dependency_graph.mmd) | Mermaid dependency graph |
+| [`inventory/dependency_graph.json`](../inventory/dependency_graph.json) | Graph data in JSON form |
+
+## Discovery Scope
+
+The crawler scans application source and configuration files while excluding generated assessment artifacts such as `docs/`, `inventory/`, `evidence/`, `target/`, and `.git/`.
+
+Detected areas:
+
+| Discovery Area | Detection Method |
+|---|---|
+| Package dependencies | Maven `pom.xml` parser |
+| Build tools | Maven wrapper, Gradle wrapper, `pom.xml`, `build.gradle` |
+| Runtime | Java version from Maven properties |
+| Config files | `application*.properties` parser |
+| DB connection strings | Spring datasource properties and JDBC patterns |
+| Ports | Source/config scan and network flow CSV |
+| URLs | Source/config URL regex |
+| Secrets | Password/secret/token/key-store hints with masking |
+| Docker files | Dockerfile and Docker Compose detection |
+| Kubernetes files | `k8s/*.yml` detection |
+| CI/CD files | GitHub Actions and Azure Pipelines-style file detection |
+| Network flows | CSV parser and ingress/egress/database/unknown classifier |
+
+## Key Findings
+
+| Area | Finding | Evidence |
+|---|---|---|
+| Application type | Spring Boot monolith | `pom.xml`, `app_inventory.json` |
+| Runtime | Java `17` baseline | `pom.xml`, `app_inventory.json` |
+| Build tools | Maven and Gradle wrappers are present; Maven was used for Module 1 execution | `mvnw.cmd`, `build.gradle`, `app_inventory.json` |
+| Package dependencies | 24 Maven dependencies detected, including Spring Web MVC, Spring Data JPA, Actuator, Thymeleaf, H2, MySQL, PostgreSQL and test dependencies | `app_inventory.json` |
+| Config files | 3 Spring config files detected | `src/main/resources/application*.properties` |
+| Database profiles | H2 default profile plus PostgreSQL and MySQL profiles | `database_inventory.csv` |
+| Local ingress | User browser traffic to TCP `8081` | `ingress_inventory.csv` |
+| Database flows | PostgreSQL TCP `5432` and MySQL TCP `3306` observed in sample flow input | `egress_inventory.csv`, `database_inventory.csv` |
+| Egress | Maven/GitHub HTTPS, DNS and SMTP-like traffic observed | `egress_inventory.csv` |
+| Unknowns | TCP `8443` inbound and SMTP-like TCP `25` egress require validation because they are not fully explained by the source scan | `ingress_inventory.csv`, `egress_inventory.csv` |
+| Secrets | Sample DB passwords and Kubernetes secret references detected; no production secret should remain in source or pipeline logs | `app_inventory.json` |
+
+## Ingress Inventory Summary
+
+| Flow | Source | Destination | Port | Classification | Action |
+|---|---|---|---|---|---|
+| F001 | `user-workstation` | `onprem-petclinic-vm` | TCP `8081` | Confirmed application ingress | Map to HTTPS ingress in Azure target |
+| F008 | `unknown-client` | `onprem-petclinic-vm` | TCP `8443` | Unknown inbound | Validate with app owner and firewall/load-balancer logs |
+
+## Egress Inventory Summary
+
+| Flow | Destination | Port | Classification | Action |
+|---|---|---|---|---|
+| F002 | `postgres-db-vm` | TCP `5432` | PostgreSQL database | Plan private endpoint/firewall rules and DB cutover |
+| F003 | `mysql-db-vm` | TCP `3306` | MySQL database | Confirm whether MySQL is active or only optional profile support |
+| F004 | `repo.maven.apache.org` | TCP `443` | Build-time HTTPS egress | Replace with approved artifact feed or allow through build network |
+| F005 | `github.com` | TCP `443` | Git/source-control egress | Allow for CI/source access or mirror internally |
+| F006 | `dns-resolver` | UDP `53` | DNS | Map to Azure/private DNS design |
+| F007 | `smtp-relay.local` | TCP `25` | SMTP-like egress | Validate if real business dependency or false positive |
+
+## Database Inventory Summary
+
+| Engine | Source | Host | Port | Azure Target Candidate | Notes |
+|---|---|---|---|---|---|
+| H2 | Source config | embedded | n/a | Replace with managed PostgreSQL/MySQL for production | Default local development profile |
+| PostgreSQL | Source config and network flow | `localhost`, `postgres-db-vm` | `5432` | Azure Database for PostgreSQL Flexible Server | Strong candidate for managed target |
+| MySQL | Source config and network flow | `localhost`, `mysql-db-vm` | `3306` | Azure Database for MySQL Flexible Server | Confirm whether active in this app baseline |
+
+## Dependency Graph
+
+The generated graph is available at:
+
+- [`inventory/dependency_graph.mmd`](../inventory/dependency_graph.mmd)
+
+The graph shows:
+
+- User/browser ingress to the VM-hosted app
+- App-to-database dependencies
+- Build/source-control egress
+- DNS and SMTP-like egress
+- Unknown inbound traffic requiring follow-up
+
+## Mapping To Azure Migrate And Enterprise Discovery Tools
+
+| Tool / Pattern | How This Module Maps |
+|---|---|
+| Azure Migrate dependency analysis | The network-flow parser mirrors the dependency-analysis idea of grouping connections by source, destination, process and port. Azure Migrate dependency analysis helps identify server dependencies for grouping and migration planning, and agentless analysis can export dependency data as CSV. Reference: [Azure Migrate dependency visualization](https://learn.microsoft.com/en-us/azure/migrate/concepts-dependency-visualization?view=migrate). |
+| Azure Migrate agentless dependency analysis | The `network_flows.csv` input represents exported or observed connection data from an appliance/firewall/packet source. The crawler enriches this data into ingress, egress, database and unknown dependency classes. Reference: [Agentless dependency analysis](https://learn.microsoft.com/en-us/azure/migrate/how-to-create-group-machine-dependencies-agentless?view=migrate). |
+| BMC Discovery / ADDM | The script approximates ADDM-style application mapping by linking runtime, packages, config, database endpoints, files, CI/CD artifacts and observed network dependencies into one inventory. |
+| ServiceNow Discovery | The generated JSON/CSV outputs can feed CMDB-style relationships: application component, VM, database, CI/CD dependency, ingress and egress relationships. |
+| Device42 / Flexera | The inventory supports software dependency, infrastructure dependency, application owner follow-up, readiness and licensing/cost conversations. |
+
+## Follow-Up Questions For App Team
+
+| Question | Why It Matters |
+|---|---|
+| Is PostgreSQL or MySQL the real production database profile? | Database target selection and cutover strategy depend on the active engine. |
+| Is TCP `8443` a real inbound dependency? | It may require DNS/TLS/firewall migration or can be retired if unused. |
+| Is SMTP relay traffic required by production behavior? | Egress allowlist and security controls need a validated destination. |
+| Are sample credentials replaced in real environments? | Production migration must use Key Vault, managed identity or equivalent secret handling. |
+| Are Maven/GitHub connections runtime or build-time only? | Build-time egress should move to CI/CD or internal artifact feeds, not production runtime. |
+| Are there app owners, support contacts and business criticality ratings? | Required for wave planning, risk scoring and rollback ownership. |
+
+## Limitations
+
+This crawler is not a replacement for Azure Migrate, BMC Discovery, ServiceNow Discovery, Device42 or Flexera. It is a hands-on assessment tool that demonstrates the same discovery thinking at application level. In a real migration, these results should be reconciled with VM inventory, firewall logs, load balancer configs, CMDB records, DNS records, certificate stores and app-team interviews.
+
+## Module 2 Completion Checklist
+
+| Requirement | Status | Evidence |
+|---|---|---|
+| Build or use dependency crawler | Complete | `scripts/dependency_crawler.py` |
+| Scan source and config files | Complete | `inventory/app_inventory.json` |
+| Detect packages, DB strings, ports, URLs, secrets, Docker/Kubernetes and CI/CD files | Complete | `inventory/app_inventory.json` |
+| Parse network flow CSV | Complete | `sample_data/network_flows.csv` |
+| Classify ingress, egress, DB and unknown traffic | Complete | `ingress_inventory.csv`, `egress_inventory.csv`, `database_inventory.csv` |
+| Generate JSON output | Complete | `inventory/app_inventory.json` |
+| Generate CSV outputs | Complete | `inventory/app_inventory.csv`, `egress_inventory.csv`, `database_inventory.csv` |
+| Generate Mermaid dependency graph | Complete | `inventory/dependency_graph.mmd` |
+| Explain mapping to Azure Migrate and enterprise tools | Complete | This document |

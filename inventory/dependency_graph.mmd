@@ -1,0 +1,30 @@
+flowchart LR
+    db_h2_embedded["h2<br/>embedded:<br/>petclinic"]
+    db_mysql_localhost_3306["mysql<br/>localhost:3306<br/>petclinic"]
+    db_mysql_mysql_db_vm_3306["mysql<br/>mysql-db-vm:3306<br/>petclinic"]
+    db_postgresql_localhost_5432["postgresql<br/>localhost:5432<br/>petclinic"]
+    db_postgresql_postgres_db_vm_5432["postgresql<br/>postgres-db-vm:5432<br/>petclinic"]
+    dns_resolver["dns-resolver"]
+    github_com["github.com"]
+    local_disk["Local Disk<br/>config, logs, static resources"]
+    mysql_db_vm["mysql-db-vm"]
+    onprem_petclinic_vm["onprem-petclinic-vm"]
+    postgres_db_vm["postgres-db-vm"]
+    repo_maven_apache_org["repo.maven.apache.org"]
+    smtp_relay_local["smtp-relay.local"]
+    unknown_client["unknown-client"]
+    user_workstation["user-workstation"]
+    onprem_petclinic_vm -->|"reads/writes"| local_disk
+    onprem_petclinic_vm -->|"JDBC 3306"| db_mysql_localhost_3306
+    onprem_petclinic_vm -->|"JDBC 5432"| db_postgresql_localhost_5432
+    onprem_petclinic_vm -->|"JDBC "| db_h2_embedded
+    onprem_petclinic_vm -->|"JDBC 5432"| db_postgresql_postgres_db_vm_5432
+    onprem_petclinic_vm -->|"JDBC 3306"| db_mysql_mysql_db_vm_3306
+    user_workstation -->|"ingress TCP/8081"| onprem_petclinic_vm
+    onprem_petclinic_vm -->|"database TCP/5432"| postgres_db_vm
+    onprem_petclinic_vm -->|"database TCP/3306"| mysql_db_vm
+    onprem_petclinic_vm -->|"egress TCP/443"| repo_maven_apache_org
+    onprem_petclinic_vm -->|"egress TCP/443"| github_com
+    onprem_petclinic_vm -->|"egress UDP/53"| dns_resolver
+    onprem_petclinic_vm -->|"egress TCP/25"| smtp_relay_local
+    unknown_client -->|"ingress_unknown TCP/8443"| onprem_petclinic_vm

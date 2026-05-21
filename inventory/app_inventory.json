@@ -1,0 +1,1558 @@
+{
+  "generated_at_utc": "2026-05-21T09:22:38+00:00",
+  "scan_root": ".",
+  "network_flow_source": "sample_data/network_flows.csv",
+  "application": {
+    "name": "petclinic",
+    "group_id": "org.springframework.samples",
+    "artifact_id": "spring-petclinic",
+    "version": "4.0.0-SNAPSHOT",
+    "framework": "Spring Boot",
+    "app_type": "monolith"
+  },
+  "runtime": {
+    "java_version": "17",
+    "spring_boot_parent": {
+      "group_id": "org.springframework.boot",
+      "artifact_id": "spring-boot-starter-parent",
+      "version": "4.0.3"
+    }
+  },
+  "build": {
+    "maven": true,
+    "maven_wrapper": true,
+    "gradle": true,
+    "gradle_wrapper": true
+  },
+  "artifacts": {
+    "build_tools": {
+      "maven": true,
+      "maven_wrapper": true,
+      "gradle": true,
+      "gradle_wrapper": true
+    },
+    "docker_files": [
+      ".devcontainer/Dockerfile",
+      "docker-compose.yml"
+    ],
+    "kubernetes_files": [
+      "k8s/db.yml",
+      "k8s/petclinic.yml"
+    ],
+    "ci_cd_files": [
+      ".github/workflows/deploy-and-test-cluster.yml",
+      ".github/workflows/gradle-build.yml",
+      ".github/workflows/maven-build.yml"
+    ]
+  },
+  "package_dependencies": [
+    {
+      "group_id": "org.springframework.boot",
+      "artifact_id": "spring-boot-starter-actuator",
+      "version": "",
+      "scope": "compile",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.springframework.boot",
+      "artifact_id": "spring-boot-starter-cache",
+      "version": "",
+      "scope": "compile",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.springframework.boot",
+      "artifact_id": "spring-boot-starter-data-jpa",
+      "version": "",
+      "scope": "compile",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.springframework.boot",
+      "artifact_id": "spring-boot-starter-thymeleaf",
+      "version": "",
+      "scope": "compile",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.springframework.boot",
+      "artifact_id": "spring-boot-starter-validation",
+      "version": "",
+      "scope": "compile",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.springframework.boot",
+      "artifact_id": "spring-boot-starter-webmvc",
+      "version": "",
+      "scope": "compile",
+      "optional": "false"
+    },
+    {
+      "group_id": "javax.cache",
+      "artifact_id": "cache-api",
+      "version": "",
+      "scope": "compile",
+      "optional": "false"
+    },
+    {
+      "group_id": "jakarta.xml.bind",
+      "artifact_id": "jakarta.xml.bind-api",
+      "version": "",
+      "scope": "compile",
+      "optional": "false"
+    },
+    {
+      "group_id": "com.h2database",
+      "artifact_id": "h2",
+      "version": "",
+      "scope": "runtime",
+      "optional": "false"
+    },
+    {
+      "group_id": "com.github.ben-manes.caffeine",
+      "artifact_id": "caffeine",
+      "version": "",
+      "scope": "runtime",
+      "optional": "false"
+    },
+    {
+      "group_id": "com.mysql",
+      "artifact_id": "mysql-connector-j",
+      "version": "",
+      "scope": "runtime",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.postgresql",
+      "artifact_id": "postgresql",
+      "version": "",
+      "scope": "runtime",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.webjars",
+      "artifact_id": "webjars-locator-lite",
+      "version": "${webjars-locator.version}",
+      "scope": "runtime",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.webjars.npm",
+      "artifact_id": "bootstrap",
+      "version": "${webjars-bootstrap.version}",
+      "scope": "runtime",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.webjars.npm",
+      "artifact_id": "font-awesome",
+      "version": "${webjars-font-awesome.version}",
+      "scope": "runtime",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.springframework.boot",
+      "artifact_id": "spring-boot-devtools",
+      "version": "",
+      "scope": "compile",
+      "optional": "true"
+    },
+    {
+      "group_id": "org.springframework.boot",
+      "artifact_id": "spring-boot-starter-data-jpa-test",
+      "version": "",
+      "scope": "test",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.springframework.boot",
+      "artifact_id": "spring-boot-starter-restclient",
+      "version": "",
+      "scope": "test",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.springframework.boot",
+      "artifact_id": "spring-boot-starter-restclient-test",
+      "version": "",
+      "scope": "test",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.springframework.boot",
+      "artifact_id": "spring-boot-starter-webmvc-test",
+      "version": "",
+      "scope": "test",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.springframework.boot",
+      "artifact_id": "spring-boot-testcontainers",
+      "version": "",
+      "scope": "test",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.springframework.boot",
+      "artifact_id": "spring-boot-docker-compose",
+      "version": "",
+      "scope": "test",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.testcontainers",
+      "artifact_id": "testcontainers-junit-jupiter",
+      "version": "",
+      "scope": "test",
+      "optional": "false"
+    },
+    {
+      "group_id": "org.testcontainers",
+      "artifact_id": "testcontainers-mysql",
+      "version": "",
+      "scope": "test",
+      "optional": "false"
+    }
+  ],
+  "build_plugins": [
+    {
+      "group_id": "org.apache.maven.plugins",
+      "artifact_id": "maven-enforcer-plugin",
+      "version": ""
+    },
+    {
+      "group_id": "io.spring.javaformat",
+      "artifact_id": "spring-javaformat-maven-plugin",
+      "version": "${spring-format.version}"
+    },
+    {
+      "group_id": "org.apache.maven.plugins",
+      "artifact_id": "maven-checkstyle-plugin",
+      "version": "${maven-checkstyle.version}"
+    },
+    {
+      "group_id": "org.graalvm.buildtools",
+      "artifact_id": "native-maven-plugin",
+      "version": ""
+    },
+    {
+      "group_id": "org.springframework.boot",
+      "artifact_id": "spring-boot-maven-plugin",
+      "version": ""
+    },
+    {
+      "group_id": "org.jacoco",
+      "artifact_id": "jacoco-maven-plugin",
+      "version": "${jacoco.version}"
+    },
+    {
+      "group_id": "io.github.git-commit-id",
+      "artifact_id": "git-commit-id-maven-plugin",
+      "version": ""
+    },
+    {
+      "group_id": "org.cyclonedx",
+      "artifact_id": "cyclonedx-maven-plugin",
+      "version": ""
+    },
+    {
+      "group_id": "org.apache.maven.plugins",
+      "artifact_id": "maven-dependency-plugin",
+      "version": ""
+    },
+    {
+      "group_id": "com.gitlab.haynes",
+      "artifact_id": "libsass-maven-plugin",
+      "version": "${libsass.version}"
+    },
+    {
+      "group_id": "org.eclipse.m2e",
+      "artifact_id": "lifecycle-mapping",
+      "version": "${lifecycle-mapping}"
+    }
+  ],
+  "source_scan": {
+    "config_files": [
+      "src/main/resources/application-mysql.properties",
+      "src/main/resources/application-postgres.properties",
+      "src/main/resources/application.properties"
+    ],
+    "database_schema_files": [
+      "src/main/resources/db/h2/data.sql",
+      "src/main/resources/db/h2/schema.sql",
+      "src/main/resources/db/mysql/data.sql",
+      "src/main/resources/db/mysql/schema.sql",
+      "src/main/resources/db/mysql/user.sql",
+      "src/main/resources/db/postgres/data.sql",
+      "src/main/resources/db/postgres/schema.sql"
+    ],
+    "properties": [
+      {
+        "file": "src/main/resources/application-mysql.properties",
+        "key": "database",
+        "value": "mysql"
+      },
+      {
+        "file": "src/main/resources/application-mysql.properties",
+        "key": "spring.datasource.url",
+        "value": "${MYSQL_URL:jdbc:mysql://localhost/petclinic}"
+      },
+      {
+        "file": "src/main/resources/application-mysql.properties",
+        "key": "spring.datasource.username",
+        "value": "${MYSQL_USER:petclinic}"
+      },
+      {
+        "file": "src/main/resources/application-mysql.properties",
+        "key": "spring.datasource.password",
+        "value": "${MYSQL_PASS:petclinic}"
+      },
+      {
+        "file": "src/main/resources/application-mysql.properties",
+        "key": "spring.sql.init.mode",
+        "value": "always"
+      },
+      {
+        "file": "src/main/resources/application-postgres.properties",
+        "key": "database",
+        "value": "postgres"
+      },
+      {
+        "file": "src/main/resources/application-postgres.properties",
+        "key": "spring.datasource.url",
+        "value": "${POSTGRES_URL:jdbc:postgresql://localhost/petclinic}"
+      },
+      {
+        "file": "src/main/resources/application-postgres.properties",
+        "key": "spring.datasource.username",
+        "value": "${POSTGRES_USER:petclinic}"
+      },
+      {
+        "file": "src/main/resources/application-postgres.properties",
+        "key": "spring.datasource.password",
+        "value": "${POSTGRES_PASS:petclinic}"
+      },
+      {
+        "file": "src/main/resources/application-postgres.properties",
+        "key": "spring.sql.init.mode",
+        "value": "always"
+      },
+      {
+        "file": "src/main/resources/application.properties",
+        "key": "database",
+        "value": "h2"
+      },
+      {
+        "file": "src/main/resources/application.properties",
+        "key": "spring.sql.init.schema-locations",
+        "value": "classpath*:db/${database}/schema.sql"
+      },
+      {
+        "file": "src/main/resources/application.properties",
+        "key": "spring.sql.init.data-locations",
+        "value": "classpath*:db/${database}/data.sql"
+      },
+      {
+        "file": "src/main/resources/application.properties",
+        "key": "spring.thymeleaf.mode",
+        "value": "HTML"
+      },
+      {
+        "file": "src/main/resources/application.properties",
+        "key": "spring.jpa.hibernate.ddl-auto",
+        "value": "none"
+      },
+      {
+        "file": "src/main/resources/application.properties",
+        "key": "spring.jpa.open-in-view",
+        "value": "false"
+      },
+      {
+        "file": "src/main/resources/application.properties",
+        "key": "spring.jpa.hibernate.naming.physical-strategy",
+        "value": "org.hibernate.boot.model.naming.PhysicalNamingStrategySnakeCaseImpl"
+      },
+      {
+        "file": "src/main/resources/application.properties",
+        "key": "spring.jpa.properties.hibernate.default_batch_fetch_size",
+        "value": "16"
+      },
+      {
+        "file": "src/main/resources/application.properties",
+        "key": "spring.messages.basename",
+        "value": "messages/messages"
+      },
+      {
+        "file": "src/main/resources/application.properties",
+        "key": "management.endpoints.web.exposure.include",
+        "value": "*"
+      },
+      {
+        "file": "src/main/resources/application.properties",
+        "key": "logging.level.org.springframework",
+        "value": "INFO"
+      },
+      {
+        "file": "src/main/resources/application.properties",
+        "key": "spring.web.resources.cache.cachecontrol.max-age",
+        "value": "12h"
+      }
+    ],
+    "environment_variables": [
+      {
+        "file": "src/main/resources/application-mysql.properties",
+        "key": "spring.datasource.url",
+        "env_var": "MYSQL_URL",
+        "default_value": "jdbc:mysql://localhost/petclinic"
+      },
+      {
+        "file": "src/main/resources/application-mysql.properties",
+        "key": "spring.datasource.username",
+        "env_var": "MYSQL_USER",
+        "default_value": "petclinic"
+      },
+      {
+        "file": "src/main/resources/application-mysql.properties",
+        "key": "spring.datasource.password",
+        "env_var": "MYSQL_PASS",
+        "default_value": "pe***ic"
+      },
+      {
+        "file": "src/main/resources/application-postgres.properties",
+        "key": "spring.datasource.url",
+        "env_var": "POSTGRES_URL",
+        "default_value": "jdbc:postgresql://localhost/petclinic"
+      },
+      {
+        "file": "src/main/resources/application-postgres.properties",
+        "key": "spring.datasource.username",
+        "env_var": "POSTGRES_USER",
+        "default_value": "petclinic"
+      },
+      {
+        "file": "src/main/resources/application-postgres.properties",
+        "key": "spring.datasource.password",
+        "env_var": "POSTGRES_PASS",
+        "default_value": "pe***ic"
+      }
+    ],
+    "server_ports": [],
+    "urls": [
+      {
+        "file": "gradlew",
+        "line": 10,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "gradlew",
+        "line": 60,
+        "url": "https://github.com/gradle/gradle/blob/HEAD/platforms/jvm/plugins-application/src/main/resources/org/gradle/api/internal/plugins/unixStartScript.txt"
+      },
+      {
+        "file": "gradlew",
+        "line": 63,
+        "url": "https://github.com/gradle/gradle/."
+      },
+      {
+        "file": "gradlew",
+        "line": 88,
+        "url": "https://github.com/gradle/gradle/issues/25036"
+      },
+      {
+        "file": "gradlew.bat",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "mvnw",
+        "line": 11,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "mvnw.cmd",
+        "line": 11,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "pom.xml",
+        "line": 2,
+        "url": "http://maven.apache.org/POM/4.0.0"
+      },
+      {
+        "file": "pom.xml",
+        "line": 2,
+        "url": "http://www.w3.org/2001/XMLSchema-instance"
+      },
+      {
+        "file": "pom.xml",
+        "line": 2,
+        "url": "https://maven.apache.org/xsd/maven-4.0.0.xsd"
+      },
+      {
+        "file": "pom.xml",
+        "line": 30,
+        "url": "https://checkstyle.org/releasenotes.html#Release_13.0.0"
+      },
+      {
+        "file": "pom.xml",
+        "line": 298,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": ".github/workflows/gradle-build.yml",
+        "line": 2,
+        "url": "https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-java-with-gradle"
+      },
+      {
+        "file": ".github/workflows/maven-build.yml",
+        "line": 2,
+        "url": "https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-java-with-maven"
+      },
+      {
+        "file": ".mvn/wrapper/maven-wrapper.properties",
+        "line": 3,
+        "url": "https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.12/apache-maven-3.9.12-bin.zip"
+      },
+      {
+        "file": "src/checkstyle/nohttp-checkstyle-suppressions.xml",
+        "line": 4,
+        "url": "https://checkstyle.org/dtds/suppressions_1_2.dtd"
+      },
+      {
+        "file": "src/checkstyle/nohttp-checkstyle.xml",
+        "line": 4,
+        "url": "https://checkstyle.org/dtds/configuration_1_2.dtd"
+      },
+      {
+        "file": "src/main/scss/petclinic.scss",
+        "line": 6,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/package-info.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/PetClinicApplication.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/PetClinicRuntimeHints.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/PetClinicRuntimeHints.java",
+        "line": 29,
+        "url": "https://github.com/spring-projects/spring-boot/issues/32654"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/model/BaseEntity.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/model/NamedEntity.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/model/package-info.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/model/Person.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/owner/Owner.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java",
+        "line": 28,
+        "url": "https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/owner/package-info.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/owner/Pet.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/owner/PetType.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/owner/PetTypeFormatter.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/owner/PetTypeFormatter.java",
+        "line": 30,
+        "url": "https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#format"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/owner/PetTypeRepository.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/owner/Visit.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/owner/VisitController.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/system/CacheConfiguration.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/system/CrashController.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/system/package-info.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/system/WelcomeController.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/vet/package-info.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/vet/Specialty.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/vet/Vet.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/vet/VetController.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java",
+        "line": 31,
+        "url": "https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation"
+      },
+      {
+        "file": "src/main/java/org/springframework/samples/petclinic/vet/Vets.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/main/resources/templates/error.html",
+        "line": 3,
+        "url": "https://www.thymeleaf.org"
+      },
+      {
+        "file": "src/main/resources/templates/welcome.html",
+        "line": 3,
+        "url": "https://www.thymeleaf.org"
+      },
+      {
+        "file": "src/main/resources/templates/fragments/inputField.html",
+        "line": 3,
+        "url": "https://www.thymeleaf.org"
+      },
+      {
+        "file": "src/main/resources/templates/fragments/layout.html",
+        "line": 3,
+        "url": "https://www.thymeleaf.org"
+      },
+      {
+        "file": "src/main/resources/templates/fragments/selectField.html",
+        "line": 3,
+        "url": "https://www.thymeleaf.org"
+      },
+      {
+        "file": "src/main/resources/templates/owners/createOrUpdateOwnerForm.html",
+        "line": 3,
+        "url": "https://www.thymeleaf.org"
+      },
+      {
+        "file": "src/main/resources/templates/owners/findOwners.html",
+        "line": 3,
+        "url": "https://www.thymeleaf.org"
+      },
+      {
+        "file": "src/main/resources/templates/owners/ownerDetails.html",
+        "line": 3,
+        "url": "https://www.thymeleaf.org"
+      },
+      {
+        "file": "src/main/resources/templates/owners/ownersList.html",
+        "line": 3,
+        "url": "https://www.thymeleaf.org"
+      },
+      {
+        "file": "src/main/resources/templates/pets/createOrUpdatePetForm.html",
+        "line": 3,
+        "url": "https://www.thymeleaf.org"
+      },
+      {
+        "file": "src/main/resources/templates/pets/createOrUpdateVisitForm.html",
+        "line": 3,
+        "url": "https://www.thymeleaf.org"
+      },
+      {
+        "file": "src/main/resources/templates/vets/vetList.html",
+        "line": 3,
+        "url": "https://www.thymeleaf.org"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/MySqlIntegrationTests.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/MySqlIntegrationTests.java",
+        "line": 69,
+        "url": "http://localhost:"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/MysqlTestApplication.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/PetClinicIntegrationTests.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/PetClinicIntegrationTests.java",
+        "line": 54,
+        "url": "http://localhost:"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/PetClinicIntegrationTests.java",
+        "line": 61,
+        "url": "http://localhost:"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/PostgresIntegrationTests.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/PostgresIntegrationTests.java",
+        "line": 89,
+        "url": "http://localhost:"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/model/ValidatorTests.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/owner/PetControllerTests.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/owner/PetTypeFormatterTests.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/owner/PetValidatorTests.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/owner/VisitControllerTests.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/service/ClinicServiceTests.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/service/EntityUtils.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests.java",
+        "line": 49,
+        "url": "https://github.com/spring-projects/spring-boot/issues/5574"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests.java",
+        "line": 64,
+        "url": "http://localhost:"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests.java",
+        "line": 81,
+        "url": "http://localhost:"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/system/CrashControllerTests.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/system/CrashControllerTests.java",
+        "line": 29,
+        "url": "https://github.com/spring-projects/spring-boot/issues/5574"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/vet/VetControllerTests.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      {
+        "file": "src/test/java/org/springframework/samples/petclinic/vet/VetTests.java",
+        "line": 8,
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "jdbc_urls": [],
+    "database_connections": [
+      {
+        "raw": "${MYSQL_URL:jdbc:mysql://localhost/petclinic}",
+        "env_var": "MYSQL_URL",
+        "engine": "mysql",
+        "host": "localhost",
+        "port": "3306",
+        "database": "petclinic",
+        "confidence": "high",
+        "file": "src/main/resources/application-mysql.properties",
+        "property": "spring.datasource.url"
+      },
+      {
+        "raw": "${POSTGRES_URL:jdbc:postgresql://localhost/petclinic}",
+        "env_var": "POSTGRES_URL",
+        "engine": "postgresql",
+        "host": "localhost",
+        "port": "5432",
+        "database": "petclinic",
+        "confidence": "high",
+        "file": "src/main/resources/application-postgres.properties",
+        "property": "spring.datasource.url"
+      },
+      {
+        "raw": "h2",
+        "env_var": "",
+        "engine": "h2",
+        "host": "embedded",
+        "port": "",
+        "database": "petclinic",
+        "confidence": "high",
+        "file": "src/main/resources/application.properties",
+        "property": "database"
+      }
+    ],
+    "ports": [
+      {
+        "file": "docker-compose.yml",
+        "line": 5,
+        "port": "3306"
+      },
+      {
+        "file": "docker-compose.yml",
+        "line": 17,
+        "port": "5432"
+      },
+      {
+        "file": "k8s/db.yml",
+        "line": 11,
+        "port": "5432"
+      },
+      {
+        "file": "k8s/db.yml",
+        "line": 23,
+        "port": "5432"
+      },
+      {
+        "file": "k8s/db.yml",
+        "line": 63,
+        "port": "5432"
+      },
+      {
+        "file": "k8s/petclinic.yml",
+        "line": 9,
+        "port": "80"
+      },
+      {
+        "file": "k8s/petclinic.yml",
+        "line": 10,
+        "port": "8080"
+      },
+      {
+        "file": "k8s/petclinic.yml",
+        "line": 46,
+        "port": "8080"
+      },
+      {
+        "file": "src/main/scss/petclinic.scss",
+        "line": 92,
+        "port": "80"
+      },
+      {
+        "file": "src/main/resources/db/h2/schema.sql",
+        "line": 19,
+        "port": "80"
+      },
+      {
+        "file": "src/main/resources/db/h2/schema.sql",
+        "line": 32,
+        "port": "80"
+      },
+      {
+        "file": "src/main/resources/db/h2/schema.sql",
+        "line": 41,
+        "port": "80"
+      },
+      {
+        "file": "src/main/resources/db/mysql/schema.sql",
+        "line": 10,
+        "port": "80"
+      },
+      {
+        "file": "src/main/resources/db/mysql/schema.sql",
+        "line": 24,
+        "port": "80"
+      },
+      {
+        "file": "src/main/resources/db/mysql/schema.sql",
+        "line": 33,
+        "port": "80"
+      },
+      {
+        "file": "src/main/resources/templates/owners/findOwners.html",
+        "line": 14,
+        "port": "80"
+      },
+      {
+        "file": "src/test/jmeter/petclinic_test_plan.jmx",
+        "line": 19,
+        "port": "8080"
+      }
+    ],
+    "secret_candidates": [
+      {
+        "file": "src/main/resources/application-mysql.properties",
+        "property": "spring.datasource.password",
+        "value_preview": "pe***ic",
+        "source": "application property"
+      },
+      {
+        "file": "src/main/resources/application-postgres.properties",
+        "property": "spring.datasource.password",
+        "value_preview": "pe***ic",
+        "source": "application property"
+      }
+    ],
+    "findings": {
+      "scheduled_jobs": [],
+      "rest_clients": [
+        {
+          "file": "build.gradle",
+          "line": 51,
+          "sample": "testImplementation 'org.springframework.boot:spring-boot-starter-restclient-test'"
+        },
+        {
+          "file": "mvnw.cmd",
+          "line": 130,
+          "sample": "$webclient = New-Object System.Net.WebClient"
+        },
+        {
+          "file": "mvnw.cmd",
+          "line": 132,
+          "sample": "$webclient.Credentials = New-Object System.Net.NetworkCredential($env:MVNW_USERNAME, $env:MVNW_PASSWORD)"
+        },
+        {
+          "file": "mvnw.cmd",
+          "line": 135,
+          "sample": "$webclient.DownloadFile($distributionUrl, \"$TMP_DOWNLOAD_DIR/$distributionUrlName\") | Out-Null"
+        },
+        {
+          "file": "pom.xml",
+          "line": 128,
+          "sample": "<artifactId>spring-boot-starter-restclient</artifactId>"
+        },
+        {
+          "file": "pom.xml",
+          "line": 133,
+          "sample": "<artifactId>spring-boot-starter-restclient-test</artifactId>"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/MySqlIntegrationTests.java",
+          "line": 24,
+          "sample": "import org.springframework.boot.restclient.RestTemplateBuilder;"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/MySqlIntegrationTests.java",
+          "line": 35,
+          "sample": "import org.springframework.web.client.RestTemplate;"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/MySqlIntegrationTests.java",
+          "line": 59,
+          "sample": "private RestTemplateBuilder builder;"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/MySqlIntegrationTests.java",
+          "line": 69,
+          "sample": "RestTemplate template = builder.rootUri(\"http://localhost:\" + port).build();"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/PetClinicIntegrationTests.java",
+          "line": 24,
+          "sample": "import org.springframework.boot.restclient.RestTemplateBuilder;"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/PetClinicIntegrationTests.java",
+          "line": 32,
+          "sample": "import org.springframework.web.client.RestTemplate;"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/PetClinicIntegrationTests.java",
+          "line": 44,
+          "sample": "private RestTemplateBuilder builder;"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/PetClinicIntegrationTests.java",
+          "line": 54,
+          "sample": "RestTemplate template = builder.rootUri(\"http://localhost:\" + port).build();"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/PetClinicIntegrationTests.java",
+          "line": 61,
+          "sample": "RestTemplate template = builder.rootUri(\"http://localhost:\" + port).build();"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/PostgresIntegrationTests.java",
+          "line": 35,
+          "sample": "import org.springframework.boot.restclient.RestTemplateBuilder;"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/PostgresIntegrationTests.java",
+          "line": 48,
+          "sample": "import org.springframework.web.client.RestTemplate;"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/PostgresIntegrationTests.java",
+          "line": 64,
+          "sample": "private RestTemplateBuilder builder;"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/PostgresIntegrationTests.java",
+          "line": 89,
+          "sample": "RestTemplate template = builder.rootUri(\"http://localhost:\" + port).build();"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests.java",
+          "line": 32,
+          "sample": "import org.springframework.boot.resttestclient.TestRestTemplate;"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests.java",
+          "line": 33,
+          "sample": "import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests.java",
+          "line": 52,
+          "sample": "@AutoConfigureTestRestTemplate"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests.java",
+          "line": 59,
+          "sample": "private TestRestTemplate rest;"
+        }
+      ],
+      "file_usage": [
+        {
+          "file": "build.gradle",
+          "line": 71,
+          "sample": "configDirectory = project.file('src/checkstyle')"
+        },
+        {
+          "file": "build.gradle",
+          "line": 72,
+          "sample": "configFile = file('src/checkstyle/nohttp-checkstyle.xml')"
+        },
+        {
+          "file": "build.gradle",
+          "line": 76,
+          "sample": "configDirectory = project.file('src/checkstyle')"
+        },
+        {
+          "file": "build.gradle",
+          "line": 77,
+          "sample": "configFile = file('src/checkstyle/nohttp-checkstyle.xml')"
+        },
+        {
+          "file": "mvnw",
+          "line": 214,
+          "sample": "java.nio.file.Files.copy( java.net.URI.create( args[0] ).toURL().openStream(), java.nio.file.Paths.get( args[1] ).toAbsolutePath().normalize() );"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/MysqlTestApplication.java",
+          "line": 43,
+          "sample": "SpringApplication.run(PetClinicApplication.class, \"--spring.profiles.active=mysql\","
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/system/I18nPropertiesSyncTest.java",
+          "line": 20,
+          "sample": "* any HTML files. Also ensures that a string is translated in every language to avoid"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/system/I18nPropertiesSyncTest.java",
+          "line": 44,
+          "sample": "try (Stream<Path> stream = Files.walk(root)) {"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/system/I18nPropertiesSyncTest.java",
+          "line": 54,
+          "sample": "List<String> lines = Files.readAllLines(file);"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/system/I18nPropertiesSyncTest.java",
+          "line": 89,
+          "sample": "try (Stream<Path> stream = Files.walk(Path.of(I18N_DIR))) {"
+        },
+        {
+          "file": "src/test/java/org/springframework/samples/petclinic/system/I18nPropertiesSyncTest.java",
+          "line": 99,
+          "sample": "try (var reader = Files.newBufferedReader(path)) {"
+        }
+      ],
+      "auth": [
+        {
+          "file": "gradlew",
+          "line": 48,
+          "sample": "#       space-separated string is a well documented source of bugs and security"
+        },
+        {
+          "file": "mvnw.cmd",
+          "line": 99,
+          "sample": "$MAVEN_HOME_NAME = ([System.Security.Cryptography.SHA256]::Create().ComputeHash([byte[]][char[]]$distributionUrl) | ForEach-Object {$_.ToString(\"x2\")}) -join ''"
+        },
+        {
+          "file": "mvnw.cmd",
+          "line": 134,
+          "sample": "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12"
+        }
+      ],
+      "smtp": [],
+      "secret_hints": [
+        {
+          "file": "docker-compose.yml",
+          "line": 7,
+          "sample": "- MYSQL_ROOT_PASSWORD= <masked>"
+        },
+        {
+          "file": "docker-compose.yml",
+          "line": 8,
+          "sample": "- MYSQL_ALLOW_EMPTY_PASSWORD= <masked>"
+        },
+        {
+          "file": "docker-compose.yml",
+          "line": 10,
+          "sample": "- MYSQL_PASSWORD= <masked>"
+        },
+        {
+          "file": "docker-compose.yml",
+          "line": 19,
+          "sample": "- POSTGRES_PASSWORD= <masked>"
+        },
+        {
+          "file": "mvnw",
+          "line": 28,
+          "sample": "#   MVNW_USERNAME/MVNW_PASSWORD - user and password for downloading maven"
+        },
+        {
+          "file": "mvnw",
+          "line": 149,
+          "sample": "unset MVNW_VERBOSE MVNW_USERNAME MVNW_PASSWORD MVNW_REPOURL || : <masked>"
+        },
+        {
+          "file": "mvnw",
+          "line": 189,
+          "sample": "case \"${MVNW_PASSWORD: <masked>"
+        },
+        {
+          "file": "mvnw",
+          "line": 190,
+          "sample": "'') MVNW_USERNAME='' MVNW_PASSWORD= <masked>"
+        },
+        {
+          "file": "mvnw",
+          "line": 191,
+          "sample": "has-password) [ -n \"${MVNW_USERNAME-}\" ] || MVNW_USERNAME= <masked>"
+        },
+        {
+          "file": "mvnw",
+          "line": 207,
+          "sample": "protected java.net.PasswordAuthentication getPasswordAuthentication()"
+        },
+        {
+          "file": "mvnw",
+          "line": 209,
+          "sample": "return new java.net.PasswordAuthentication( System.getenv( \"MVNW_USERNAME\" ), System.getenv( \"MVNW_PASSWORD\" ).toCharArray() );"
+        },
+        {
+          "file": "mvnw.cmd",
+          "line": 26,
+          "sample": "@REM   MVNW_USERNAME/MVNW_PASSWORD - user and password for downloading maven"
+        },
+        {
+          "file": "mvnw.cmd",
+          "line": 35,
+          "sample": "@FOR /F \"usebackq tokens= <masked>"
+        },
+        {
+          "file": "mvnw.cmd",
+          "line": 42,
+          "sample": "@SET MVNW_PASSWORD= <masked>"
+        },
+        {
+          "file": "mvnw.cmd",
+          "line": 131,
+          "sample": "if ($env:MVNW_USERNAME -and $env:MVNW_PASSWORD) {"
+        },
+        {
+          "file": "mvnw.cmd",
+          "line": 132,
+          "sample": "$webclient.Credentials = <masked>"
+        },
+        {
+          "file": "k8s/db.yml",
+          "line": 3,
+          "sample": "kind: Secret"
+        },
+        {
+          "file": "k8s/db.yml",
+          "line": 14,
+          "sample": "password: <masked>"
+        },
+        {
+          "file": "k8s/db.yml",
+          "line": 49,
+          "sample": "secretKeyRef: <masked>"
+        },
+        {
+          "file": "k8s/db.yml",
+          "line": 52,
+          "sample": "- name: POSTGRES_PASSWORD"
+        },
+        {
+          "file": "k8s/db.yml",
+          "line": 54,
+          "sample": "secretKeyRef: <masked>"
+        },
+        {
+          "file": "k8s/db.yml",
+          "line": 56,
+          "sample": "key: password"
+        },
+        {
+          "file": "k8s/db.yml",
+          "line": 59,
+          "sample": "secretKeyRef: <masked>"
+        },
+        {
+          "file": "k8s/petclinic.yml",
+          "line": 56,
+          "sample": "- mountPath: /bindings/secret"
+        },
+        {
+          "file": "k8s/petclinic.yml",
+          "line": 63,
+          "sample": "- secret: <masked>"
+        },
+        {
+          "file": "src/main/resources/application-mysql.properties",
+          "line": 5,
+          "sample": "spring.datasource.password= <masked>"
+        },
+        {
+          "file": "src/main/resources/application-postgres.properties",
+          "line": 5,
+          "sample": "spring.datasource.password= <masked>"
+        }
+      ]
+    }
+  },
+  "network_flows": [
+    {
+      "flow_id": "F001",
+      "source": "user-workstation",
+      "destination": "onprem-petclinic-vm",
+      "protocol": "TCP",
+      "destination_port": "8081",
+      "process": "browser",
+      "observed_count": "48",
+      "description": "User browser access to Spring PetClinic local HTTP endpoint",
+      "classification": "ingress",
+      "dependency_type": "application_http",
+      "confidence": "high",
+      "control_recommendation": "Model as external ingress; protect with HTTPS, WAF/App Gateway or managed ingress.",
+      "protocol_port": "TCP/8081"
+    },
+    {
+      "flow_id": "F002",
+      "source": "onprem-petclinic-vm",
+      "destination": "postgres-db-vm",
+      "protocol": "TCP",
+      "destination_port": "5432",
+      "process": "java",
+      "observed_count": "22",
+      "description": "JDBC traffic to PostgreSQL profile database",
+      "classification": "database",
+      "dependency_type": "postgresql",
+      "confidence": "high",
+      "control_recommendation": "Model as database dependency; plan private endpoint, firewall rules and cutover validation.",
+      "protocol_port": "TCP/5432"
+    },
+    {
+      "flow_id": "F003",
+      "source": "onprem-petclinic-vm",
+      "destination": "mysql-db-vm",
+      "protocol": "TCP",
+      "destination_port": "3306",
+      "process": "java",
+      "observed_count": "7",
+      "description": "JDBC traffic to MySQL profile database",
+      "classification": "database",
+      "dependency_type": "mysql",
+      "confidence": "high",
+      "control_recommendation": "Model as database dependency; plan private endpoint, firewall rules and cutover validation.",
+      "protocol_port": "TCP/3306"
+    },
+    {
+      "flow_id": "F004",
+      "source": "onprem-petclinic-vm",
+      "destination": "repo.maven.apache.org",
+      "protocol": "TCP",
+      "destination_port": "443",
+      "process": "mvnw",
+      "observed_count": "34",
+      "description": "Maven dependency download during build",
+      "classification": "egress",
+      "dependency_type": "https",
+      "confidence": "medium",
+      "control_recommendation": "Add to egress allowlist and enforce through firewall, NAT Gateway, NSG or network policy.",
+      "protocol_port": "TCP/443"
+    },
+    {
+      "flow_id": "F005",
+      "source": "onprem-petclinic-vm",
+      "destination": "github.com",
+      "protocol": "TCP",
+      "destination_port": "443",
+      "process": "git",
+      "observed_count": "8",
+      "description": "GitHub source and CI integration traffic",
+      "classification": "egress",
+      "dependency_type": "https",
+      "confidence": "medium",
+      "control_recommendation": "Add to egress allowlist and enforce through firewall, NAT Gateway, NSG or network policy.",
+      "protocol_port": "TCP/443"
+    },
+    {
+      "flow_id": "F006",
+      "source": "onprem-petclinic-vm",
+      "destination": "dns-resolver",
+      "protocol": "UDP",
+      "destination_port": "53",
+      "process": "java",
+      "observed_count": "19",
+      "description": "DNS lookups for external endpoints",
+      "classification": "egress",
+      "dependency_type": "dns",
+      "confidence": "medium",
+      "control_recommendation": "Add to egress allowlist and enforce through firewall, NAT Gateway, NSG or network policy.",
+      "protocol_port": "UDP/53"
+    },
+    {
+      "flow_id": "F007",
+      "source": "onprem-petclinic-vm",
+      "destination": "smtp-relay.local",
+      "protocol": "TCP",
+      "destination_port": "25",
+      "process": "java",
+      "observed_count": "3",
+      "description": "Observed SMTP-like egress not found in source scan",
+      "classification": "egress",
+      "dependency_type": "smtp",
+      "confidence": "medium",
+      "control_recommendation": "Add to egress allowlist and enforce through firewall, NAT Gateway, NSG or network policy.",
+      "protocol_port": "TCP/25"
+    },
+    {
+      "flow_id": "F008",
+      "source": "unknown-client",
+      "destination": "onprem-petclinic-vm",
+      "protocol": "TCP",
+      "destination_port": "8443",
+      "process": "unknown",
+      "observed_count": "2",
+      "description": "Unexplained inbound traffic requiring app-team validation",
+      "classification": "ingress_unknown",
+      "dependency_type": "unknown_inbound",
+      "confidence": "medium",
+      "control_recommendation": "Validate source system, listener ownership, TLS need and firewall rule before migration.",
+      "protocol_port": "TCP/8443"
+    }
+  ],
+  "database_inventory": [
+    {
+      "source": "source_config",
+      "engine": "mysql",
+      "host": "localhost",
+      "port": "3306",
+      "database": "petclinic",
+      "credential_source": "MYSQL_URL",
+      "evidence": "src/main/resources/application-mysql.properties",
+      "criticality": "medium",
+      "downtime_tolerance": "to be confirmed",
+      "azure_target_candidate": "Azure Database for MySQL Flexible Server",
+      "notes": "Detected from Spring datasource configuration."
+    },
+    {
+      "source": "source_config",
+      "engine": "postgresql",
+      "host": "localhost",
+      "port": "5432",
+      "database": "petclinic",
+      "credential_source": "POSTGRES_URL",
+      "evidence": "src/main/resources/application-postgres.properties",
+      "criticality": "medium",
+      "downtime_tolerance": "to be confirmed",
+      "azure_target_candidate": "Azure Database for PostgreSQL Flexible Server",
+      "notes": "Detected from Spring datasource configuration."
+    },
+    {
+      "source": "source_config",
+      "engine": "h2",
+      "host": "embedded",
+      "port": "",
+      "database": "petclinic",
+      "credential_source": "application property/default",
+      "evidence": "src/main/resources/application.properties",
+      "criticality": "medium",
+      "downtime_tolerance": "to be confirmed",
+      "azure_target_candidate": "Replace embedded H2 with managed PostgreSQL/MySQL for production",
+      "notes": "Detected from Spring datasource configuration."
+    },
+    {
+      "source": "network_flow",
+      "engine": "postgresql",
+      "host": "postgres-db-vm",
+      "port": "5432",
+      "database": "petclinic",
+      "credential_source": "not visible in network flow",
+      "evidence": "F002",
+      "criticality": "medium",
+      "downtime_tolerance": "to be confirmed",
+      "azure_target_candidate": "Azure Database for PostgreSQL Flexible Server",
+      "notes": "JDBC traffic to PostgreSQL profile database"
+    },
+    {
+      "source": "network_flow",
+      "engine": "mysql",
+      "host": "mysql-db-vm",
+      "port": "3306",
+      "database": "petclinic",
+      "credential_source": "not visible in network flow",
+      "evidence": "F003",
+      "criticality": "medium",
+      "downtime_tolerance": "to be confirmed",
+      "azure_target_candidate": "Azure Database for MySQL Flexible Server",
+      "notes": "JDBC traffic to MySQL profile database"
+    }
+  ],
+  "summary": {
+    "dependency_counts": {
+      "maven_dependencies": 24,
+      "config_files": 3,
+      "database_connections": 3,
+      "urls": 87,
+      "secret_candidates": 2,
+      "docker_files": 2,
+      "kubernetes_files": 2,
+      "ci_cd_files": 3,
+      "network_flows": 8,
+      "unknown_flows": 1
+    },
+    "key_findings": [
+      "Spring Boot monolith with Maven wrapper and Java 17 baseline.",
+      "Database profiles exist for H2, PostgreSQL and MySQL; PostgreSQL/MySQL sample credentials are present in local config and compose files.",
+      "Local app ingress was observed on TCP/8081 because Jenkins was already using TCP/8080.",
+      "Kubernetes manifests and GitHub Actions workflow exist; Azure DevOps pipeline will be added in a later module.",
+      "Observed SMTP-like and TCP/8443 flows require app-team validation because they are not explained by the source scan."
+    ]
+  }
+}

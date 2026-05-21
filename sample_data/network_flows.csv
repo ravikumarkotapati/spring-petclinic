@@ -1,0 +1,9 @@
+flow_id,source,destination,protocol,destination_port,process,observed_count,description
+F001,user-workstation,onprem-petclinic-vm,TCP,8081,browser,48,User browser access to Spring PetClinic local HTTP endpoint
+F002,onprem-petclinic-vm,postgres-db-vm,TCP,5432,java,22,JDBC traffic to PostgreSQL profile database
+F003,onprem-petclinic-vm,mysql-db-vm,TCP,3306,java,7,JDBC traffic to MySQL profile database
+F004,onprem-petclinic-vm,repo.maven.apache.org,TCP,443,mvnw,34,Maven dependency download during build
+F005,onprem-petclinic-vm,github.com,TCP,443,git,8,GitHub source and CI integration traffic
+F006,onprem-petclinic-vm,dns-resolver,UDP,53,java,19,DNS lookups for external endpoints
+F007,onprem-petclinic-vm,smtp-relay.local,TCP,25,java,3,Observed SMTP-like egress not found in source scan
+F008,unknown-client,onprem-petclinic-vm,TCP,8443,unknown,2,Unexplained inbound traffic requiring app-team validation

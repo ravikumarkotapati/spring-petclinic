@@ -1,0 +1,7 @@
+flow_id,source,destination,protocol,destination_port,protocol_port,process,observed_count,classification,dependency_type,confidence,control_recommendation,description
+F002,onprem-petclinic-vm,postgres-db-vm,TCP,5432,TCP/5432,java,22,database,postgresql,high,"Model as database dependency; plan private endpoint, firewall rules and cutover validation.",JDBC traffic to PostgreSQL profile database
+F003,onprem-petclinic-vm,mysql-db-vm,TCP,3306,TCP/3306,java,7,database,mysql,high,"Model as database dependency; plan private endpoint, firewall rules and cutover validation.",JDBC traffic to MySQL profile database
+F004,onprem-petclinic-vm,repo.maven.apache.org,TCP,443,TCP/443,mvnw,34,egress,https,medium,"Add to egress allowlist and enforce through firewall, NAT Gateway, NSG or network policy.",Maven dependency download during build
+F005,onprem-petclinic-vm,github.com,TCP,443,TCP/443,git,8,egress,https,medium,"Add to egress allowlist and enforce through firewall, NAT Gateway, NSG or network policy.",GitHub source and CI integration traffic
+F006,onprem-petclinic-vm,dns-resolver,UDP,53,UDP/53,java,19,egress,dns,medium,"Add to egress allowlist and enforce through firewall, NAT Gateway, NSG or network policy.",DNS lookups for external endpoints
+F007,onprem-petclinic-vm,smtp-relay.local,TCP,25,TCP/25,java,3,egress,smtp,medium,"Add to egress allowlist and enforce through firewall, NAT Gateway, NSG or network policy.",Observed SMTP-like egress not found in source scan

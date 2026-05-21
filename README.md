@@ -2,6 +2,17 @@
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/spring-projects/spring-petclinic) [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=7517918)
 
+## Azure Migration Assessment Evidence
+
+This fork is being used for the Application Architect hands-on assessment: on-prem VM to Azure migration.
+
+| Module | Evidence |
+|---|---|
+| Module 1 - Application Selection and On-Premise Baseline | [`docs/01-current-state-assessment.md`](docs/01-current-state-assessment.md), [`inventory/current_state_inventory.md`](inventory/current_state_inventory.md), [`docs/current-state-architecture.mmd`](docs/current-state-architecture.mmd) |
+| Module 2 - ADDM-Style Discovery and Dependency Crawler | [`docs/02-dependency-map.md`](docs/02-dependency-map.md), [`scripts/dependency_crawler.py`](scripts/dependency_crawler.py), [`inventory/app_inventory.json`](inventory/app_inventory.json), [`inventory/egress_inventory.csv`](inventory/egress_inventory.csv), [`inventory/database_inventory.csv`](inventory/database_inventory.csv), [`inventory/dependency_graph.mmd`](inventory/dependency_graph.mmd) |
+
+Module 1 local baseline uses `http://localhost:8081/` because Jenkins was already using port `8080` on the assessment machine.
+
 ## Understanding the Spring Petclinic application with a few diagrams
 
 See the presentation here:  

@@ -1,4 +1,4 @@
-﻿data "azurerm_client_config" "current" {}
+data "azurerm_client_config" "current" {}
 
 resource "random_string" "suffix" {
   length  = 6
@@ -249,7 +249,6 @@ resource "azurerm_recovery_services_vault" "main" {
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   sku                 = "Standard"
-  soft_delete_enabled = true
   tags                = var.tags
 }
 
@@ -279,11 +278,11 @@ resource "azurerm_linux_virtual_machine" "app" {
   tags                            = var.tags
 
   custom_data = base64encode(templatefile("${path.module}/cloud-init.yaml.tftpl", {
-    key_vault_uri     = trimsuffix(azurerm_key_vault.petclinic.vault_uri, "/")
+    key_vault_uri      = trimsuffix(azurerm_key_vault.petclinic.vault_uri, "/")
     identity_client_id = azurerm_user_assigned_identity.petclinic.client_id
-    app_port          = var.app_port
-    repo_url          = var.repo_url
-    repo_branch       = var.repo_branch
+    app_port           = var.app_port
+    repo_url           = var.repo_url
+    repo_branch        = var.repo_branch
   }))
 
   admin_ssh_key {

@@ -1,4 +1,4 @@
-﻿output "resource_group_name" {
+output "resource_group_name" {
   description = "Resource group containing the rehosted VM landing pattern."
   value       = azurerm_resource_group.main.name
 }

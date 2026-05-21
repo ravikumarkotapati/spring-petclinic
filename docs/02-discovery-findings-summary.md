@@ -1,4 +1,4 @@
-# Module 2 - ADDM-Style Discovery And Dependency Map
+# Module 2 - Discovery Findings Summary
 
 ## Objective
 

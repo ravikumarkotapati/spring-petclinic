@@ -9,7 +9,7 @@ This fork is being used for the Application Architect hands-on assessment: on-pr
 | Module | Evidence |
 |---|---|
 | Module 1 - Application Selection and On-Premise Baseline | [`docs/01-current-state-assessment.md`](docs/01-current-state-assessment.md), [`inventory/current_state_inventory.md`](inventory/current_state_inventory.md), [`docs/current-state-architecture.mmd`](docs/current-state-architecture.mmd) |
-| Module 2 - ADDM-Style Discovery and Dependency Crawler | [`docs/02-dependency-map.md`](docs/02-dependency-map.md), [`scripts/dependency_crawler.py`](scripts/dependency_crawler.py), [`inventory/app_inventory.json`](inventory/app_inventory.json), [`inventory/egress_inventory.csv`](inventory/egress_inventory.csv), [`inventory/database_inventory.csv`](inventory/database_inventory.csv), [`inventory/dependency_graph.mmd`](inventory/dependency_graph.mmd) |
+| Module 2 - ADDM-Style Discovery and Dependency Crawler | [`docs/02-discovery-findings-summary.md`](docs/02-discovery-findings-summary.md), [`scripts/dependency_crawler.py`](scripts/dependency_crawler.py), [`inventory/app_inventory.json`](inventory/app_inventory.json), [`inventory/egress_inventory.csv`](inventory/egress_inventory.csv), [`inventory/database_inventory.csv`](inventory/database_inventory.csv), [`inventory/dependency_graph.mmd`](inventory/dependency_graph.mmd) |
 
 Module 1 local baseline uses `http://localhost:8081/` because Jenkins was already using port `8080` on the assessment machine.
 

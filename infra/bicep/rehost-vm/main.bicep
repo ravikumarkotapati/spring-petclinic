@@ -575,7 +575,3 @@ output logAnalyticsWorkspaceName string = workspace.name
 output recoveryServicesVaultName string = recoveryVault.name
 output sshCommand string = 'ssh ${adminUsername}@${publicIp.properties.dnsSettings.fqdn}'
 
-
-
-
-

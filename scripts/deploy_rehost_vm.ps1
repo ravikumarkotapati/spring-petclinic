@@ -64,7 +64,7 @@ function Invoke-Terraform {
     $previousErrorActionPreference = $ErrorActionPreference
     $ErrorActionPreference = "Continue"
     try {
-        $output = & terraform @Arguments 2>&1 | ForEach-Object { $_.ToString() }
+        $output = & terraform @Arguments 2>&1 | ForEach-Object { $line = $_.ToString(); Write-Host $line; $line }
         $exitCode = $LASTEXITCODE
     }
     finally {
@@ -166,16 +166,16 @@ try {
     Push-Location $terraformDir
     try {
         Write-Host "Initializing Terraform providers"
-        Invoke-Terraform -Arguments @("init", "-upgrade") | Write-Host
+        Invoke-Terraform -Arguments @("init", "-upgrade", "-input=false") | Write-Host
 
         Write-Host "Validating Terraform configuration"
         Invoke-Terraform -Arguments @("validate") | Write-Host
 
         Write-Host "Creating Terraform plan"
-        Invoke-Terraform -Arguments @("plan", "-out", $planFile, "-var-file", $tfVarsFile) | Write-Host
+        Invoke-Terraform -Arguments @("plan", "-input=false", "-lock-timeout=5m", "-out", $planFile, "-var-file", $tfVarsFile) | Write-Host
 
         Write-Host "Applying Terraform plan. This creates Azure resources and can take several minutes."
-        Invoke-Terraform -Arguments @("apply", "-auto-approve", $planFile) | Write-Host
+        Invoke-Terraform -Arguments @("apply", "-input=false", "-auto-approve", $planFile) | Write-Host
 
         $outputJson = (Invoke-Terraform -Arguments @("output", "-json")) -join "`n"
         $outputJson | Set-Content -Encoding UTF8 -Path $deploymentOutputsFile

@@ -1,4 +1,4 @@
-﻿[CmdletBinding()]
+[CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
     [string]$SubscriptionId,
@@ -39,9 +39,18 @@ function Invoke-AzCli {
         [string[]]$Arguments
     )
 
-    $output = & az @Arguments 2>&1
-    if ($LASTEXITCODE -ne 0) {
-        throw "az $($Arguments -join ' ') failed:`n$output"
+    $previousErrorActionPreference = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    try {
+        $output = & az @Arguments 2>&1 | ForEach-Object { $_.ToString() }
+        $exitCode = $LASTEXITCODE
+    }
+    finally {
+        $ErrorActionPreference = $previousErrorActionPreference
+    }
+
+    if ($exitCode -ne 0) {
+        throw "az $($Arguments -join ' ') failed:`n$($output -join "`n")"
     }
     return $output
 }
@@ -52,9 +61,18 @@ function Invoke-Terraform {
         [string[]]$Arguments
     )
 
-    $output = & terraform @Arguments 2>&1
-    if ($LASTEXITCODE -ne 0) {
-        throw "terraform $($Arguments -join ' ') failed:`n$output"
+    $previousErrorActionPreference = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    try {
+        $output = & terraform @Arguments 2>&1 | ForEach-Object { $_.ToString() }
+        $exitCode = $LASTEXITCODE
+    }
+    finally {
+        $ErrorActionPreference = $previousErrorActionPreference
+    }
+
+    if ($exitCode -ne 0) {
+        throw "terraform $($Arguments -join ' ') failed:`n$($output -join "`n")"
     }
     return $output
 }

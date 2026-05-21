@@ -50,3 +50,15 @@ _site/
 ### Python ###
 __pycache__/
 *.py[cod]
+
+### Terraform ###
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+terraform.tfvars
+terraform.tfvars.json
+*.auto.tfvars
+*.auto.tfvars.json
+!*.tfvars.example

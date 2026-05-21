@@ -1,0 +1,154 @@
+﻿#cloud-config
+package_update: true
+package_upgrade: false
+packages:
+  - openjdk-17-jdk
+  - git
+  - nginx
+  - curl
+  - jq
+
+groups:
+  - petclinic
+
+users:
+  - default
+  - name: petclinic
+    groups: petclinic
+    shell: /usr/sbin/nologin
+    system: true
+
+write_files:
+  - path: /opt/petclinic/render-env.sh
+    owner: root:root
+    permissions: '0750'
+    content: |
+      #!/usr/bin/env bash
+      set -euo pipefail
+      KEYVAULT_URI="${key_vault_uri}"
+      IDENTITY_CLIENT_ID="${identity_client_id}"
+      ACTIVE_PROFILE_SECRET_NAME="petclinic-active-profile"
+      DB_URL_SECRET_NAME="petclinic-datasource-url"
+      DB_USERNAME_SECRET_NAME="petclinic-datasource-username"
+      DB_PASSWORD_SECRET_NAME="petclinic-datasource-password"
+      ENV_FILE="/etc/petclinic/petclinic.env"
+
+      get_token() {
+        curl -fsS -H Metadata:true "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https%3A%2F%2Fvault.azure.net&client_id=$IDENTITY_CLIENT_ID" | jq -r '.access_token'
+      }
+
+      get_secret() {
+        local secret_name="$1"
+        local token="$2"
+        curl -fsS -H "Authorization: Bearer $token" "$KEYVAULT_URI/secrets/$secret_name?api-version=7.4" | jq -r '.value'
+      }
+
+      token=""
+      active_profile=""
+      db_url=""
+      db_username=""
+      db_password=""
+      for attempt in $(seq 1 30); do
+        token="$(get_token || true)"
+        if [ -n "$token" ]; then
+          active_profile="$(get_secret "$ACTIVE_PROFILE_SECRET_NAME" "$token" || true)"
+          db_url="$(get_secret "$DB_URL_SECRET_NAME" "$token" || true)"
+          db_username="$(get_secret "$DB_USERNAME_SECRET_NAME" "$token" || true)"
+          db_password="$(get_secret "$DB_PASSWORD_SECRET_NAME" "$token" || true)"
+        fi
+        if [ -n "$active_profile" ] && [ "$active_profile" != "null" ]; then
+          break
+        fi
+        echo "Waiting for Key Vault secret access, attempt $attempt of 30"
+        sleep 10
+      done
+
+      if [ -z "$active_profile" ] || [ "$active_profile" = "null" ]; then
+        echo "Unable to read required Key Vault secrets" >&2
+        exit 1
+      fi
+
+      install -d -m 0750 -o petclinic -g petclinic /etc/petclinic
+      {
+        echo "SERVER_PORT=${app_port}"
+        echo "SPRING_PROFILES_ACTIVE=$active_profile"
+        echo "MANAGEMENT_ENDPOINT_HEALTH_PROBES_ADD_ADDITIONAL_PATHS=true"
+        if [ "$active_profile" != "h2" ] && [ "$db_url" != "not-configured" ]; then
+          echo "SPRING_DATASOURCE_URL=$db_url"
+          echo "SPRING_DATASOURCE_USERNAME=$db_username"
+          echo "SPRING_DATASOURCE_PASSWORD=$db_password"
+        fi
+      } > "$ENV_FILE"
+      chown petclinic:petclinic "$ENV_FILE"
+      chmod 0640 "$ENV_FILE"
+
+  - path: /etc/systemd/system/petclinic.service
+    owner: root:root
+    permissions: '0644'
+    content: |
+      [Unit]
+      Description=Spring PetClinic rehosted application
+      Wants=network-online.target
+      After=network-online.target
+      StartLimitIntervalSec=0
+
+      [Service]
+      User=petclinic
+      Group=petclinic
+      WorkingDirectory=/opt/petclinic
+      ExecStartPre=/opt/petclinic/render-env.sh
+      EnvironmentFile=/etc/petclinic/petclinic.env
+      ExecStart=/usr/bin/java -XX:MaxRAMPercentage=75.0 -jar /opt/petclinic/app.jar
+      Restart=always
+      RestartSec=10
+      SuccessExitStatus=143
+      NoNewPrivileges=true
+      PrivateTmp=true
+      ProtectSystem=strict
+      ReadWritePaths=/opt/petclinic /etc/petclinic /var/log/petclinic
+
+      [Install]
+      WantedBy=multi-user.target
+
+  - path: /etc/nginx/sites-available/petclinic
+    owner: root:root
+    permissions: '0644'
+    content: |
+      server {
+          listen 80 default_server;
+          listen [::]:80 default_server;
+          server_name _;
+
+          access_log /var/log/nginx/petclinic-access.log;
+          error_log /var/log/nginx/petclinic-error.log;
+
+          location / {
+              proxy_pass http://127.0.0.1:${app_port};
+              proxy_http_version 1.1;
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+          }
+
+          location /healthz {
+              proxy_pass http://127.0.0.1:${app_port}/actuator/health;
+              proxy_http_version 1.1;
+              proxy_set_header Host $host;
+          }
+      }
+
+runcmd:
+  - install -d -o petclinic -g petclinic /opt/petclinic /var/log/petclinic
+  - git clone --branch ${repo_branch} --depth 1 ${repo_url} /opt/petclinic/source
+  - cd /opt/petclinic/source && ./mvnw -DskipTests package
+  - cp /opt/petclinic/source/target/*.jar /opt/petclinic/app.jar
+  - chown -R petclinic:petclinic /opt/petclinic /var/log/petclinic
+  - rm -f /etc/nginx/sites-enabled/default
+  - ln -sf /etc/nginx/sites-available/petclinic /etc/nginx/sites-enabled/petclinic
+  - nginx -t
+  - systemctl daemon-reload
+  - systemctl enable petclinic
+  - systemctl restart petclinic
+  - systemctl enable nginx
+  - systemctl restart nginx

@@ -8,13 +8,18 @@ Module 4 rehosts the Spring PetClinic application from the Module 1 local/on-pre
 
 | Evidence | Purpose |
 |---|---|
-| [`infra/bicep/rehost-vm/main.bicep`](../infra/bicep/rehost-vm/main.bicep) | Azure VM landing pattern as code |
-| [`scripts/deploy_rehost_vm.ps1`](../scripts/deploy_rehost_vm.ps1) | Repeatable deployment script |
+| [`infra/terraform/rehost-vm/versions.tf`](../infra/terraform/rehost-vm/versions.tf) | Terraform and provider version constraints |
+| [`infra/terraform/rehost-vm/main.tf`](../infra/terraform/rehost-vm/main.tf) | Azure VM landing pattern as Terraform code |
+| [`infra/terraform/rehost-vm/variables.tf`](../infra/terraform/rehost-vm/variables.tf) | Terraform input contract |
+| [`infra/terraform/rehost-vm/outputs.tf`](../infra/terraform/rehost-vm/outputs.tf) | Terraform deployment outputs |
+| [`infra/terraform/rehost-vm/cloud-init.yaml.tftpl`](../infra/terraform/rehost-vm/cloud-init.yaml.tftpl) | VM bootstrap, Java runtime, NGINX and systemd configuration |
+| [`infra/terraform/rehost-vm/terraform.tfvars.example`](../infra/terraform/rehost-vm/terraform.tfvars.example) | Example variable file without real secrets |
+| [`scripts/deploy_rehost_vm.ps1`](../scripts/deploy_rehost_vm.ps1) | Repeatable Terraform deployment script |
 | [`docs/07-rehost-ingress-design.md`](07-rehost-ingress-design.md) | Ingress and network design |
 | [`docs/rehost-ingress-design.mmd`](rehost-ingress-design.mmd) | Mermaid ingress diagram |
 | [`tests/smoke_test_rehost.ps1`](../tests/smoke_test_rehost.ps1) | Smoke test runner for Azure endpoint |
 | `evidence/logs/rehost-deployment-summary.md` | Created after deployment; sanitized deployment summary |
-| `evidence/logs/rehost-deployment-outputs.json` | Created after deployment; deployment outputs without secrets |
+| `evidence/logs/rehost-deployment-outputs.json` | Created after deployment; Terraform outputs without secret values |
 | `evidence/logs/rehost-smoke-test-evidence.md` | Created after smoke test; endpoint results |
 | `evidence/logs/rehost-smoke-test-results.csv` | Created after smoke test; machine-readable endpoint results |
 
@@ -30,7 +35,8 @@ Module 4 rehosts the Spring PetClinic application from the Module 1 local/on-pre
 | Database | H2 for Module 4 smoke test by default; PostgreSQL/MySQL endpoint can be supplied through Key Vault-backed parameters |
 | Disk | Premium managed OS disk, 64 GB |
 | Monitoring | Log Analytics workspace, Azure Monitor Agent and data collection rule |
-| Backup | Recovery Services vault; VM backup can be enabled by deployment script switch |
+| Backup | Recovery Services vault, VM backup policy and optional protected VM registration |
+| IaC state | Local Terraform state for assessment simplicity; production should use encrypted remote state |
 
 ## Prerequisites
 
@@ -39,8 +45,8 @@ Run these commands from PowerShell on your laptop:
 ```powershell
 cd E:\spring-petclinic
 git checkout module4-rehost-azure-vm
+git pull
 
-$tenantId = "700497d3-4831-4064-a397-4c86e2b87021"
 $subscriptionId = "eafa948e-b96e-405c-bf43-63117e6d3402"
 $resourceGroup = "rg-petclinic-rehost-dev"
 $location = "eastus"
@@ -48,12 +54,27 @@ $adminCidr = "101.100.182.17/32"
 
 az account set --subscription $subscriptionId
 az account show --output table
+terraform version
 ```
+
+If `terraform version` fails, install Terraform, reopen PowerShell, then run `terraform version` again.
 
 Create an SSH key if it does not already exist:
 
 ```powershell
 ssh-keygen -t rsa -b 4096 -f "$env:USERPROFILE\.ssh\petclinic-azure-vm" -C "petclinic-rehost"
+```
+
+## Validate Terraform Only
+
+Use this before deployment if you want an explicit validation step:
+
+```powershell
+cd E:\spring-petclinic\infra\terraform\rehost-vm
+terraform init -upgrade
+terraform fmt -recursive
+terraform validate
+cd E:\spring-petclinic
 ```
 
 ## Deploy
@@ -83,7 +104,7 @@ After deployment completes, wait 3 to 5 minutes for cloud-init, Maven build, sys
 cd E:\spring-petclinic
 
 $outputs = Get-Content evidence\logs\rehost-deployment-outputs.json | ConvertFrom-Json
-$appUrl = $outputs.appUrl.value
+$appUrl = $outputs.app_url.value
 
 .\tests\smoke_test_rehost.ps1 -AppUrl $appUrl
 ```
@@ -103,7 +124,7 @@ Use these commands if the application does not load:
 
 ```powershell
 $outputs = Get-Content evidence\logs\rehost-deployment-outputs.json | ConvertFrom-Json
-ssh -i "$env:USERPROFILE\.ssh\petclinic-azure-vm" azureuser@($outputs.appUrl.value -replace "^http://", "")
+ssh -i "$env:USERPROFILE\.ssh\petclinic-azure-vm" azureuser@($outputs.app_url.value -replace "^http://", "")
 ```
 
 Then run these commands on the VM:
@@ -129,8 +150,12 @@ curl -i http://127.0.0.1/healthz
 | Database | H2 local development database by default | H2 for smoke test; external DB endpoint can be supplied through secure parameters |
 | Network control | Localhost only | VNet, subnet, NSG, public IP and restricted SSH source CIDR |
 | Monitoring | Local logs only | Log Analytics workspace, Azure Monitor Agent and data collection rule |
-| Backup | None | Recovery Services vault and optional VM backup enablement |
-| Deployment | Manual local run | Repeatable Bicep template plus deployment script |
+| Backup | None | Recovery Services vault, backup policy and optional VM protection |
+| Deployment | Manual local run | Repeatable Terraform module plus deployment script |
+
+## Terraform State Note
+
+This assessment uses local Terraform state under `infra/terraform/rehost-vm`. The state file is ignored by Git. For enterprise delivery, move the state to an encrypted Azure Storage backend with restricted RBAC before using real production secrets.
 
 ## Cleanup
 
@@ -146,9 +171,9 @@ Because Key Vault purge protection is enabled, the vault name may remain reserve
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Design Azure VM landing pattern: VNet, subnet, NSG, VM, managed disk, Key Vault, monitoring and backup | Ready | `infra/bicep/rehost-vm/main.bicep`, `docs/07-rehost-ingress-design.md` |
-| Deploy native runtime or containerized app on Azure VM | Ready to execute | `scripts/deploy_rehost_vm.ps1` deploys native Java runtime on Ubuntu VM |
-| Place NGINX, Application Gateway or Load Balancer in front | Ready | NGINX reverse proxy in Bicep cloud-init and ingress design document |
+| Design Azure VM landing pattern: VNet, subnet, NSG, VM, managed disk, Key Vault, monitoring and backup | Ready | `infra/terraform/rehost-vm/*.tf`, `docs/07-rehost-ingress-design.md` |
+| Deploy native runtime or containerized app on Azure VM | Ready to execute | `scripts/deploy_rehost_vm.ps1` deploys native Java runtime on Ubuntu VM with Terraform |
+| Place NGINX, Application Gateway or Load Balancer in front | Ready | NGINX reverse proxy in Terraform cloud-init template and ingress design document |
 | Configure app secrets and database endpoint through environment variables or Key Vault reference pattern | Ready | Key Vault secrets plus managed identity lookup rendered into systemd environment file |
 | Document what changed versus on-prem VM baseline | Complete | `What Changed Versus Module 1 On-Prem Baseline` section |
 | Provide smoke test evidence | Pending live deployment | Run `tests/smoke_test_rehost.ps1` after deployment to generate evidence files |

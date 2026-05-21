@@ -25,19 +25,19 @@ Diagram source is maintained in [`docs/rehost-ingress-design.mmd`](rehost-ingres
 
 | Control | Implementation |
 |---|---|
-| SSH restriction | NSG allows TCP `22` only from `adminSourceIp`, expected to be the administrator public IP with `/32` |
+| SSH restriction | NSG allows TCP `22` only from `admin_source_ip`, expected to be the administrator public IP with `/32` |
 | Public application ingress | NSG allows TCP `80`; for production this should become HTTPS through Application Gateway, Front Door or NGINX TLS |
 | Secret handling | Secrets are stored in Key Vault and read by managed identity at service startup |
 | App isolation | Spring Boot listens on localhost behind NGINX instead of being directly exposed on the public IP |
 | Monitoring | Azure Monitor Agent sends VM telemetry to Log Analytics through a data collection rule |
-| Backup | Recovery Services vault is deployed, and the script can enable VM backup with the default policy |
+| Backup | Recovery Services vault, backup policy and optional VM protected-item registration are managed by Terraform |
 
 ## NSG Rules
 
 | Priority | Direction | Name | Source | Destination | Port | Purpose |
 |---:|---|---|---|---|---:|---|
-| 100 | Inbound | `Allow-HTTP-NGINX` | `httpSourceIp` | VM/subnet | `80` | Public app ingress through NGINX |
-| 110 | Inbound | `Allow-SSH-Admin` | `adminSourceIp` | VM/subnet | `22` | Admin troubleshooting only |
+| 100 | Inbound | `Allow-HTTP-NGINX` | `http_source_ip` | VM/subnet | `80` | Public app ingress through NGINX |
+| 110 | Inbound | `Allow-SSH-Admin` | `admin_source_ip` | VM/subnet | `22` | Admin troubleshooting only |
 
 Default Azure NSG rules allow outbound traffic. Module 4 uses outbound HTTPS during bootstrap for GitHub, Maven repositories, Key Vault, package installation and Azure Monitor. A production migration should replace this with a controlled egress pattern after dependency validation.
 
@@ -50,3 +50,4 @@ Default Azure NSG rules allow outbound traffic. Module 4 uses outbound HTTPS dur
 | Private access | Move database and Key Vault to private endpoints where enterprise policy requires it |
 | Egress | Add Azure Firewall or NAT Gateway and approved FQDN rules for runtime/build traffic |
 | Availability | Use VM Scale Sets or move to the Module 3 recommended replatform target for higher availability |
+| Terraform state | Move state to Azure Storage with locking and restricted access for real enterprise delivery |

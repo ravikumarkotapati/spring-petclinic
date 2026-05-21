@@ -23,9 +23,9 @@ param(
     [ValidateSet("h2", "postgres", "mysql")]
     [string]$ActiveProfile = "h2",
 
-    [string]$DatasourceUrl = "",
-    [string]$DatasourceUsername = "",
-    [string]$DatasourcePassword = "",
+    [string]$DatasourceUrl = "not-configured",
+    [string]$DatasourceUsername = "not-configured",
+    [string]$DatasourcePassword = "not-configured",
 
     [switch]$EnableVmBackup
 )
@@ -42,6 +42,19 @@ function Invoke-AzCli {
     $output = & az @Arguments 2>&1
     if ($LASTEXITCODE -ne 0) {
         throw "az $($Arguments -join ' ') failed:`n$output"
+    }
+    return $output
+}
+
+function Invoke-Terraform {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string[]]$Arguments
+    )
+
+    $output = & terraform @Arguments 2>&1
+    if ($LASTEXITCODE -ne 0) {
+        throw "terraform $($Arguments -join ' ') failed:`n$output"
     }
     return $output
 }
@@ -65,14 +78,20 @@ function Wait-ProviderRegistration {
     throw "Provider $ProviderNamespace was not registered within the expected time."
 }
 
+if (-not (Get-Command terraform -ErrorAction SilentlyContinue)) {
+    throw "Terraform is not installed or not on PATH. Install Terraform, reopen PowerShell, and rerun this script."
+}
+
 $repoRoot = Split-Path -Parent $PSScriptRoot
-$templateFile = Join-Path $repoRoot "infra\bicep\rehost-vm\main.bicep"
+$terraformDir = Join-Path $repoRoot "infra\terraform\rehost-vm"
 $evidenceDir = Join-Path $repoRoot "evidence\logs"
 $deploymentOutputsFile = Join-Path $evidenceDir "rehost-deployment-outputs.json"
 $deploymentSummaryFile = Join-Path $evidenceDir "rehost-deployment-summary.md"
+$planFile = Join-Path $terraformDir "rehost.tfplan"
+$tfVarsFile = Join-Path ([System.IO.Path]::GetTempPath()) ("petclinic-rehost-{0}.tfvars.json" -f ([Guid]::NewGuid().ToString("N")))
 
-if (-not (Test-Path $templateFile)) {
-    throw "Bicep template not found: $templateFile"
+if (-not (Test-Path $terraformDir)) {
+    throw "Terraform module not found: $terraformDir"
 }
 
 if (-not (Test-Path $SshPublicKeyPath)) {
@@ -102,63 +121,57 @@ foreach ($provider in $providers) {
     Wait-ProviderRegistration -ProviderNamespace $provider
 }
 
-Write-Host "Creating or updating resource group $ResourceGroup in $Location"
-Invoke-AzCli -Arguments @("group", "create", "--name", $ResourceGroup, "--location", $Location, "--output", "none") | Out-Null
-
 $sshPublicKey = Get-Content -Raw -Path $SshPublicKeyPath
-$parameterFile = Join-Path ([System.IO.Path]::GetTempPath()) ("petclinic-rehost-params-{0}.json" -f ([Guid]::NewGuid().ToString("N")))
-$deploymentName = "petclinic-rehost-{0}" -f (Get-Date -Format "yyyyMMddHHmmss")
-
-$parameters = [ordered]@{
-    '$schema' = "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#"
-    contentVersion = "1.0.0.0"
-    parameters = [ordered]@{
-        location = @{ value = $Location }
-        workloadName = @{ value = $WorkloadName }
-        adminUsername = @{ value = $AdminUsername }
-        sshPublicKey = @{ value = $sshPublicKey.Trim() }
-        adminSourceIp = @{ value = $AdminSourceIp }
-        httpSourceIp = @{ value = $HttpSourceIp }
-        vmSize = @{ value = $VmSize }
-        repoUrl = @{ value = $RepoUrl }
-        repoBranch = @{ value = $RepoBranch }
-        appPort = @{ value = $AppPort }
-        activeProfile = @{ value = $ActiveProfile }
-        datasourceUrl = @{ value = $DatasourceUrl }
-        datasourceUsername = @{ value = $DatasourceUsername }
-        datasourcePassword = @{ value = $DatasourcePassword }
-    }
+$tfVars = [ordered]@{
+    subscription_id = $SubscriptionId
+    resource_group_name = $ResourceGroup
+    location = $Location
+    workload_name = $WorkloadName
+    admin_username = $AdminUsername
+    ssh_public_key = $sshPublicKey.Trim()
+    admin_source_ip = $AdminSourceIp
+    http_source_ip = $HttpSourceIp
+    vm_size = $VmSize
+    repo_url = $RepoUrl
+    repo_branch = $RepoBranch
+    app_port = $AppPort
+    active_profile = $ActiveProfile
+    datasource_url = $DatasourceUrl
+    datasource_username = $DatasourceUsername
+    datasource_password = $DatasourcePassword
+    enable_vm_backup = [bool]$EnableVmBackup
 }
 
 try {
-    $parameters | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 -Path $parameterFile
+    $tfVars | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 -Path $tfVarsFile
 
-    Write-Host "Deploying Azure VM landing pattern. This can take several minutes."
-    $deploymentJson = Invoke-AzCli -Arguments @(
-        "deployment", "group", "create",
-        "--name", $deploymentName,
-        "--resource-group", $ResourceGroup,
-        "--template-file", $templateFile,
-        "--parameters", "@$parameterFile",
-        "--output", "json"
-    )
+    Push-Location $terraformDir
+    try {
+        Write-Host "Initializing Terraform providers"
+        Invoke-Terraform -Arguments @("init", "-upgrade") | Write-Host
 
-    $deployment = $deploymentJson | ConvertFrom-Json
-    $outputs = $deployment.properties.outputs
-    $outputs | ConvertTo-Json -Depth 20 | Set-Content -Encoding UTF8 -Path $deploymentOutputsFile
+        Write-Host "Validating Terraform configuration"
+        Invoke-Terraform -Arguments @("validate") | Write-Host
 
-    $backupStatus = "Not enabled by this run"
-    if ($EnableVmBackup) {
-        Write-Host "Enabling Azure Backup for VM $($outputs.vmName.value)"
-        Invoke-AzCli -Arguments @(
-            "backup", "protection", "enable-for-vm",
-            "--resource-group", $ResourceGroup,
-            "--vault-name", $outputs.recoveryServicesVaultName.value,
-            "--vm", $outputs.vmName.value,
-            "--policy-name", "DefaultPolicy",
-            "--output", "none"
-        ) | Out-Null
-        $backupStatus = "Enabled with DefaultPolicy in vault $($outputs.recoveryServicesVaultName.value)"
+        Write-Host "Creating Terraform plan"
+        Invoke-Terraform -Arguments @("plan", "-out", $planFile, "-var-file", $tfVarsFile) | Write-Host
+
+        Write-Host "Applying Terraform plan. This creates Azure resources and can take several minutes."
+        Invoke-Terraform -Arguments @("apply", "-auto-approve", $planFile) | Write-Host
+
+        $outputJson = (Invoke-Terraform -Arguments @("output", "-json")) -join "`n"
+        $outputJson | Set-Content -Encoding UTF8 -Path $deploymentOutputsFile
+    }
+    finally {
+        Pop-Location
+    }
+
+    $outputs = Get-Content -Raw -Path $deploymentOutputsFile | ConvertFrom-Json
+    $backupStatus = if ($EnableVmBackup) {
+        "Enabled with policy $($outputs.backup_policy_name.value) in vault $($outputs.recovery_services_vault_name.value)"
+    }
+    else {
+        "Recovery Services vault and policy created; VM protection disabled by parameter"
     }
 
     $summary = @"
@@ -166,17 +179,17 @@ try {
 
 | Field | Value |
 |---|---|
-| Deployment name | `$deploymentName` |
+| IaC tool | `Terraform` |
 | Subscription ID | `$SubscriptionId` |
-| Resource group | `$ResourceGroup` |
+| Resource group | `$($outputs.resource_group_name.value)` |
 | Region | `$Location` |
-| VM name | `$($outputs.vmName.value)` |
-| App URL | `$($outputs.appUrl.value)` |
-| Public IP | `$($outputs.publicIpAddress.value)` |
-| SSH command | `$($outputs.sshCommand.value)` |
-| Key Vault | `$($outputs.keyVaultName.value)` |
-| Log Analytics workspace | `$($outputs.logAnalyticsWorkspaceName.value)` |
-| Recovery Services vault | `$($outputs.recoveryServicesVaultName.value)` |
+| VM name | `$($outputs.vm_name.value)` |
+| App URL | `$($outputs.app_url.value)` |
+| Public IP | `$($outputs.public_ip_address.value)` |
+| SSH command | `$($outputs.ssh_command.value)` |
+| Key Vault | `$($outputs.key_vault_name.value)` |
+| Log Analytics workspace | `$($outputs.log_analytics_workspace_name.value)` |
+| Recovery Services vault | `$($outputs.recovery_services_vault_name.value)` |
 | VM backup | `$backupStatus` |
 
 Generated by `scripts/deploy_rehost_vm.ps1`.
@@ -185,14 +198,18 @@ Generated by `scripts/deploy_rehost_vm.ps1`.
     $summary | Set-Content -Encoding UTF8 -Path $deploymentSummaryFile
 
     Write-Host "Deployment complete."
-    Write-Host "App URL: $($outputs.appUrl.value)"
-    Write-Host "SSH: $($outputs.sshCommand.value)"
+    Write-Host "App URL: $($outputs.app_url.value)"
+    Write-Host "SSH: $($outputs.ssh_command.value)"
     Write-Host "Deployment outputs: $deploymentOutputsFile"
     Write-Host "Deployment summary: $deploymentSummaryFile"
-    Write-Host "Next smoke test command: .\tests\smoke_test_rehost.ps1 -AppUrl `"$($outputs.appUrl.value)`""
+    Write-Host "Next smoke test command: .\tests\smoke_test_rehost.ps1 -AppUrl `"$($outputs.app_url.value)`""
 }
 finally {
-    if (Test-Path $parameterFile) {
-        Remove-Item -Force -Path $parameterFile
+    if (Test-Path $tfVarsFile) {
+        Remove-Item -Force -Path $tfVarsFile
+    }
+
+    if (Test-Path $planFile) {
+        Remove-Item -Force -Path $planFile
     }
 }

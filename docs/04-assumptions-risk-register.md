@@ -1,0 +1,51 @@
+# Assumption And Risk Register
+
+This register captures assumptions and risks that affect the Module 3 migration pattern recommendation. The CSV source is maintained in [`inventory/assumption_risk_register.csv`](../inventory/assumption_risk_register.csv).
+
+## Assumptions
+
+| ID | Assumption | Evidence | Status |
+|---|---|---|---|
+| A-001 | Spring PetClinic is representative of the selected Java/Spring Boot monolith workload | Module 1 selected application | Open |
+| A-002 | The local workstation baseline is acceptable as an on-prem VM simulation for hands-on evidence | `docs/01-current-state-assessment.md` | Accepted for assessment |
+| A-003 | PostgreSQL is the preferred managed DB target unless app-owner evidence shows MySQL is production-active | `inventory/database_inventory.csv` | Open |
+| A-004 | Maven and GitHub HTTPS flows are build-time dependencies, not production runtime dependencies | `inventory/egress_inventory.csv` flows F004/F005 | Open |
+
+## Risk Register
+
+| ID | Risk | Severity | Mitigation | Owner | Status |
+|---|---|---|---|---|---|
+| R-001 | Active production database engine is unclear because H2, PostgreSQL and MySQL are all present | High | Confirm active profile; capture runtime env vars; select one managed DB target; document fallback | Database owner | Open |
+| R-002 | Unknown inbound TCP `8443` may represent an undocumented endpoint or security exposure | High | Validate firewall/load-balancer logs and app-owner knowledge before cutover | Network/security owner | Open |
+| R-003 | SMTP-like TCP `25` egress is observed but not explained by the source scan | Medium | Confirm whether email/integration exists; either migrate relay allowlist or retire the flow | Application owner | Open |
+| R-004 | Sample DB passwords and Kubernetes secret material exist in repo artifacts | High | Move secrets to Key Vault or approved secret store; prevent secrets in pipeline logs | Security owner | Open |
+| R-005 | Actuator endpoints are broadly exposed in development config | High | Restrict management endpoint exposure in target config and protect with identity/network controls | Application lead | Open |
+| R-006 | Build dependencies on Maven/GitHub may fail behind restricted enterprise egress controls | Medium | Use approved artifact mirror, self-hosted agent or egress allowlist | DevOps owner | Open |
+| R-007 | Downtime tolerance and rollback window are not yet confirmed | High | Define business downtime window, DB cutover mode and rollback trigger in later runbook | Release manager | Open |
+| R-008 | Performance baseline is not yet established | Medium | Add baseline response-time and resource measurements before target sizing | Application lead | Open |
+| R-009 | Full reengineering before cloud baseline would increase scope and delivery risk | High | Defer full reengineering; limit rearchitecture to secrets/config/database externalization | Migration architect | Mitigated by decision |
+| R-010 | Container target is not yet production-hardened | High | Add non-root image, health checks, scan gate, resource limits and observability in later modules | Platform owner | Open |
+
+## Highest-Priority Follow-Ups
+
+| Priority | Follow-Up | Why It Matters |
+|---|---|---|
+| P1 | Confirm whether PostgreSQL or MySQL is the active production database profile | Database target and cutover plan depend on this |
+| P1 | Validate unknown inbound TCP `8443` | Could be a missed dependency or an unnecessary exposure |
+| P1 | Validate SMTP-like TCP `25` egress | Could break notifications or integrations if ignored |
+| P1 | Define secret handling for Azure target | Source/config sample secrets cannot become production configuration |
+| P2 | Confirm downtime window and rollback owner | Required before cutover plan can be credible |
+| P2 | Establish performance baseline | Needed for Azure sizing and scale rules |
+
+## Register Maintenance
+
+Risks should be updated after each later module:
+
+| Later Module | Expected Register Update |
+|---|---|
+| Module 4 Rehost | Add VM landing-zone, backup and monitoring risks |
+| Module 5 Containerization | Close or update container hardening risks |
+| Module 6 CI/CD | Close or update build egress, scan gate and secret handling risks |
+| Module 7 Replatform | Update target platform deployment risks |
+| Module 8 Database Migration | Close or update DB engine, validation and downtime risks |
+| Module 9 Network Design | Close or update ingress/egress unknowns |

@@ -1,0 +1,12 @@
+```mermaid
+flowchart LR
+    User["User Browser"] -->|"HTTP :8081"| Host["On-Prem VM Simulation<br/>Windows Local Host"]
+    Host --> App["Spring PetClinic<br/>Spring Boot Monolith<br/>Java Runtime + Maven Wrapper"]
+    App --> DB[("Local Development Database<br/>Default Profile")]
+    App --> Disk[("Local Disk<br/>source, config, logs, static resources")]
+    Jenkins["Existing Jenkins<br/>localhost:8080"] -. "port conflict avoided by using 8081" .-> Host
+    App -. "none identified in Module 1" .-> Auth["LDAP/OIDC"]
+    App -. "none identified in Module 1" .-> SMTP["SMTP / External APIs"]
+    Ops["Application/Ops Engineer"] -->|"Git, Maven, Browser, CLI"| Host
+
+```

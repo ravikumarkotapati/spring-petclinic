@@ -1,4 +1,3 @@
-```mermaid
 flowchart LR
     User["User Browser"] -->|"HTTP :8081"| Host["On-Prem VM Simulation<br/>Windows Local Host"]
     Host --> App["Spring PetClinic<br/>Spring Boot Monolith<br/>Java Runtime + Maven Wrapper"]
@@ -8,5 +7,3 @@ flowchart LR
     App -. "none identified in Module 1" .-> Auth["LDAP/OIDC"]
     App -. "none identified in Module 1" .-> SMTP["SMTP / External APIs"]
     Ops["Application/Ops Engineer"] -->|"Git, Maven, Browser, CLI"| Host
-
-```

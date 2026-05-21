@@ -161,7 +161,9 @@ $tfVars = [ordered]@{
 }
 
 try {
-    $tfVars | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 -Path $tfVarsFile
+    $tfVarsJson = $tfVars | ConvertTo-Json -Depth 10
+    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+    [System.IO.File]::WriteAllText($tfVarsFile, $tfVarsJson, $utf8NoBom)
 
     Push-Location $terraformDir
     try {

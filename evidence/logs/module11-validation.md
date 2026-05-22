@@ -1,0 +1,29 @@
+# Module 11 Validation Evidence
+
+Validation date: 2026-05-22
+
+## Checks Run
+
+| Check | Command / Method | Result |
+|---|---|---|
+| Wave plan CSV parse | `Get-Content inventory\wave_plan.csv \| ConvertFrom-Csv` | Passed |
+| Markdown evidence traceability | Searched README, submission index and Module 11 docs for required evidence names | Passed |
+| Shell script syntax | `C:\Program Files\Git\bin\bash.exe -n tests/smoke_test.sh` | Passed |
+| Live smoke test | `APP_URL=https://petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io tests/smoke_test.sh` | Passed |
+| Whitespace check | `git diff --check` | Passed |
+
+## Live Smoke Test Evidence
+
+| Evidence | File |
+|---|---|
+| Markdown evidence | `evidence/logs/module11-smoke-test-evidence.md` |
+| Machine-readable CSV | `evidence/logs/module11-smoke-test-results.csv` |
+
+Smoke endpoints validated:
+
+- `/`
+- `/owners/find`
+- `/vets.html`
+- `/actuator/health`
+
+All returned HTTP `200` and matched expected content.

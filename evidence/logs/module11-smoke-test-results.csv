@@ -1,0 +1,5 @@
+"Name","Url","StatusCode","Success","DurationMs","ExpectedText","CapturedAt"
+"home","https://petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io/","200","true","1869","PetClinic","2026-05-22T12:41:24Z"
+"owners-find","https://petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io/owners/find","200","true","2104","Find Owners","2026-05-22T12:41:24Z"
+"vets","https://petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io/vets.html","200","true","2937","Veterinarians","2026-05-22T12:41:24Z"
+"health","https://petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io/actuator/health","200","true","1860","UP","2026-05-22T12:41:24Z"

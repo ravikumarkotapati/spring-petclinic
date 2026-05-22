@@ -11,7 +11,7 @@ This plan sequences the Spring PetClinic migration using dependency evidence fro
 | MG-02 Database readiness | H2 local profile, PostgreSQL, MySQL | `inventory/database_inventory.csv`, egress F002/F003 | Database owner |
 | MG-03 Managed container replatform | ACR, Azure Container Apps, app configuration, health checks | `inventory/migration_decision_matrix.csv`, ADR-0002 | Platform owner |
 | MG-04 Network and security hardening | Ingress, DNS, TLS, SMTP-like egress, unknown inbound, secrets | `inventory/ingress_inventory.csv`, `inventory/egress_inventory.csv`, `docs/04-assumptions-risk-register.md` | Network/security owner |
-| MG-05 Cutover and hypercare | Release orchestration, smoke tests, rollback, monitoring | Future cutover runbook and smoke tests | Release manager |
+| MG-05 Cutover and hypercare | Release orchestration, smoke tests, rollback, monitoring | `docs/cutover-runbook.md`, `docs/rollback-plan.md`, `tests/smoke_test.sh`, `docs/hypercare-checklist.md` | Release manager |
 
 ## Wave Plan
 
@@ -22,7 +22,7 @@ This plan sequences the Spring PetClinic migration using dependency evidence fro
 | Wave 2 | Prepare database migration path | PostgreSQL/MySQL active engine confirmed | Select DB target, define validation queries, externalize DB connection settings | DB target and validation approach approved |
 | Wave 3 | Deploy managed container target | Image build path, DB target and IaC approach ready | Deploy to Azure Container Apps, configure ingress and health checks, connect to target DB | Target endpoint passes smoke tests |
 | Wave 4 | Harden network and security | App running in non-prod target | Validate TCP `8443`, validate SMTP-like egress, define egress allowlist, configure DNS/TLS, remove source secrets | No unresolved P1 dependency blockers |
-| Wave 5 | Cutover and hypercare | Smoke tests, rollback path and owners approved | Switch DNS/config, verify application, monitor logs/metrics, execute rollback if needed | Cutover accepted and hypercare active |
+| Wave 5 | Cutover and hypercare | Change approval, smoke tests, rollback path, monitoring dashboards and owners approved | Freeze writes if needed, switch DNS/config, verify application, monitor logs/metrics, execute rollback if needed | Cutover accepted, rollback window closed and hypercare complete |
 
 ## Dependency-Driven Sequencing Rationale
 
@@ -42,7 +42,7 @@ The machine-readable plan is maintained in:
 
 ## Cutover Gate For Module 3
 
-Module 3 does not execute production cutover. It defines the sequencing and readiness gates that later modules must satisfy.
+Module 3 did not execute production cutover. Module 11 adds the executable cutover and hypercare package.
 
 Required gates before production cutover:
 
@@ -52,5 +52,5 @@ Required gates before production cutover:
 | Unknown ingress resolved | App-owner and firewall/load-balancer validation |
 | SMTP-like egress resolved | App-owner and network validation |
 | Secrets externalized | Key Vault/managed identity or approved secret store evidence |
-| Smoke tests ready | Scripted smoke tests and expected results |
-| Rollback owner assigned | Rollback plan and owner approval |
+| Smoke tests ready | `tests/smoke_test.sh` and expected results |
+| Rollback owner assigned | `docs/rollback-plan.md` and owner approval |

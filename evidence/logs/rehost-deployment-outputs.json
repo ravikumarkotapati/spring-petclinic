@@ -1,0 +1,47 @@
+﻿{
+  "app_url": {
+    "sensitive": false,
+    "type": "string",
+    "value": "http://petclinic-rehost-qevd19.centralus.cloudapp.azure.com"
+  },
+  "backup_policy_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "petclinic-rehost-daily-vm-policy"
+  },
+  "key_vault_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "petclinicrehostqevd19kv"
+  },
+  "log_analytics_workspace_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "petclinic-rehost-qevd19-law"
+  },
+  "public_ip_address": {
+    "sensitive": false,
+    "type": "string",
+    "value": "128.203.188.67"
+  },
+  "recovery_services_vault_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "petclinic-rehost-qevd19-rsv"
+  },
+  "resource_group_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "rg-petclinic-rehost-dev"
+  },
+  "ssh_command": {
+    "sensitive": false,
+    "type": "string",
+    "value": "ssh azureuser@petclinic-rehost-qevd19.centralus.cloudapp.azure.com"
+  },
+  "vm_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "petclinic-rehost-vm"
+  }
+}

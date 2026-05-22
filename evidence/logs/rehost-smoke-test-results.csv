@@ -1,0 +1,5 @@
+﻿"Timestamp","Name","Url","StatusCode","ExpectedText","ExpectedTextFound","DurationMs","Passed","Error"
+"2026-05-22 10:59:49 +08:00","home","http://petclinic-rehost-qevd19.centralus.cloudapp.azure.com/","200","PetClinic","True","549","True",""
+"2026-05-22 10:59:49 +08:00","vets","http://petclinic-rehost-qevd19.centralus.cloudapp.azure.com/vets.html","200","Veterinarians","True","253","True",""
+"2026-05-22 10:59:49 +08:00","owners-find","http://petclinic-rehost-qevd19.centralus.cloudapp.azure.com/owners/find","200","Find Owners","True","242","True",""
+"2026-05-22 10:59:49 +08:00","health","http://petclinic-rehost-qevd19.centralus.cloudapp.azure.com/healthz","200","UP","True","276","True",""

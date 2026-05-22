@@ -97,9 +97,8 @@ write_files:
       User=petclinic
       Group=petclinic
       WorkingDirectory=/opt/petclinic
-      ExecStartPre=/opt/petclinic/render-env.sh
-      EnvironmentFile=/etc/petclinic/petclinic.env
-      ExecStart=/usr/bin/java -XX:MaxRAMPercentage=75.0 -jar /opt/petclinic/app.jar
+      ExecStartPre=+/opt/petclinic/render-env.sh
+      ExecStart=/bin/bash -lc 'set -a; . /etc/petclinic/petclinic.env; set +a; exec /usr/bin/java -XX:MaxRAMPercentage=75.0 -jar /opt/petclinic/app.jar'
       Restart=always
       RestartSec=10
       SuccessExitStatus=143

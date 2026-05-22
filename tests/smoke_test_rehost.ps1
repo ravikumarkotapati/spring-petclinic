@@ -34,7 +34,12 @@ foreach ($endpoint in $endpoints) {
         $response = Invoke-WebRequest -Uri $url -UseBasicParsing -TimeoutSec 60
         $elapsed.Stop()
         $statusCode = [int]$response.StatusCode
-        $body = [string]$response.Content
+        $body = if ($response.Content -is [byte[]]) {
+            [System.Text.Encoding]::UTF8.GetString($response.Content)
+        }
+        else {
+            [string]$response.Content
+        }
         $matchedText = $body -like "*$($endpoint.ExpectedText)*"
     }
     catch {

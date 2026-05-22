@@ -1,0 +1,6 @@
+"phase","migration_mode","replication_lag_seconds","status","notes"
+"pre_cutover","offline","not_applicable","complete","Offline migration uses source write freeze instead of replication stream"
+"stop_writes","offline","0","rehearsed","Source dataset loaded before dump"
+"dump_restore","offline","not_applicable","complete","pg_dump and pg_restore completed with zero command errors"
+"post_restore_validation","offline","0","complete","Source and target row counts captured after restore"
+"enable_writes_on_target","offline","0","ready","Enable writes only after application smoke checks pass"

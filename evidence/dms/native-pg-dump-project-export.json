@@ -1,0 +1,24 @@
+{
+  "module": "Module 8 - Database Migration, Schema Conversion and Data Cutover",
+  "toolingDecision": "Engine-native PostgreSQL offline migration",
+  "dmsUsed": false,
+  "dmsRationale": "Azure DMS was not required because source and target are PostgreSQL-compatible and the documented downtime tolerance supports an offline pg_dump/pg_restore migration.",
+  "source": {
+    "engine": "postgresql",
+    "host": "postgres-db-vm",
+    "port": 5432,
+    "database": "petclinic",
+    "profile": "postgres"
+  },
+  "target": {
+    "service": "Azure Database for PostgreSQL Flexible Server",
+    "database": "petclinic",
+    "connectionPattern": "jdbc:postgresql://<server>.postgres.database.azure.com:5432/petclinic?sslmode=require"
+  },
+  "migrationMode": "offline",
+  "dumpCommand": "pg_dump --format=custom --verbose --no-owner --no-privileges --host postgres-db-vm --port 5432 --username petclinic --dbname petclinic --file evidence/logs/petclinic_pg_dump.dump",
+  "restoreCommand": "pg_restore --verbose --clean --if-exists --no-owner --no-privileges --host <postgres-flexible-server>.postgres.database.azure.com --port 5432 --username petclinic_app --dbname petclinic evidence/logs/petclinic_pg_dump.dump",
+  "validationHarness": "scripts/data_validate/validate_petclinic_data.py",
+  "schemaConversionReport": "scripts/schema_convert/conversion_report.md",
+  "cutoverRunbook": "docs/db-migration-runbook.md"
+}

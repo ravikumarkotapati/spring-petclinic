@@ -1,0 +1,2 @@
+"phase","tool","source","target","records_processed","bytes_processed","error_count","duration_seconds","throughput_notes"
+"local_pg_dump_pg_restore_rehearsal","pg_dump_pg_restore","petclinic-src-pg-20260522151948","petclinic-target-pg-20260522151948","47","14417","0","9","Engine-native PostgreSQL migration rehearsal completed in disposable local containers"

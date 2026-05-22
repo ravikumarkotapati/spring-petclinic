@@ -17,6 +17,7 @@ Module branches are kept as implementation history and review checkpoints:
 | `module5-containerization` | Module 5 container image, Compose simulation and configuration remediation |
 | `module6-cicd-azure-templates` | Module 6 Azure DevOps CI/CD, ACR and Terraform migration templates |
 | `module7-container-apps-replatform` | Module 7 Azure Container Apps replatform implementation and health evidence |
+| `module8-database-migration` | Module 8 PostgreSQL target selection, schema conversion, validation and cutover runbook |
 
 ## Completed Assessment Scope
 
@@ -29,6 +30,7 @@ Module branches are kept as implementation history and review checkpoints:
 | Module 5 - Containerization and Configuration Remediation | Complete | [`Dockerfile`](../Dockerfile), [`docker-compose.yml`](../docker-compose.yml), [`docs/08-containerization-and-configuration-remediation.md`](08-containerization-and-configuration-remediation.md), [`inventory/runtime_environment_matrix.csv`](../inventory/runtime_environment_matrix.csv), [`evidence/logs/container-build.log`](../evidence/logs/container-build.log), [`evidence/logs/container-image-scan-plan.md`](../evidence/logs/container-image-scan-plan.md) |
 | Module 6 - CI/CD and Azure Migration Templates | Complete | [`azure-pipelines.yml`](../azure-pipelines.yml), [`pipelines/templates/`](../pipelines/templates/), [`infra/terraform/acr/`](../infra/terraform/acr/), [`infra/terraform/modules/acr/`](../infra/terraform/modules/acr/), [`docs/10-cicd-and-azure-migration-templates.md`](10-cicd-and-azure-migration-templates.md), [`docs/11-cicd-rollback-strategy.md`](11-cicd-rollback-strategy.md), [`evidence/logs/module6-pipeline-validation.log`](../evidence/logs/module6-pipeline-validation.log), [`evidence/logs/acr-image-evidence.md`](../evidence/logs/acr-image-evidence.md) |
 | Module 7 - Replatform to Managed Container Target | Complete | [`docs/12-replatform-container-apps.md`](12-replatform-container-apps.md), [`infra/terraform/container-apps/`](../infra/terraform/container-apps/), [`infra/container-apps/petclinic-containerapp.template.yaml`](../infra/container-apps/petclinic-containerapp.template.yaml), [`docs/replatform-container-apps-architecture.svg`](replatform-container-apps-architecture.svg), [`docs/replatform-container-apps-architecture.mmd`](replatform-container-apps-architecture.mmd), [`inventory/replatform_target_comparison.csv`](../inventory/replatform_target_comparison.csv), [`evidence/logs/container-app-deployment-summary.md`](../evidence/logs/container-app-deployment-summary.md), [`evidence/logs/container-app-health-evidence.md`](../evidence/logs/container-app-health-evidence.md) |
+| Module 8 - Database Migration, Schema Conversion and Data Cutover | Complete | [`docs/13-database-migration-summary.md`](13-database-migration-summary.md), [`inventory/database_inventory.csv`](../inventory/database_inventory.csv), [`docs/db-target-selection-adr.md`](db-target-selection-adr.md), [`scripts/schema_convert/`](../scripts/schema_convert/), [`scripts/data_validate/`](../scripts/data_validate/), [`scripts/db_migrate/run_local_pg_migration.ps1`](../scripts/db_migrate/run_local_pg_migration.ps1), [`docs/db-migration-runbook.md`](db-migration-runbook.md), [`evidence/dms/`](../evidence/dms/), [`evidence/logs/db-data-validation-results.md`](../evidence/logs/db-data-validation-results.md), [`evidence/logs/db-migration-log.md`](../evidence/logs/db-migration-log.md), [`evidence/logs/db-connection-string-remediation.md`](../evidence/logs/db-connection-string-remediation.md), [`evidence/logs/db-post-cutover-smoke-test-results.md`](../evidence/logs/db-post-cutover-smoke-test-results.md), [`evidence/logs/db-24h-observability-snapshot.md`](../evidence/logs/db-24h-observability-snapshot.md) |
 
 ## Module 4 Live Endpoint
 
@@ -65,6 +67,22 @@ Validation evidence is captured in:
 | Revision traffic | [`evidence/logs/container-app-revisions.txt`](../evidence/logs/container-app-revisions.txt) |
 | Health checks | [`evidence/logs/container-app-health-evidence.md`](../evidence/logs/container-app-health-evidence.md) and [`evidence/logs/container-app-health-results.csv`](../evidence/logs/container-app-health-results.csv) |
 
+## Module 8 Database Target
+
+Module 8 selects Azure Database for PostgreSQL Flexible Server as the managed database target. The migration path is PostgreSQL-compatible offline migration using `pg_dump` and `pg_restore`, with H2 documented as local/dev only and MySQL documented as an optional profile.
+
+Validation evidence is captured in:
+
+| Evidence | File |
+|---|---|
+| Module summary | [`docs/13-database-migration-summary.md`](13-database-migration-summary.md) |
+| Database inventory | [`inventory/database_inventory.csv`](../inventory/database_inventory.csv) |
+| Target selection ADR | [`docs/db-target-selection-adr.md`](db-target-selection-adr.md) |
+| Schema conversion report | [`scripts/schema_convert/conversion_report.md`](../scripts/schema_convert/conversion_report.md) |
+| Data validation output | [`evidence/logs/db-data-validation-results.md`](../evidence/logs/db-data-validation-results.md) |
+| Migration runbook | [`docs/db-migration-runbook.md`](db-migration-runbook.md) |
+| Connection string remediation | [`docs/db-connection-string-remediation.md`](db-connection-string-remediation.md) |
+
 ## Future Modules
 
-The assignment also defines Modules 8-11 for database migration, ingress/egress hardening, reengineering and cutover/hypercare. Those should continue from `main` using new module branches, then merge back to `main` after each module is complete.
+The assignment also defines Modules 9-11 for ingress/egress hardening, reengineering and cutover/hypercare. Those should continue from `main` using new module branches, then merge back to `main` after each module is complete.

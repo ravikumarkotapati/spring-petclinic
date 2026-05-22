@@ -1,0 +1,9 @@
+flowchart LR
+    App["Spring PetClinic<br/>Container Apps / VM runtime"] -->|"JDBC 5432<br/>POSTGRES_URL"| Target["Azure Database for PostgreSQL<br/>Flexible Server"]
+    Source["On-prem PostgreSQL VM<br/>postgres-db-vm:5432/petclinic"] -->|"pg_dump custom format"| Dump["Migration artifact<br/>petclinic_pg_dump.dump"]
+    Dump -->|"pg_restore"| Target
+    KeyVault["Key Vault / platform secrets<br/>POSTGRES_URL, POSTGRES_USER, POSTGRES_PASS"] --> App
+    Validator["Data validation harness<br/>row counts, hashes, FK, sequences"] --> Source
+    Validator --> Target
+    Target --> Monitor["Azure Monitor<br/>connections, CPU, storage, failed connections, latency"]
+    Target --> Backup["Automated backup / PITR<br/>HA and geo-DR options"]

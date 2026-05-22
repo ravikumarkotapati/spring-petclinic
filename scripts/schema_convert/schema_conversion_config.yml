@@ -1,0 +1,19 @@
+source_profiles:
+  h2:
+    schema: src/main/resources/db/h2/schema.sql
+    role: local_development
+  mysql:
+    schema: src/main/resources/db/mysql/schema.sql
+    role: optional_profile
+  postgres:
+    schema: src/main/resources/db/postgres/schema.sql
+    role: selected_migration_source
+target:
+  service: Azure Database for PostgreSQL Flexible Server
+  engine: postgresql
+  schema: src/main/resources/db/postgres/schema.sql
+conversion_mode: native_postgresql_compatible
+manual_remediation_required:
+  - Confirm source PostgreSQL version with SELECT version().
+  - Confirm production extensions before migration.
+  - Use citext or lower-case functional indexes only if case-insensitive owner search is a hard requirement.

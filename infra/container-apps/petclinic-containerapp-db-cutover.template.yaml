@@ -1,0 +1,28 @@
+type: Microsoft.App/containerApps
+name: petclinic-container-app
+properties:
+  configuration:
+    secrets:
+      - name: petclinic-postgres-jdbc-url
+        keyVaultUrl: "https://<key-vault-name>.vault.azure.net/secrets/petclinic-postgres-jdbc-url"
+        identity: "<user-assigned-managed-identity-resource-id>"
+      - name: petclinic-postgres-username
+        keyVaultUrl: "https://<key-vault-name>.vault.azure.net/secrets/petclinic-postgres-username"
+        identity: "<user-assigned-managed-identity-resource-id>"
+      - name: petclinic-postgres-password
+        keyVaultUrl: "https://<key-vault-name>.vault.azure.net/secrets/petclinic-postgres-password"
+        identity: "<user-assigned-managed-identity-resource-id>"
+  template:
+    containers:
+      - name: spring-petclinic
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: postgres
+          - name: POSTGRES_URL
+            secretRef: petclinic-postgres-jdbc-url
+          - name: POSTGRES_USER
+            secretRef: petclinic-postgres-username
+          - name: POSTGRES_PASS
+            secretRef: petclinic-postgres-password
+          - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+            value: health,info

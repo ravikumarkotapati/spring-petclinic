@@ -1,0 +1,137 @@
+{
+  "generated_at": "2026-05-22T07:22:17.129204+00:00",
+  "source_label": "source-postgres-dump",
+  "target_label": "target-azure-postgresql-restore",
+  "overall_status": "PASS",
+  "table_results": [
+    {
+      "table": "vets",
+      "source_count": 6,
+      "target_count": 6,
+      "count_match": true,
+      "source_sha256": "4799351930e839107eefdee610c90cf6ca16d8f54837de0ac41d645aa0325b79",
+      "target_sha256": "4799351930e839107eefdee610c90cf6ca16d8f54837de0ac41d645aa0325b79",
+      "checksum_match": true
+    },
+    {
+      "table": "specialties",
+      "source_count": 3,
+      "target_count": 3,
+      "count_match": true,
+      "source_sha256": "867efd8c74127856116f08d19058a89d9b1a2272649d751851b9a59926d4c597",
+      "target_sha256": "867efd8c74127856116f08d19058a89d9b1a2272649d751851b9a59926d4c597",
+      "checksum_match": true
+    },
+    {
+      "table": "vet_specialties",
+      "source_count": 5,
+      "target_count": 5,
+      "count_match": true,
+      "source_sha256": "f7a1968804ed57a9e588fcc0d3907ffd420569228e62e96a59980d6fe13ff413",
+      "target_sha256": "f7a1968804ed57a9e588fcc0d3907ffd420569228e62e96a59980d6fe13ff413",
+      "checksum_match": true
+    },
+    {
+      "table": "types",
+      "source_count": 6,
+      "target_count": 6,
+      "count_match": true,
+      "source_sha256": "3af6042b82e30c9336d9f16a8768a57af82896a3b7472f89a524c7ec78d14d11",
+      "target_sha256": "3af6042b82e30c9336d9f16a8768a57af82896a3b7472f89a524c7ec78d14d11",
+      "checksum_match": true
+    },
+    {
+      "table": "owners",
+      "source_count": 10,
+      "target_count": 10,
+      "count_match": true,
+      "source_sha256": "863a13f19fa69d6994d6fefcb114ba9f4adceb13dfcf6be8523664f3fdd76f4e",
+      "target_sha256": "863a13f19fa69d6994d6fefcb114ba9f4adceb13dfcf6be8523664f3fdd76f4e",
+      "checksum_match": true
+    },
+    {
+      "table": "pets",
+      "source_count": 13,
+      "target_count": 13,
+      "count_match": true,
+      "source_sha256": "2974103b6afdb6edcfb1e55e1b1c9792058fef721b378dc5a208de85b7486115",
+      "target_sha256": "2974103b6afdb6edcfb1e55e1b1c9792058fef721b378dc5a208de85b7486115",
+      "checksum_match": true
+    },
+    {
+      "table": "visits",
+      "source_count": 4,
+      "target_count": 4,
+      "count_match": true,
+      "source_sha256": "dd5be40389a911ea376076f29948668ec1348aed10a4e68228b8214558b8fcf1",
+      "target_sha256": "dd5be40389a911ea376076f29948668ec1348aed10a4e68228b8214558b8fcf1",
+      "checksum_match": true
+    }
+  ],
+  "source_fk_checks": {
+    "pets_without_owner": 0,
+    "pets_without_type": 0,
+    "visits_without_pet": 0,
+    "vet_specialties_without_vet": 0,
+    "vet_specialties_without_specialty": 0
+  },
+  "target_fk_checks": {
+    "pets_without_owner": 0,
+    "pets_without_type": 0,
+    "visits_without_pet": 0,
+    "vet_specialties_without_vet": 0,
+    "vet_specialties_without_specialty": 0
+  },
+  "source_sequence_checks": {
+    "owners": {
+      "max_id": 10,
+      "expected_next_value": 11
+    },
+    "pets": {
+      "max_id": 13,
+      "expected_next_value": 14
+    },
+    "specialties": {
+      "max_id": 3,
+      "expected_next_value": 4
+    },
+    "types": {
+      "max_id": 6,
+      "expected_next_value": 7
+    },
+    "vets": {
+      "max_id": 6,
+      "expected_next_value": 7
+    },
+    "visits": {
+      "max_id": 4,
+      "expected_next_value": 5
+    }
+  },
+  "target_sequence_checks": {
+    "owners": {
+      "max_id": 10,
+      "expected_next_value": 11
+    },
+    "pets": {
+      "max_id": 13,
+      "expected_next_value": 14
+    },
+    "specialties": {
+      "max_id": 3,
+      "expected_next_value": 4
+    },
+    "types": {
+      "max_id": 6,
+      "expected_next_value": 7
+    },
+    "vets": {
+      "max_id": 6,
+      "expected_next_value": 7
+    },
+    "visits": {
+      "max_id": 4,
+      "expected_next_value": 5
+    }
+  }
+}

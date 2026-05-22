@@ -1,0 +1,52 @@
+# Database Connection String Remediation
+
+## Goal
+
+Move database connection values out of files and into the Azure platform secret pattern used by the application runtime.
+
+## Current Application Properties
+
+| Property | Source |
+|---|---|
+| `spring.datasource.url` | `${POSTGRES_URL:jdbc:postgresql://localhost/petclinic}` |
+| `spring.datasource.username` | `${POSTGRES_USER:petclinic}` |
+| `spring.datasource.password` | `${POSTGRES_PASS:petclinic}` |
+
+The application already supports environment-driven PostgreSQL configuration through `src/main/resources/application-postgres.properties`.
+
+## Target Secret Names
+
+| Secret | Example Value |
+|---|---|
+| `petclinic-postgres-jdbc-url` | `jdbc:postgresql://<server>.postgres.database.azure.com:5432/petclinic?sslmode=require` |
+| `petclinic-postgres-username` | `petclinic_app` or Microsoft Entra-backed identity where supported |
+| `petclinic-postgres-password` | Stored only in Key Vault or platform secret store |
+
+## Container App Environment Mapping
+
+```yaml
+env:
+  - name: SPRING_PROFILES_ACTIVE
+    value: postgres
+  - name: POSTGRES_URL
+    secretRef: petclinic-postgres-jdbc-url
+  - name: POSTGRES_USER
+    secretRef: petclinic-postgres-username
+  - name: POSTGRES_PASS
+    secretRef: petclinic-postgres-password
+```
+
+## Managed Identity Pattern
+
+1. Assign a user-managed identity to the application target.
+2. Grant the identity `Key Vault Secrets User` on the Key Vault that stores database connection values.
+3. If Microsoft Entra authentication is enabled for Azure Database for PostgreSQL Flexible Server, map an Entra principal/database role for application access.
+4. Keep password-based credentials as a fallback only when Entra authentication is not available for the selected driver/runtime pattern.
+
+## Evidence
+
+| Evidence | File |
+|---|---|
+| Runtime environment matrix | `inventory/runtime_environment_matrix.csv` |
+| Container Apps manifest pattern | `infra/container-apps/petclinic-containerapp-db-cutover.template.yaml` |
+| Cutover runbook | `docs/db-migration-runbook.md` |

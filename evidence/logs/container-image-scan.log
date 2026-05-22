@@ -11,10 +11,10 @@
                    │                    Analyzed Image                     
 ───────────────────┼───────────────────────────────────────────────────────
  Target            │  petclinic:module5-local                              
-   digest          │  9ee0afc1730f                                         
+   digest          │  bf9d25eb2d16                                         
    platform        │ linux/amd64                                           
    provenance      │ https://github.com/ravikumarkotapati/spring-petclinic 
-                   │  https://github.com/ravikumarkotapati/spring-petclinic/blob/eae4415                                              
+                   │  https://github.com/ravikumarkotapati/spring-petclinic/blob/9de94c5                                              
    vulnerabilities │   11C    12H    25M    11L     1?                     
    size            │ 156 MB                                                
    packages        │ 330                                                   
@@ -395,6 +395,15 @@ pkg:deb/ubuntu/tar@1.34%2Bdfsg-1ubuntu0.1.22.04.2?os_distro=jammy&os_name=ubuntu
       Fixed version  : not fixed 
     
 
+   0C     0H     1M     0L  util-linux 2.37.2-4ubuntu3.5
+pkg:deb/ubuntu/util-linux@2.37.2-4ubuntu3.5?os_distro=jammy&os_name=ubuntu&os_version=22.04
+
+    x MEDIUM CVE-2026-27456
+      https://scout.docker.com/v/CVE-2026-27456?s=ubuntu&n=util-linux&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0       
+      Fixed version  : not fixed 
+    
+
    0C     0H     1M     0L  expat 2.4.7-1ubuntu0.7
 pkg:deb/ubuntu/expat@2.4.7-1ubuntu0.7?os_distro=jammy&os_name=ubuntu&os_version=22.04
 
@@ -417,15 +426,6 @@ pkg:deb/ubuntu/wget@1.21.2-2ubuntu1.1?os_distro=jammy&os_name=ubuntu&os_version=
       CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N 
     
 
-   0C     0H     1M     0L  util-linux 2.37.2-4ubuntu3.5
-pkg:deb/ubuntu/util-linux@2.37.2-4ubuntu3.5?os_distro=jammy&os_name=ubuntu&os_version=22.04
-
-    x MEDIUM CVE-2026-27456
-      https://scout.docker.com/v/CVE-2026-27456?s=ubuntu&n=util-linux&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
-      Affected range : >=0       
-      Fixed version  : not fixed 
-    
-
    0C     0H     0M     2L  shadow 1:4.8.1-2ubuntu2.2
 pkg:deb/ubuntu/shadow@1%3A4.8.1-2ubuntu2.2?os_distro=jammy&os_name=ubuntu&os_version=22.04
 
@@ -442,13 +442,15 @@ pkg:deb/ubuntu/shadow@1%3A4.8.1-2ubuntu2.2?os_distro=jammy&os_name=ubuntu&os_ver
       Fixed version  : not fixed 
     
 
-   0C     0H     0M     1L  libgcrypt20 1.9.4-3ubuntu3
-pkg:deb/ubuntu/libgcrypt20@1.9.4-3ubuntu3?os_distro=jammy&os_name=ubuntu&os_version=22.04
+   0C     0H     0M     1L  pcre3 2:8.39-13ubuntu0.22.04.1
+pkg:deb/ubuntu/pcre3@2%3A8.39-13ubuntu0.22.04.1?os_distro=jammy&os_name=ubuntu&os_version=22.04
 
-    x LOW CVE-2024-2236
-      https://scout.docker.com/v/CVE-2024-2236?s=ubuntu&n=libgcrypt20&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
-      Affected range : >=0       
-      Fixed version  : not fixed 
+    x LOW CVE-2017-11164
+      https://scout.docker.com/v/CVE-2017-11164?s=ubuntu&n=pcre3&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0                                          
+      Fixed version  : not fixed                                    
+      CVSS Score     : 7.5                                          
+      CVSS Vector    : CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H 
     
 
    0C     0H     0M     1L  pcre2 10.39-3ubuntu0.1
@@ -460,17 +462,6 @@ pkg:deb/ubuntu/pcre2@10.39-3ubuntu0.1?os_distro=jammy&os_name=ubuntu&os_version=
       Fixed version  : not fixed                                    
       CVSS Score     : 7.5                                          
       CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H 
-    
-
-   0C     0H     0M     1L  systemd 249.11-0ubuntu3.20
-pkg:deb/ubuntu/systemd@249.11-0ubuntu3.20?os_distro=jammy&os_name=ubuntu&os_version=22.04
-
-    x LOW CVE-2023-7008
-      https://scout.docker.com/v/CVE-2023-7008?s=ubuntu&n=systemd&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
-      Affected range : >=0                                          
-      Fixed version  : not fixed                                    
-      CVSS Score     : 5.9                                          
-      CVSS Vector    : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N 
     
 
    0C     0H     0M     1L  libzstd 1.4.8+dfsg-3build1
@@ -495,6 +486,17 @@ pkg:deb/ubuntu/ncurses@6.3-2ubuntu0.1?os_distro=jammy&os_name=ubuntu&os_version=
       CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H 
     
 
+   0C     0H     0M     1L  systemd 249.11-0ubuntu3.20
+pkg:deb/ubuntu/systemd@249.11-0ubuntu3.20?os_distro=jammy&os_name=ubuntu&os_version=22.04
+
+    x LOW CVE-2023-7008
+      https://scout.docker.com/v/CVE-2023-7008?s=ubuntu&n=systemd&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0                                          
+      Fixed version  : not fixed                                    
+      CVSS Score     : 5.9                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N 
+    
+
    0C     0H     0M     1L  gcc-12 12.3.0-1ubuntu1~22.04.3
 pkg:deb/ubuntu/gcc-12@12.3.0-1ubuntu1~22.04.3?os_distro=jammy&os_name=ubuntu&os_version=22.04
 
@@ -506,15 +508,13 @@ pkg:deb/ubuntu/gcc-12@12.3.0-1ubuntu1~22.04.3?os_distro=jammy&os_name=ubuntu&os_
       CVSS Vector    : CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H 
     
 
-   0C     0H     0M     1L  pcre3 2:8.39-13ubuntu0.22.04.1
-pkg:deb/ubuntu/pcre3@2%3A8.39-13ubuntu0.22.04.1?os_distro=jammy&os_name=ubuntu&os_version=22.04
+   0C     0H     0M     1L  libgcrypt20 1.9.4-3ubuntu3
+pkg:deb/ubuntu/libgcrypt20@1.9.4-3ubuntu3?os_distro=jammy&os_name=ubuntu&os_version=22.04
 
-    x LOW CVE-2017-11164
-      https://scout.docker.com/v/CVE-2017-11164?s=ubuntu&n=pcre3&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
-      Affected range : >=0                                          
-      Fixed version  : not fixed                                    
-      CVSS Score     : 7.5                                          
-      CVSS Vector    : CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H 
+    x LOW CVE-2024-2236
+      https://scout.docker.com/v/CVE-2024-2236?s=ubuntu&n=libgcrypt20&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0       
+      Fixed version  : not fixed 
     
 
 

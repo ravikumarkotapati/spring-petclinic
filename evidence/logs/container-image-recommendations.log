@@ -6,7 +6,7 @@
       Alternatively, use  docker scout recommendations --tag <base image tag>  to pass a specific base image tag.
 
  Target   │  petclinic:module5-local  
-   digest │  9ee0afc1730f             
+   digest │  bf9d25eb2d16             
 
 ## Recommended fixes
 

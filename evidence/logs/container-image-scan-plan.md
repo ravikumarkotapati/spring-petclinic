@@ -5,8 +5,8 @@
 | Item | Value |
 |---|---|
 | Image | `petclinic:module5-local` |
-| Revision tag | `petclinic:eae4415` |
-| Image digest | `9ee0afc1730f` |
+| Revision tag | `petclinic:9de94c5` |
+| Image digest | `bf9d25eb2d16` |
 | Scan tool | Docker Scout CLI `v1.20.4` |
 | Scan evidence | [`container-image-scan.log`](container-image-scan.log) |
 | Remediation recommendation evidence | [`container-image-recommendations.log`](container-image-recommendations.log) |

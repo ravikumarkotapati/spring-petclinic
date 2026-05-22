@@ -1,15 +1,15 @@
 [
     {
-        "Id": "sha256:9ee0afc1730fb402e28ac1bcfce5268a2e4686ade4ef1a1a0fc623a2e1bdf8ec",
+        "Id": "sha256:bf9d25eb2d16ebd602bc3ecea1a3b70951785ea74a70081f91f910ea42de4ff5",
         "RepoTags": [
-            "petclinic:eae4415",
+            "petclinic:9de94c5",
             "petclinic:module5-local"
         ],
         "RepoDigests": [
-            "petclinic@sha256:9ee0afc1730fb402e28ac1bcfce5268a2e4686ade4ef1a1a0fc623a2e1bdf8ec"
+            "petclinic@sha256:bf9d25eb2d16ebd602bc3ecea1a3b70951785ea74a70081f91f910ea42de4ff5"
         ],
         "Comment": "buildkit.dockerfile.v0",
-        "Created": "2026-05-22T03:52:33.381931083Z",
+        "Created": "2026-05-22T04:03:35.826882638Z",
         "Config": {
             "User": "appuser",
             "ExposedPorts": {
@@ -33,12 +33,12 @@
             ],
             "WorkingDir": "/app",
             "Labels": {
-                "org.opencontainers.image.created": "2026-05-22T11:52:17+08:00",
+                "org.opencontainers.image.created": "2026-05-22T12:02:07+08:00",
                 "org.opencontainers.image.description": "Containerized Spring PetClinic for Azure migration assessment Module 5",
-                "org.opencontainers.image.revision": "eae4415",
+                "org.opencontainers.image.revision": "9de94c5",
                 "org.opencontainers.image.source": "https://github.com/ravikumarkotapati/spring-petclinic",
                 "org.opencontainers.image.title": "Spring PetClinic",
-                "org.opencontainers.image.version": "eae4415"
+                "org.opencontainers.image.version": "9de94c5"
             },
             "Healthcheck": {
                 "Test": [
@@ -53,7 +53,7 @@
         },
         "Architecture": "amd64",
         "Os": "linux",
-        "Size": 155677804,
+        "Size": 155677826,
         "RootFS": {
             "Type": "layers",
             "Layers": [
@@ -63,23 +63,23 @@
                 "sha256:52a8fa809226f0916584b0f30593e3c6c1603005fed4fa1310e4c907b4907159",
                 "sha256:601cb79c9a3f3a39782dc0e6afe31000a7122792916eee308d4858c5e1a30cc4",
                 "sha256:b9f9fdc8f25f85e0b848b668293df199cd414cd01341c7b59c71b0055f97b78f",
-                "sha256:72217620dcdb38816ebe93a7a0c538013724ca7512ae75b660d0b999587f1782",
-                "sha256:f57683238e0b6c45c6279d987cdcc498840fac0880c4a1db94734140529b6f2e"
+                "sha256:a833f40b67592fdbf763d2fb629b9ad0ae69acf84f3fa85ced40f307aa4a2b45",
+                "sha256:5efb24555d2fa5ff3655c563a53c6f17840fd3b8b499adccf3e15883edeb822a"
             ]
         },
         "Metadata": {
-            "LastTagTime": "2026-05-22T03:52:38.730104655Z"
+            "LastTagTime": "2026-05-22T04:03:40.286511209Z"
         },
         "Descriptor": {
             "mediaType": "application/vnd.oci.image.index.v1+json",
-            "digest": "sha256:9ee0afc1730fb402e28ac1bcfce5268a2e4686ade4ef1a1a0fc623a2e1bdf8ec",
+            "digest": "sha256:bf9d25eb2d16ebd602bc3ecea1a3b70951785ea74a70081f91f910ea42de4ff5",
             "size": 856
         },
         "Identity": {
             "Build": [
                 {
-                    "Ref": "w9d0sk51soywpztububhwcr4c",
-                    "CreatedAt": "2026-05-22T03:52:38.762704048Z"
+                    "Ref": "yd6tr7ohca9fnn9lfaet16dd4",
+                    "CreatedAt": "2026-05-22T04:03:40.309329651Z"
                 }
             ]
         }

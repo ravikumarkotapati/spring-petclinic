@@ -64,18 +64,28 @@ $mdPath = Join-Path $OutputDirectory "rehost-smoke-test-evidence.md"
 $results | Export-Csv -NoTypeInformation -Encoding UTF8 -Path $csvPath
 
 $markdown = New-Object System.Collections.Generic.List[string]
+function ConvertTo-MarkdownCell {
+    param([object]$Value)
+
+    if ($null -eq $Value) {
+        return ""
+    }
+
+    return ([string]$Value).Replace("|", "\|").Replace("`r", " ").Replace("`n", " ")
+}
+
 $markdown.Add("# Rehost Smoke Test Evidence")
 $markdown.Add("")
 $markdown.Add("| Field | Value |")
 $markdown.Add("|---|---|")
-$markdown.Add("| App URL | `$normalizedUrl` |")
-$markdown.Add("| Test time | `$timestamp` |")
+$markdown.Add("| App URL | $(ConvertTo-MarkdownCell $normalizedUrl) |")
+$markdown.Add("| Test time | $(ConvertTo-MarkdownCell $timestamp) |")
 $markdown.Add("")
-$markdown.Add("| Endpoint | URL | Status | Expected Text Found | Duration ms | Result |")
-$markdown.Add("|---|---|---:|---|---:|---|")
+$markdown.Add("| Endpoint | URL | Status | Expected Text Found | Duration ms | Result | Error |")
+$markdown.Add("|---|---|---:|---|---:|---|---|")
 foreach ($result in $results) {
     $status = if ($result.Passed) { "PASS" } else { "FAIL" }
-    $markdown.Add("| $($result.Name) | `$($result.Url)` | $($result.StatusCode) | $($result.ExpectedTextFound) | $($result.DurationMs) | $status |")
+    $markdown.Add("| $(ConvertTo-MarkdownCell $result.Name) | $(ConvertTo-MarkdownCell $result.Url) | $($result.StatusCode) | $($result.ExpectedTextFound) | $($result.DurationMs) | $status | $(ConvertTo-MarkdownCell $result.Error) |")
 }
 $markdown | Set-Content -Encoding UTF8 -Path $mdPath
 

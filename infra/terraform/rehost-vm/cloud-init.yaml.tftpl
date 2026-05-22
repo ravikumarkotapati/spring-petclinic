@@ -14,9 +14,10 @@ groups:
 users:
   - default
   - name: petclinic
-    groups: petclinic
+    primary_group: petclinic
     shell: /usr/sbin/nologin
     system: true
+    lock_passwd: true
 
 write_files:
   - path: /opt/petclinic/render-env.sh

@@ -1,0 +1,9 @@
+{
+  "endIpAddress": "0.0.0.0",
+  "id": "/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-db-dev/providers/Microsoft.DBforPostgreSQL/flexibleServers/petclinic-pg-qevd19/firewallRules/allow-azure-services",
+  "name": "allow-azure-services",
+  "resourceGroup": "rg-petclinic-db-dev",
+  "startIpAddress": "0.0.0.0",
+  "systemData": null,
+  "type": "Microsoft.DBforPostgreSQL/flexibleServers/firewallRules"
+}

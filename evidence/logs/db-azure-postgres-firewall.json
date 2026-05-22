@@ -1,0 +1,9 @@
+{
+  "endIpAddress": "101.100.182.17",
+  "id": "/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-db-dev/providers/Microsoft.DBforPostgreSQL/flexibleServers/petclinic-pg-qevd19/firewallRules/allow-current-client",
+  "name": "allow-current-client",
+  "resourceGroup": "rg-petclinic-db-dev",
+  "startIpAddress": "101.100.182.17",
+  "systemData": null,
+  "type": "Microsoft.DBforPostgreSQL/flexibleServers/firewallRules"
+}

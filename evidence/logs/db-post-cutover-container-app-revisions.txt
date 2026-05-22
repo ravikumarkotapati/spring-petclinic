@@ -1,0 +1,3 @@
+CreatedTime                Active    Replicas    TrafficWeight    HealthState    ProvisioningState    Name
+-------------------------  --------  ----------  ---------------  -------------  -------------------  --------------------------------
+2026-05-22T07:55:42+00:00  True      1           100              Healthy        Provisioned          petclinic-container-app--0000002

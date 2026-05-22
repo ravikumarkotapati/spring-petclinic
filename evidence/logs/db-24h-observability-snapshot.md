@@ -3,6 +3,7 @@
 | Item | Value |
 |---|---|
 | Target | Azure Database for PostgreSQL Flexible Server |
+| Live server | `petclinic-pg-qevd19.postgres.database.azure.com` |
 | Monitoring system | Azure Monitor and PostgreSQL metrics |
 | Snapshot type | Hypercare metric checklist and assessment baseline |
 | Hypercare window | First 24 hours after production cutover |
@@ -25,8 +26,10 @@
 |---|---|
 | Schema conversion | PASS |
 | Data validation | PASS |
+| Azure target row counts | PASS |
+| Container App cutover smoke test | PASS |
 | Cutover runbook | Ready |
 | Rollback decision tree | Ready |
 | Observability thresholds | Defined |
 
-During a live production cutover, export Azure Monitor charts for CPU, storage, connections, failed connections and latency for the first 24-hour window and attach them here.
+The assessment deployment captured the initial functional snapshot immediately after cutover. During a live production cutover, export Azure Monitor charts for CPU, storage, connections, failed connections and latency for the first 24-hour window and attach them here.

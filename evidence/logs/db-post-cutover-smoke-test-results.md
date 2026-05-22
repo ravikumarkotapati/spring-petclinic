@@ -1,47 +1,31 @@
-# Post-Cutover Smoke Test Results
+# Container Apps Health Check Evidence
 
 | Item | Value |
 |---|---|
-| Target database | Azure Database for PostgreSQL Flexible Server |
-| Application profile | `postgres` |
-| Connection source | Key Vault / Container Apps secret references |
-| Data validation status | PASS |
-| Migration rehearsal status | PASS |
-| Application smoke status | Command prepared for live Azure DB cutover |
+| Endpoint | https://petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io |
+| Captured at | 2026-05-22T15:58:05+08:00 |
 
-## Data Smoke Results
+| Check | URL | Status | Success | Duration ms |
+|---|---|---:|---|---:|
+| home | https://petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io/ | 200 | True | 3491 |
+| health | https://petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io/actuator/health | 200 | True | 1338 |
+| owners | https://petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io/owners/find | 200 | True | 1216 |
 
-| Check | Result |
-|---|---|
-| Row counts per table | PASS |
-| Table-level SHA-256 hashes | PASS |
-| Referential-integrity spot checks | PASS |
-| Identity sequence next values | PASS |
+## Response Excerpts
 
-Detailed data validation output:
+### home
 
-`evidence/logs/db-data-validation-results.md`
+```text
+<!DOCTYPE html> <html> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <me
+```
+### health
 
-Migration rehearsal output:
-
-`evidence/logs/db-migration-log.md`
-
-## Application Smoke Commands
-
-Run after applying the target database connection secrets:
-
-```powershell
-PowerShell.exe -NoProfile -ExecutionPolicy Bypass -File .\tests\smoke_test_container_app.ps1 -EndpointUrl "https://petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io"
+```text
+{"groups":["liveness","readiness"],"status":"UP"}
 ```
 
-Expected endpoints:
+### owners
 
-| Endpoint | Expected Result |
-|---|---|
-| `/actuator/health` | HTTP `200`, status `UP` |
-| `/owners/find` | HTTP `200` |
-| `/vets.html` | HTTP `200` |
-
-## Cutover Gate
-
-Enable writes on the target only after both data validation and application smoke checks pass.
+```text
+<!DOCTYPE html> <html> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <me
+```

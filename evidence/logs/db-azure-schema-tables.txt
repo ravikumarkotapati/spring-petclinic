@@ -1,0 +1,11 @@
+                 List of relations
+ Schema |      Name       | Type  |     Owner
+--------+-----------------+-------+----------------
+ public | owners          | table | petclinicadmin
+ public | pets            | table | petclinicadmin
+ public | specialties     | table | petclinicadmin
+ public | types           | table | petclinicadmin
+ public | vet_specialties | table | petclinicadmin
+ public | vets            | table | petclinicadmin
+ public | visits          | table | petclinicadmin
+(7 rows)

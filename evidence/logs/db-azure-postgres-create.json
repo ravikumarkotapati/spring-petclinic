@@ -1,0 +1,12 @@
+{
+  "fullyQualifiedDomainName": "petclinic-pg-qevd19.postgres.database.azure.com",
+  "location": "Central US",
+  "name": "petclinic-pg-qevd19",
+  "publicNetworkAccess": null,
+  "resourceGroup": "rg-petclinic-db-dev",
+  "sku": "Standard_B1ms",
+  "state": "Ready",
+  "storageGb": 32,
+  "tier": "Burstable",
+  "version": "16"
+}

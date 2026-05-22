@@ -7,7 +7,9 @@
 | Username key | `POSTGRES_USER` |
 | Password key | `POSTGRES_PASS` |
 | Secret store pattern | Key Vault references or Container Apps secrets |
-| TLS requirement | `sslmode=require` in JDBC URL |
+| TLS requirement | `SPRING_DATASOURCE_HIKARI_DATA_SOURCE_PROPERTIES_SSLMODE=require` |
+| Live Key Vault | `petclinicdbqevd19kv` |
+| Live Azure PostgreSQL host | `petclinic-pg-qevd19.postgres.database.azure.com` |
 
 ## Evidence Of Externalized Configuration
 
@@ -27,10 +29,16 @@ spring.datasource.password=${POSTGRES_PASS:petclinic}
 | `petclinic-postgres-username` | Application database principal |
 | `petclinic-postgres-password` | Application database password when password auth is used |
 
+The live Container App uses a JDBC URL without an inline query string and sets TLS through `SPRING_DATASOURCE_HIKARI_DATA_SOURCE_PROPERTIES_SSLMODE=require`.
+
 ## Deployment Evidence
 
 The cutover manifest pattern is captured in:
 
 `infra/container-apps/petclinic-containerapp-db-cutover.template.yaml`
+
+Live cutover validation is captured in:
+
+`evidence/logs/db-post-cutover-smoke-test-results.md`
 
 The production platform should grant the application managed identity access to these secrets and avoid committing any database password to source control.

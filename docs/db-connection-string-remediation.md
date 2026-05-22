@@ -18,9 +18,11 @@ The application already supports environment-driven PostgreSQL configuration thr
 
 | Secret | Example Value |
 |---|---|
-| `petclinic-postgres-jdbc-url` | `jdbc:postgresql://<server>.postgres.database.azure.com:5432/petclinic?sslmode=require` |
+| `petclinic-postgres-jdbc-url` | `jdbc:postgresql://<server>.postgres.database.azure.com:5432/petclinic` |
 | `petclinic-postgres-username` | `petclinic_app` or Microsoft Entra-backed identity where supported |
 | `petclinic-postgres-password` | Stored only in Key Vault or platform secret store |
+
+TLS is enforced separately with the runtime setting `SPRING_DATASOURCE_HIKARI_DATA_SOURCE_PROPERTIES_SSLMODE=require`. Keeping TLS as an explicit runtime property avoids ambiguity when platform secret tooling parses JDBC query strings.
 
 ## Container App Environment Mapping
 
@@ -34,7 +36,18 @@ env:
     secretRef: petclinic-postgres-username
   - name: POSTGRES_PASS
     secretRef: petclinic-postgres-password
+  - name: SPRING_DATASOURCE_HIKARI_DATA_SOURCE_PROPERTIES_SSLMODE
+    value: require
 ```
+
+## Live Assessment Mapping
+
+| Item | Value |
+|---|---|
+| Key Vault | `petclinicdbqevd19kv` |
+| Azure PostgreSQL server | `petclinic-pg-qevd19.postgres.database.azure.com` |
+| Database | `petclinic` |
+| Container App revision | `petclinic-container-app--0000002` |
 
 ## Managed Identity Pattern
 
@@ -50,3 +63,4 @@ env:
 | Runtime environment matrix | `inventory/runtime_environment_matrix.csv` |
 | Container Apps manifest pattern | `infra/container-apps/petclinic-containerapp-db-cutover.template.yaml` |
 | Cutover runbook | `docs/db-migration-runbook.md` |
+| Live cutover evidence | `evidence/logs/db-post-cutover-smoke-test-results.md` |

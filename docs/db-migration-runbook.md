@@ -8,10 +8,22 @@ This runbook covers Module 8 database migration for Spring PetClinic from the on
 |---|---|
 | Source database | `postgres-db-vm:5432/petclinic` |
 | Target service | Azure Database for PostgreSQL Flexible Server |
+| Live assessment target | `petclinic-pg-qevd19.postgres.database.azure.com`, database `petclinic` |
+| Azure resource group | `rg-petclinic-db-dev` |
 | Selected mode | Offline `pg_dump` / `pg_restore` |
 | Downtime tolerance | 30 minutes for the assessment workload |
 | App config keys | `SPRING_PROFILES_ACTIVE=postgres`, `POSTGRES_URL`, `POSTGRES_USER`, `POSTGRES_PASS` |
 | Cutover owner | Application / migration engineer |
+
+## Live Azure Target
+
+The assessment deployment created Azure Database for PostgreSQL Flexible Server `petclinic-pg-qevd19` in resource group `rg-petclinic-db-dev`.
+
+Portal path:
+
+`Resource groups` > `rg-petclinic-db-dev` > `petclinic-pg-qevd19` > `Databases` > `petclinic`
+
+The post-cutover Azure Container Apps revision `petclinic-container-app--0000002` connects to this server with the `postgres` Spring profile and passed smoke tests for `/`, `/actuator/health` and `/owners/find`.
 
 ## Source Dependency Summary
 
@@ -135,9 +147,10 @@ For live database validation, run `scripts/data_validate/validation_queries.sql`
 6. Store target connection values in Key Vault or platform secrets.
 7. Repoint application settings:
    - `SPRING_PROFILES_ACTIVE=postgres`
-   - `POSTGRES_URL=jdbc:postgresql://<server>.postgres.database.azure.com:5432/petclinic?sslmode=require`
+   - `POSTGRES_URL=jdbc:postgresql://<server>.postgres.database.azure.com:5432/petclinic`
    - `POSTGRES_USER=<managed-db-user>`
    - `POSTGRES_PASS=<secret reference>`
+   - `SPRING_DATASOURCE_HIKARI_DATA_SOURCE_PROPERTIES_SSLMODE=require`
 8. Restart or roll a new application revision.
 9. Run application smoke tests:
    - `/actuator/health`
@@ -174,7 +187,7 @@ Reverse replication is not configured for the offline assessment path. For produ
 | Area | Target Configuration |
 |---|---|
 | Private connectivity | Prefer private endpoint or delegated VNet access from the application environment |
-| Firewall | Deny public access unless temporary migration runner access is explicitly required |
+| Firewall | Assessment deployment used temporary client and Azure-services firewall rules; production should deny public access unless migration runner access is explicitly approved |
 | TLS | Require TLS and use JDBC `sslmode=require` |
 | Authentication | Use Microsoft Entra authentication where supported; store local database credentials in Key Vault when password auth is required |
 | Backup/PITR | Enable automated backups and set retention according to business RPO |
@@ -196,5 +209,9 @@ Reverse replication is not configured for the offline assessment path. For produ
 | Replication lag chart data | `evidence/logs/db-replication-lag.csv` |
 | Source and target row count captures | `evidence/logs/db-source-row-counts.txt`, `evidence/logs/db-target-row-counts.txt` |
 | Connection string remediation | `evidence/logs/db-connection-string-remediation.md` |
+| Live Azure PostgreSQL deployment summary | `evidence/logs/db-azure-postgres-deployment-summary.md` |
+| Live Azure PostgreSQL restore log | `evidence/logs/db-azure-restore-log.md` |
+| Live Azure PostgreSQL validation queries | `evidence/logs/db-azure-validation-queries.txt` |
+| Live Container App startup after DB cutover | `evidence/logs/db-post-cutover-container-app-startup.log` |
 | Post-cutover smoke test | `evidence/logs/db-post-cutover-smoke-test-results.md` |
 | Observability snapshot | `evidence/logs/db-24h-observability-snapshot.md` |

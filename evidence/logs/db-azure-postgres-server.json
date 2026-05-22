@@ -1,0 +1,85 @@
+{
+  "administratorLogin": "petclinicadmin",
+  "administratorLoginPassword": null,
+  "authConfig": {
+    "activeDirectoryAuth": "Disabled",
+    "passwordAuth": "Enabled",
+    "tenantId": null
+  },
+  "availabilityZone": "3",
+  "backup": {
+    "backupRetentionDays": 7,
+    "earliestRestoreDate": "2026-05-22T07:43:28.070079+00:00",
+    "geoRedundantBackup": "Disabled"
+  },
+  "cluster": null,
+  "createMode": null,
+  "dataEncryption": {
+    "geoBackupEncryptionKeyStatus": null,
+    "geoBackupKeyUri": null,
+    "geoBackupUserAssignedIdentityId": null,
+    "primaryEncryptionKeyStatus": null,
+    "primaryKeyUri": null,
+    "primaryUserAssignedIdentityId": null,
+    "type": "SystemManaged"
+  },
+  "fullyQualifiedDomainName": "petclinic-pg-qevd19.postgres.database.azure.com",
+  "highAvailability": {
+    "mode": "Disabled",
+    "standbyAvailabilityZone": null,
+    "state": "NotEnabled"
+  },
+  "id": "/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-db-dev/providers/Microsoft.DBforPostgreSQL/flexibleServers/petclinic-pg-qevd19",
+  "identity": null,
+  "location": "Central US",
+  "maintenanceWindow": {
+    "customWindow": "Disabled",
+    "dayOfWeek": 0,
+    "startHour": 0,
+    "startMinute": 0
+  },
+  "minorVersion": "13",
+  "name": "petclinic-pg-qevd19",
+  "network": {
+    "delegatedSubnetResourceId": null,
+    "privateDnsZoneArmResourceId": null,
+    "publicNetworkAccess": "Enabled"
+  },
+  "pointInTimeUtc": null,
+  "privateEndpointConnections": [],
+  "replica": {
+    "capacity": 5,
+    "promoteMode": null,
+    "promoteOption": null,
+    "replicationState": null,
+    "role": "Primary"
+  },
+  "replicaCapacity": 5,
+  "replicationRole": "Primary",
+  "resourceGroup": "rg-petclinic-db-dev",
+  "sku": {
+    "name": "Standard_B1ms",
+    "tier": "Burstable"
+  },
+  "sourceServerResourceId": null,
+  "state": "Ready",
+  "storage": {
+    "autoGrow": "Disabled",
+    "iops": 120,
+    "storageSizeGb": 32,
+    "throughput": null,
+    "tier": "P4",
+    "type": ""
+  },
+  "systemData": {
+    "createdAt": "2026-05-22T07:35:46.836591+00:00",
+    "createdBy": null,
+    "createdByType": null,
+    "lastModifiedAt": null,
+    "lastModifiedBy": null,
+    "lastModifiedByType": null
+  },
+  "tags": null,
+  "type": "Microsoft.DBforPostgreSQL/flexibleServers",
+  "version": "16"
+}

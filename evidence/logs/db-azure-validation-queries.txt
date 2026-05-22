@@ -1,0 +1,37 @@
+   table_name    | row_count
+-----------------+-----------
+ owners          |        10
+ pets            |        13
+ specialties     |         3
+ types           |         6
+ vets            |         6
+ vet_specialties |         5
+ visits          |         4
+(7 rows)
+
+ table_name |             checksum
+------------+----------------------------------
+ owners     | 9bfb185519cf2072ebda4e3e753aa769
+ pets       | 500ff1f126413a82f3c9bf8244b6a2fc
+ vets       | a02bf8bfe1b999c768851d1cac4c9ad5
+ visits     | 5f334fc4c0e62aedfb8c553f00de4b91
+(4 rows)
+
+            check_name             | failures
+-----------------------------------+----------
+ pets_without_owner                |        0
+ pets_without_type                 |        0
+ visits_without_pet                |        0
+ vet_specialties_without_vet       |        0
+ vet_specialties_without_specialty |        0
+(5 rows)
+
+   sequence_name    | max_id
+--------------------+--------
+ owners_id_seq      |     10
+ pets_id_seq        |     13
+ visits_id_seq      |      4
+ vets_id_seq        |      6
+ specialties_id_seq |      3
+ types_id_seq       |      6
+(6 rows)

@@ -24,5 +24,7 @@ properties:
             secretRef: petclinic-postgres-username
           - name: POSTGRES_PASS
             secretRef: petclinic-postgres-password
+          - name: SPRING_DATASOURCE_HIKARI_DATA_SOURCE_PROPERTIES_SSLMODE
+            value: require
           - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
             value: health,info

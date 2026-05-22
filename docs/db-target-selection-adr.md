@@ -20,6 +20,8 @@ Module 5 standardized the container runtime on `SPRING_PROFILES_ACTIVE=postgres`
 
 Use **Azure Database for PostgreSQL Flexible Server** as the managed Azure database target.
 
+The live assessment deployment uses server `petclinic-pg-qevd19.postgres.database.azure.com` and database `petclinic` in resource group `rg-petclinic-db-dev`.
+
 ## Decision Drivers
 
 | Driver | Assessment |
@@ -67,3 +69,5 @@ The assessment data set is small and the downtime tolerance is set to 30 minutes
 | Schema conversion report | `scripts/schema_convert/conversion_report.md` |
 | Data validation harness output | `evidence/logs/db-data-validation-results.md` |
 | Migration runbook | `docs/db-migration-runbook.md` |
+| Live Azure PostgreSQL deployment | `evidence/logs/db-azure-postgres-deployment-summary.md` |
+| Live Azure validation queries | `evidence/logs/db-azure-validation-queries.txt` |

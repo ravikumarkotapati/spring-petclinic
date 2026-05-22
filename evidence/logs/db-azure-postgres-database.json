@@ -1,0 +1,9 @@
+{
+  "charset": "UTF8",
+  "collation": "en_US.utf8",
+  "id": "/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-db-dev/providers/Microsoft.DBforPostgreSQL/flexibleServers/petclinic-pg-qevd19/databases/petclinic",
+  "name": "petclinic",
+  "resourceGroup": "rg-petclinic-db-dev",
+  "systemData": null,
+  "type": "Microsoft.DBforPostgreSQL/flexibleServers/databases"
+}

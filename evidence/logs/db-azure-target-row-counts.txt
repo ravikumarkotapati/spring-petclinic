@@ -1,0 +1,10 @@
+   table_name    | row_count
+-----------------+-----------
+ owners          |        10
+ pets            |        13
+ specialties     |         3
+ types           |         6
+ vets            |         6
+ vet_specialties |         5
+ visits          |         4
+(7 rows)

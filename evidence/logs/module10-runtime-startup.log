@@ -22,24 +22,24 @@
 [INFO] Collected git.build.user.name with value ravik
 [INFO] Collected git.build.user.email with value ravik.kotapati@gmail.com
 [INFO] Collected git.branch with value module10-app-configuration-modernization
-[INFO] Collected git.commit.id.describe with value c6b0cad-dirty
-[INFO] Collected git.commit.id.describe-short with value c6b0cad-dirty
-[INFO] Collected git.commit.id with value c6b0cad885ef558ea703663179923a77c25eadb8
-[INFO] Collected git.commit.id.abbrev with value c6b0cad
+[INFO] Collected git.commit.id.describe with value 2b5126f-dirty
+[INFO] Collected git.commit.id.describe-short with value 2b5126f-dirty
+[INFO] Collected git.commit.id with value 2b5126f093afe19e83a31d2cbe456940932d439f
+[INFO] Collected git.commit.id.abbrev with value 2b5126f
 [INFO] Collected git.dirty with value true
 [INFO] Collected git.commit.user.name with value ravik
 [INFO] Collected git.commit.user.email with value ravik.kotapati@gmail.com
-[INFO] Collected git.commit.message.full with value Add Module 9 network dependency design
-[INFO] Collected git.commit.message.short with value Add Module 9 network dependency design
-[INFO] Collected git.commit.time with value 2026-05-22T19:36:10+08:00
-[INFO] Collected git.commit.author.time with value 2026-05-22T19:36:10+08:00
-[INFO] Collected git.commit.committer.time with value 2026-05-22T19:36:10+08:00
+[INFO] Collected git.commit.message.full with value Add Module 10 app configuration modernization
+[INFO] Collected git.commit.message.short with value Add Module 10 app configuration modernization
+[INFO] Collected git.commit.time with value 2026-05-22T20:22:12+08:00
+[INFO] Collected git.commit.author.time with value 2026-05-22T20:22:12+08:00
+[INFO] Collected git.commit.committer.time with value 2026-05-22T20:22:12+08:00
 [INFO] Collected git.remote.origin.url with value https://github.com/ravikumarkotapati/spring-petclinic
 [INFO] Collected git.tags with value
 [INFO] Collected git.tag with value
 [INFO] Collected git.closest.tag.name with value
 [INFO] Collected git.closest.tag.commit.count with value
-[INFO] Collected git.total.commit.count with value 1061
+[INFO] Collected git.total.commit.count with value 1062
 [INFO] Collected git.local.branch.ahead with value NO_REMOTE
 [INFO] Collected git.local.branch.behind with value NO_REMOTE
 [INFO] Collected git.build.time with value 2024-11-28T22:37:52+08:00
@@ -72,7 +72,7 @@
 [INFO] including property 'git.commit.message.full' in results
 [INFO] including property 'git.remote.origin.url' in results
 [INFO] Reading existing properties file [E:\spring-petclinic\target\classes\git.properties] (for project petclinic)...
-[INFO] Properties file [E:\spring-petclinic\target\classes\git.properties] is up-to-date (for module petclinic)...
+[INFO] Writing properties file [E:\spring-petclinic\target\classes\git.properties] (for project petclinic)...
 [INFO]
 [INFO] --- spring-boot:4.0.3:build-info (default) @ spring-petclinic ---
 [INFO]
@@ -118,40 +118,40 @@
 :: Built with Spring Boot :: 4.0.3
 
 
-2026-05-22T20:11:37.855+08:00  INFO 20968 --- [  restartedMain] o.s.s.petclinic.PetClinicApplication     : Starting PetClinicApplication using Java 17.0.3 with PID 20968 (E:\spring-petclinic\target\classes started by ravik in E:\spring-petclinic)
-2026-05-22T20:11:37.888+08:00  INFO 20968 --- [  restartedMain] o.s.s.petclinic.PetClinicApplication     : The following 1 profile is active: "azure"
-2026-05-22T20:11:37.959+08:00  INFO 20968 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2026-05-22T20:11:37.961+08:00  INFO 20968 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2026-05-22T20:11:38.903+08:00  INFO 20968 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-05-22T20:11:38.994+08:00  INFO 20968 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 73 ms. Found 3 JPA repository interfaces.
-2026-05-22T20:11:39.756+08:00  INFO 20968 --- [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8091 (http)
-2026-05-22T20:11:39.773+08:00  INFO 20968 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-05-22T20:11:39.870+08:00  INFO 20968 --- [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-05-22T20:11:39.973+08:00  INFO 20968 --- [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2008 ms
-2026-05-22T20:11:40.186+08:00  INFO 20968 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-05-22T20:11:40.447+08:00  INFO 20968 --- [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:34ceaf95-efba-4aa9-becc-526ee872fe29 user=SA
-2026-05-22T20:11:40.514+08:00  INFO 20968 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-05-22T20:11:40.693+08:00  INFO 20968 --- [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-05-22T20:11:40.752+08:00  INFO 20968 --- [  restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
-2026-05-22T20:11:41.240+08:00  INFO 20968 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-05-22T20:11:41.330+08:00  INFO 20968 --- [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [jdbc:h2:mem:34ceaf95-efba-4aa9-becc-526ee872fe29]
+2026-05-22T20:29:32.354+08:00  INFO 17032 --- [  restartedMain] o.s.s.petclinic.PetClinicApplication     : Starting PetClinicApplication using Java 17.0.3 with PID 17032 (E:\spring-petclinic\target\classes started by ravik in E:\spring-petclinic)
+2026-05-22T20:29:32.378+08:00  INFO 17032 --- [  restartedMain] o.s.s.petclinic.PetClinicApplication     : The following 1 profile is active: "azure"
+2026-05-22T20:29:32.465+08:00  INFO 17032 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-05-22T20:29:32.466+08:00  INFO 17032 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-05-22T20:29:33.416+08:00  INFO 17032 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-22T20:29:33.506+08:00  INFO 17032 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 72 ms. Found 3 JPA repository interfaces.
+2026-05-22T20:29:34.306+08:00  INFO 17032 --- [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8091 (http)
+2026-05-22T20:29:34.322+08:00  INFO 17032 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-22T20:29:34.323+08:00  INFO 17032 --- [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-05-22T20:29:34.396+08:00  INFO 17032 --- [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1928 ms
+2026-05-22T20:29:34.643+08:00  INFO 17032 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-22T20:29:34.876+08:00  INFO 17032 --- [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:765491e3-6670-4a28-9993-f6291986700e user=SA
+2026-05-22T20:29:34.879+08:00  INFO 17032 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-22T20:29:35.028+08:00  INFO 17032 --- [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-05-22T20:29:35.089+08:00  INFO 17032 --- [  restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-05-22T20:29:35.643+08:00  INFO 17032 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-22T20:29:35.730+08:00  INFO 17032 --- [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:765491e3-6670-4a28-9993-f6291986700e]
 	Database driver: H2 JDBC Driver
 	Database dialect: H2Dialect
 	Database version: 2.4.240
-	Default catalog/schema: 34CEAF95-EFBA-4AA9-BECC-526EE872FE29/PUBLIC
+	Default catalog/schema: 765491E3-6670-4A28-9993-F6291986700E/PUBLIC
 	Autocommit mode: undefined/unknown
 	Isolation level: READ_COMMITTED [default READ_COMMITTED]
 	JDBC fetch size: 100
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-05-22T20:11:42.436+08:00  INFO 20968 --- [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-05-22T20:11:42.444+08:00  INFO 20968 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-05-22T20:11:42.537+08:00  INFO 20968 --- [  restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-05-22T20:11:43.708+08:00  INFO 20968 --- [  restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoints beneath base path '/actuator'
-2026-05-22T20:11:43.816+08:00  INFO 20968 --- [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8091 (http) with context path '/'
-2026-05-22T20:11:43.827+08:00  INFO 20968 --- [  restartedMain] o.s.s.petclinic.PetClinicApplication     : Started PetClinicApplication in 6.477 seconds (process running for 7.182)
-2026-05-22T20:11:44.110+08:00  INFO 20968 --- [nio-8091-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-05-22T20:11:44.111+08:00  INFO 20968 --- [nio-8091-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-05-22T20:11:44.113+08:00  INFO 20968 --- [nio-8091-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-05-22T20:29:36.885+08:00  INFO 17032 --- [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-22T20:29:36.895+08:00  INFO 17032 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-22T20:29:37.113+08:00  INFO 17032 --- [  restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-05-22T20:29:38.451+08:00  INFO 17032 --- [  restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoints beneath base path '/actuator'
+2026-05-22T20:29:38.576+08:00  INFO 17032 --- [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8091 (http) with context path '/'
+2026-05-22T20:29:38.589+08:00  INFO 17032 --- [  restartedMain] o.s.s.petclinic.PetClinicApplication     : Started PetClinicApplication in 6.748 seconds (process running for 7.419)
+2026-05-22T20:29:38.698+08:00  INFO 17032 --- [nio-8091-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-22T20:29:38.699+08:00  INFO 17032 --- [nio-8091-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-05-22T20:29:38.702+08:00  INFO 17032 --- [nio-8091-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms

@@ -139,17 +139,33 @@ write_files:
           }
       }
 
+  - path: /opt/petclinic/bootstrap.sh
+    owner: root:root
+    permissions: '0750'
+    content: |
+      #!/usr/bin/env bash
+      set -euo pipefail
+
+      export HOME=/root
+
+      install -d -o petclinic -g petclinic /opt/petclinic /var/log/petclinic
+      git clone --branch ${repo_branch} --depth 1 ${repo_url} /opt/petclinic/source
+
+      cd /opt/petclinic/source
+      ./mvnw -DskipTests package
+
+      cp /opt/petclinic/source/target/*.jar /opt/petclinic/app.jar
+      chown -R petclinic:petclinic /opt/petclinic /var/log/petclinic
+
+      rm -f /etc/nginx/sites-enabled/default
+      ln -sf /etc/nginx/sites-available/petclinic /etc/nginx/sites-enabled/petclinic
+      nginx -t
+
+      systemctl daemon-reload
+      systemctl enable petclinic
+      systemctl restart petclinic
+      systemctl enable nginx
+      systemctl restart nginx
+
 runcmd:
-  - install -d -o petclinic -g petclinic /opt/petclinic /var/log/petclinic
-  - git clone --branch ${repo_branch} --depth 1 ${repo_url} /opt/petclinic/source
-  - cd /opt/petclinic/source && ./mvnw -DskipTests package
-  - cp /opt/petclinic/source/target/*.jar /opt/petclinic/app.jar
-  - chown -R petclinic:petclinic /opt/petclinic /var/log/petclinic
-  - rm -f /etc/nginx/sites-enabled/default
-  - ln -sf /etc/nginx/sites-available/petclinic /etc/nginx/sites-enabled/petclinic
-  - nginx -t
-  - systemctl daemon-reload
-  - systemctl enable petclinic
-  - systemctl restart petclinic
-  - systemctl enable nginx
-  - systemctl restart nginx
+  - /opt/petclinic/bootstrap.sh

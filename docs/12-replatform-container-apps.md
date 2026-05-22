@@ -10,6 +10,7 @@ The selected managed container target is Azure Container Apps. It gives this mon
 |---|---|
 | [`infra/terraform/container-apps/`](../infra/terraform/container-apps/) | Terraform deployment manifest for Azure Container Apps |
 | [`infra/container-apps/petclinic-containerapp.template.yaml`](../infra/container-apps/petclinic-containerapp.template.yaml) | Human-readable Container Apps target manifest |
+| [`docs/replatform-container-apps-architecture.svg`](replatform-container-apps-architecture.svg) | Rendered replatform architecture image |
 | [`docs/replatform-container-apps-architecture.mmd`](replatform-container-apps-architecture.mmd) | Replatform architecture diagram |
 | [`inventory/replatform_target_comparison.csv`](../inventory/replatform_target_comparison.csv) | VM, App Service, Container Apps and AKS comparison |
 | [`tests/smoke_test_container_app.ps1`](../tests/smoke_test_container_app.ps1) | Endpoint and health validation script |
@@ -17,6 +18,10 @@ The selected managed container target is Azure Container Apps. It gives this mon
 | [`evidence/logs/container-app-health-evidence.md`](../evidence/logs/container-app-health-evidence.md) | Health check and endpoint evidence |
 | [`evidence/logs/container-app-status.json`](../evidence/logs/container-app-status.json) | Azure Container Apps provisioning and running status |
 | [`evidence/logs/container-app-revisions.txt`](../evidence/logs/container-app-revisions.txt) | Active revision, replica count, health and traffic weight |
+
+## Architecture Image
+
+![Module 7 replatform architecture](replatform-container-apps-architecture.svg)
 
 ## Deployment Shape
 
@@ -62,4 +67,4 @@ Detailed comparison is captured in [`inventory/replatform_target_comparison.csv`
 | Endpoint URL | Complete | [`evidence/logs/container-app-deployment-summary.md`](../evidence/logs/container-app-deployment-summary.md) |
 | Health check output | Complete | [`evidence/logs/container-app-health-evidence.md`](../evidence/logs/container-app-health-evidence.md) |
 | Target comparison table | Complete | [`inventory/replatform_target_comparison.csv`](../inventory/replatform_target_comparison.csv) |
-| Replatform architecture diagram | Complete | [`docs/replatform-container-apps-architecture.mmd`](replatform-container-apps-architecture.mmd) |
+| Replatform architecture diagram | Complete | [`docs/replatform-container-apps-architecture.svg`](replatform-container-apps-architecture.svg) and [`docs/replatform-container-apps-architecture.mmd`](replatform-container-apps-architecture.mmd) |

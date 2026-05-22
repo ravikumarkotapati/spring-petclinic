@@ -1,0 +1,151 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - main
+
+name: petclinic-$(Date:yyyyMMdd)$(Rev:.r)
+
+variables:
+  - group: petclinic-migration-dev
+  - name: vmImage
+    value: ubuntu-latest
+  - name: imageRepository
+    value: spring-petclinic
+  - name: dockerfile
+    value: Dockerfile
+  - name: buildContext
+    value: .
+  - name: terraformWorkingDirectory
+    value: infra/terraform/acr
+  - name: terraformCommand
+    value: plan
+  - name: deployEnvironment
+    value: petclinic-dev
+  - name: AZURE_LOCATION
+    value: centralus
+  - name: RESOURCE_GROUP_NAME
+    value: rg-petclinic-cicd-dev
+  - name: ACR_SKU
+    value: Basic
+
+stages:
+  - stage: Discovery
+    displayName: Discovery
+    jobs:
+      - job: SourceAndDependencyDiscovery
+        displayName: Run dependency crawler
+        pool:
+          vmImage: $(vmImage)
+        steps:
+          - checkout: self
+
+          - task: UsePythonVersion@0
+            displayName: Use Python 3.x
+            inputs:
+              versionSpec: "3.x"
+
+          - script: |
+              set -euo pipefail
+              python scripts/dependency_crawler.py --root . --network-flows sample_data/network_flows.csv --out inventory
+            displayName: Generate dependency inventories
+
+          - publish: inventory
+            artifact: discovery-inventory
+            displayName: Publish discovery inventory
+
+  - stage: Build
+    displayName: Build
+    dependsOn: Discovery
+    jobs:
+      - job: MavenBuild
+        displayName: Maven package
+        pool:
+          vmImage: $(vmImage)
+        steps:
+          - checkout: self
+
+          - script: |
+              set -euo pipefail
+              chmod +x ./mvnw
+              ./mvnw -B -DskipTests -Dcheckstyle.skip=true package
+            displayName: Build application package
+
+          - publish: target
+            artifact: maven-target
+            displayName: Publish Maven target output
+
+  - stage: Test
+    displayName: Test
+    dependsOn: Build
+    jobs:
+      - job: MavenTest
+        displayName: Maven tests
+        pool:
+          vmImage: $(vmImage)
+        steps:
+          - checkout: self
+
+          - script: |
+              set -euo pipefail
+              chmod +x ./mvnw
+              ./mvnw -B -Dcheckstyle.skip=true test
+            displayName: Run tests
+
+          - task: PublishTestResults@2
+            displayName: Publish JUnit test results
+            condition: succeededOrFailed()
+            inputs:
+              testResultsFormat: JUnit
+              testResultsFiles: "**/target/surefire-reports/TEST-*.xml"
+
+  - stage: Deploy
+    displayName: Deploy infrastructure through Terraform
+    dependsOn: Test
+    condition: succeeded()
+    jobs:
+      - template: pipelines/templates/deploy-target.yml
+        parameters:
+          jobName: DeployAcrInfrastructure
+          azureServiceConnection: $(AZURE_SERVICE_CONNECTION)
+          vmImage: $(vmImage)
+          environmentName: $(deployEnvironment)
+          terraformWorkingDirectory: $(terraformWorkingDirectory)
+
+  - stage: ImageBuild
+    displayName: Image build
+    dependsOn: Test
+    condition: succeeded()
+    jobs:
+      - template: pipelines/templates/build-container.yml
+        parameters:
+          jobName: BuildContainerImage
+          vmImage: $(vmImage)
+          imageRepository: $(imageRepository)
+          dockerfile: $(dockerfile)
+          buildContext: $(buildContext)
+          pushImage: false
+          scanImage: true
+
+  - stage: ImagePush
+    displayName: Image push to ACR
+    dependsOn:
+      - Deploy
+      - ImageBuild
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    jobs:
+      - template: pipelines/templates/build-container.yml
+        parameters:
+          jobName: BuildAndPushContainerImage
+          vmImage: $(vmImage)
+          imageRepository: $(imageRepository)
+          dockerfile: $(dockerfile)
+          buildContext: $(buildContext)
+          pushImage: true
+          scanImage: true
+          azureServiceConnection: $(AZURE_SERVICE_CONNECTION)
+          acrName: $(ACR_NAME)

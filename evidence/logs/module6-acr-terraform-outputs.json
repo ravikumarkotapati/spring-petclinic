@@ -1,0 +1,22 @@
+{
+  "acr_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-cicd-dev/providers/Microsoft.ContainerRegistry/registries/petclinicacrc6mhqfua"
+  },
+  "acr_login_server": {
+    "sensitive": false,
+    "type": "string",
+    "value": "petclinicacrc6mhqfua.azurecr.io"
+  },
+  "acr_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "petclinicacrc6mhqfua"
+  },
+  "resource_group_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "rg-petclinic-cicd-dev"
+  }
+}

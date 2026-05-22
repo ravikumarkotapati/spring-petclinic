@@ -15,6 +15,7 @@ Module branches are kept as implementation history and review checkpoints:
 | `module3-migration-pattern-assessment` | Module 3 migration pattern decision, wave plan and risk register |
 | `module4-rehost-azure-vm` | Module 4 Azure VM rehost implementation and smoke-test evidence |
 | `module5-containerization` | Module 5 container image, Compose simulation and configuration remediation |
+| `module6-cicd-azure-templates` | Module 6 Azure DevOps CI/CD, ACR and Terraform migration templates |
 
 ## Completed Assessment Scope
 
@@ -25,6 +26,7 @@ Module branches are kept as implementation history and review checkpoints:
 | Module 3 - Migration Pattern Assessment | Complete | [`docs/03-migration-pattern-assessment.md`](03-migration-pattern-assessment.md), [`inventory/migration_decision_matrix.csv`](../inventory/migration_decision_matrix.csv), [`docs/09-adr-log.md`](09-adr-log.md), [`docs/05-migration-wave-plan.md`](05-migration-wave-plan.md), [`inventory/wave_plan.csv`](../inventory/wave_plan.csv), [`docs/04-assumptions-risk-register.md`](04-assumptions-risk-register.md) |
 | Module 4 - Rehost to Azure VM | Complete | [`infra/terraform/rehost-vm/`](../infra/terraform/rehost-vm/), [`scripts/deploy_rehost_vm.ps1`](../scripts/deploy_rehost_vm.ps1), [`docs/06-rehost-runbook.md`](06-rehost-runbook.md), [`docs/07-rehost-ingress-design.md`](07-rehost-ingress-design.md), [`tests/smoke_test_rehost.ps1`](../tests/smoke_test_rehost.ps1), [`evidence/logs/rehost-smoke-test-evidence.md`](../evidence/logs/rehost-smoke-test-evidence.md) |
 | Module 5 - Containerization and Configuration Remediation | Complete | [`Dockerfile`](../Dockerfile), [`docker-compose.yml`](../docker-compose.yml), [`docs/08-containerization-and-configuration-remediation.md`](08-containerization-and-configuration-remediation.md), [`inventory/runtime_environment_matrix.csv`](../inventory/runtime_environment_matrix.csv), [`evidence/logs/container-build.log`](../evidence/logs/container-build.log), [`evidence/logs/container-image-scan-plan.md`](../evidence/logs/container-image-scan-plan.md) |
+| Module 6 - CI/CD and Azure Migration Templates | Complete | [`azure-pipelines.yml`](../azure-pipelines.yml), [`pipelines/templates/`](../pipelines/templates/), [`infra/terraform/acr/`](../infra/terraform/acr/), [`infra/terraform/modules/acr/`](../infra/terraform/modules/acr/), [`docs/10-cicd-and-azure-migration-templates.md`](10-cicd-and-azure-migration-templates.md), [`docs/11-cicd-rollback-strategy.md`](11-cicd-rollback-strategy.md), [`evidence/logs/module6-pipeline-validation.log`](../evidence/logs/module6-pipeline-validation.log), [`evidence/logs/acr-image-evidence.md`](../evidence/logs/acr-image-evidence.md) |
 
 ## Module 4 Live Endpoint
 
@@ -47,4 +49,4 @@ Module 4 uses `centralus` and `Standard_D2s_v3`. The first target region, `eastu
 
 ## Future Modules
 
-The assignment also defines Modules 6-11 for CI/CD, replatforming, database migration, ingress/egress hardening, reengineering and cutover/hypercare. Those should continue from `main` using new module branches, then merge back to `main` after each module is complete.
+The assignment also defines Modules 7-11 for replatforming, database migration, ingress/egress hardening, reengineering and cutover/hypercare. Those should continue from `main` using new module branches, then merge back to `main` after each module is complete.

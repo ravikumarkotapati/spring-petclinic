@@ -1,0 +1,103 @@
+parameters:
+  - name: jobName
+    type: string
+    default: BuildContainer
+  - name: vmImage
+    type: string
+    default: ubuntu-latest
+  - name: imageRepository
+    type: string
+    default: spring-petclinic
+  - name: dockerfile
+    type: string
+    default: Dockerfile
+  - name: buildContext
+    type: string
+    default: .
+  - name: pushImage
+    type: boolean
+    default: false
+  - name: scanImage
+    type: boolean
+    default: true
+  - name: azureServiceConnection
+    type: string
+    default: ""
+  - name: acrName
+    type: string
+    default: ""
+
+jobs:
+  - job: ${{ parameters.jobName }}
+    displayName: ${{ parameters.jobName }}
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    steps:
+      - checkout: self
+
+      - bash: |
+          set -euo pipefail
+          revision="$(Build.SourceVersion)"
+          short_revision="${revision:0:12}"
+          created="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+          docker build \
+            --progress=plain \
+            --build-arg "BUILD_REVISION=${revision}" \
+            --build-arg "BUILD_CREATED=${created}" \
+            --build-arg "APP_VERSION=${short_revision}" \
+            -f "${DOCKERFILE}" \
+            -t "${IMAGE_REPOSITORY}:${short_revision}" \
+            -t "${IMAGE_REPOSITORY}:$(Build.BuildId)" \
+            "${BUILD_CONTEXT}"
+
+          docker image inspect "${IMAGE_REPOSITORY}:${short_revision}"
+        displayName: Build container image
+        env:
+          IMAGE_REPOSITORY: ${{ parameters.imageRepository }}
+          DOCKERFILE: ${{ parameters.dockerfile }}
+          BUILD_CONTEXT: ${{ parameters.buildContext }}
+
+      - ${{ if eq(parameters.scanImage, true) }}:
+          - bash: |
+              set -euo pipefail
+              revision="$(Build.SourceVersion)"
+              short_revision="${revision:0:12}"
+
+              if docker scout version >/dev/null 2>&1; then
+                docker scout cves "${IMAGE_REPOSITORY}:${short_revision}"
+              else
+                echo "Docker Scout is not installed on this agent. Use Trivy, Microsoft Defender for Cloud, or an ACR-connected scanner as the pipeline quality gate."
+              fi
+            displayName: Scan image or record scanner requirement
+            env:
+              IMAGE_REPOSITORY: ${{ parameters.imageRepository }}
+
+      - ${{ if eq(parameters.pushImage, true) }}:
+          - task: AzureCLI@2
+            displayName: Push image tags to Azure Container Registry
+            inputs:
+              azureSubscription: ${{ parameters.azureServiceConnection }}
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                set -euo pipefail
+                revision="$(Build.SourceVersion)"
+                short_revision="${revision:0:12}"
+
+                login_server="$(az acr show --name "${ACR_NAME}" --query loginServer -o tsv)"
+                az acr login --name "${ACR_NAME}"
+
+                for tag in "${short_revision}" "$(Build.BuildId)"; do
+                  docker tag "${IMAGE_REPOSITORY}:${tag}" "${login_server}/${IMAGE_REPOSITORY}:${tag}"
+                  docker push "${login_server}/${IMAGE_REPOSITORY}:${tag}"
+                done
+
+                az acr repository show-tags \
+                  --name "${ACR_NAME}" \
+                  --repository "${IMAGE_REPOSITORY}" \
+                  --orderby time_desc \
+                  --output table
+            env:
+              ACR_NAME: ${{ parameters.acrName }}
+              IMAGE_REPOSITORY: ${{ parameters.imageRepository }}

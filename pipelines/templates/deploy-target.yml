@@ -1,0 +1,67 @@
+parameters:
+  - name: jobName
+    type: string
+    default: DeployTarget
+  - name: azureServiceConnection
+    type: string
+    default: ""
+  - name: vmImage
+    type: string
+    default: ubuntu-latest
+  - name: environmentName
+    type: string
+    default: petclinic-dev
+  - name: terraformWorkingDirectory
+    type: string
+    default: infra/terraform/acr
+
+jobs:
+  - deployment: ${{ parameters.jobName }}
+    displayName: ${{ parameters.jobName }}
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    environment: ${{ parameters.environmentName }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: self
+
+            - task: AzureCLI@2
+              displayName: Terraform init, validate, plan/apply
+              inputs:
+                azureSubscription: ${{ parameters.azureServiceConnection }}
+                scriptType: bash
+                scriptLocation: inlineScript
+                inlineScript: |
+                  set -euo pipefail
+                  cd "${TERRAFORM_WORKING_DIRECTORY}"
+
+                  terraform version
+                  terraform init -input=false
+                  terraform fmt -check -recursive
+                  terraform validate
+
+                  terraform plan \
+                    -input=false \
+                    -lock-timeout=5m \
+                    -out=tfplan \
+                    -var "subscription_id=${SUBSCRIPTION_ID}" \
+                    -var "resource_group_name=${RESOURCE_GROUP_NAME}" \
+                    -var "location=${AZURE_LOCATION}" \
+                    -var "acr_name=${ACR_NAME}" \
+                    -var "acr_sku=${ACR_SKU:-Basic}"
+
+                  if [ "${TERRAFORM_COMMAND:-plan}" = "apply" ]; then
+                    terraform apply -input=false -auto-approve tfplan
+                  else
+                    echo "Terraform command is '${TERRAFORM_COMMAND:-plan}'. Plan created but not applied."
+                  fi
+              env:
+                TERRAFORM_WORKING_DIRECTORY: ${{ parameters.terraformWorkingDirectory }}
+                TERRAFORM_COMMAND: $(terraformCommand)
+                SUBSCRIPTION_ID: $(SUBSCRIPTION_ID)
+                RESOURCE_GROUP_NAME: $(RESOURCE_GROUP_NAME)
+                AZURE_LOCATION: $(AZURE_LOCATION)
+                ACR_NAME: $(ACR_NAME)
+                ACR_SKU: $(ACR_SKU)

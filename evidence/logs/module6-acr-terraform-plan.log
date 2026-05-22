@@ -1,0 +1,74 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # azurerm_resource_group.main will be created
+  + resource "azurerm_resource_group" "main" {
+      + id       = (known after apply)
+      + location = "centralus"
+      + name     = "rg-petclinic-cicd-dev"
+      + tags     = {
+          + "environment" = "dev"
+          + "module"      = "module-6-cicd"
+          + "workload"    = "spring-petclinic"
+        }
+    }
+
+  # random_string.suffix will be created
+  + resource "random_string" "suffix" {
+      + id          = (known after apply)
+      + length      = 8
+      + lower       = true
+      + min_lower   = 0
+      + min_numeric = 0
+      + min_special = 0
+      + min_upper   = 0
+      + number      = true
+      + numeric     = true
+      + result      = (known after apply)
+      + special     = false
+      + upper       = false
+    }
+
+  # module.acr.azurerm_container_registry.main will be created
+  + resource "azurerm_container_registry" "main" {
+      + admin_enabled                 = false
+      + admin_password                = (sensitive value)
+      + admin_username                = (known after apply)
+      + data_endpoint_host_names      = (known after apply)
+      + encryption                    = (known after apply)
+      + export_policy_enabled         = true
+      + id                            = (known after apply)
+      + location                      = "centralus"
+      + login_server                  = (known after apply)
+      + name                          = (known after apply)
+      + network_rule_bypass_option    = "AzureServices"
+      + network_rule_set              = (known after apply)
+      + public_network_access_enabled = true
+      + resource_group_name           = "rg-petclinic-cicd-dev"
+      + sku                           = "Basic"
+      + tags                          = {
+          + "environment" = "dev"
+          + "module"      = "module-6-cicd"
+          + "workload"    = "spring-petclinic"
+        }
+      + trust_policy_enabled          = false
+      + zone_redundancy_enabled       = false
+
+      + identity {
+          + principal_id = (known after apply)
+          + tenant_id    = (known after apply)
+          + type         = "SystemAssigned"
+        }
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + acr_id              = (known after apply)
+  + acr_login_server    = (known after apply)
+  + acr_name            = (known after apply)
+  + resource_group_name = "rg-petclinic-cicd-dev"

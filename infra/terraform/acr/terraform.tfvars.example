@@ -1,0 +1,11 @@
+subscription_id     = "<azure-subscription-id>"
+resource_group_name = "rg-petclinic-cicd-dev"
+location            = "centralus"
+acr_name            = "<globally-unique-acr-name>"
+acr_sku             = "Basic"
+environment         = "dev"
+
+tags = {
+  owner       = "application-architect-assessment"
+  cost_center = "training"
+}

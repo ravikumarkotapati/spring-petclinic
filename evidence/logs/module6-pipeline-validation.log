@@ -1,0 +1,26 @@
+﻿Module 6 pipeline validation
+Captured at: 2026-05-22T12:40:07+08:00
+
+Checks:
+- PASS file exists: azure-pipelines.yml
+- PASS file exists: pipelines/templates/build-container.yml
+- PASS file exists: pipelines/templates/deploy-target.yml
+- PASS file exists: infra/terraform/acr/main.tf
+- PASS file exists: infra/terraform/acr/variables.tf
+- PASS file exists: infra/terraform/modules/acr/main.tf
+- PASS file exists: docs/10-cicd-and-azure-migration-templates.md
+- PASS file exists: docs/11-cicd-rollback-strategy.md
+- PASS pipeline stage present: Discovery
+- PASS pipeline stage present: Build
+- PASS pipeline stage present: Test
+- PASS pipeline stage present: Deploy
+- PASS pipeline stage present: ImageBuild
+- PASS pipeline stage present: ImagePush
+- PASS pipeline references template: pipelines/templates/build-container.yml
+- PASS pipeline references template: pipelines/templates/deploy-target.yml
+- PASS variable group is used for environment-specific values
+- PASS no hardcoded credential pattern: password\s*[:=]\s*['"][^'$<]
+- PASS no hardcoded credential pattern: clientSecret\s*[:=]
+- PASS no hardcoded credential pattern: adminPassword\s*[:=]
+
+Errors: none

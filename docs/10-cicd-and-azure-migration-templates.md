@@ -1,0 +1,101 @@
+# Module 6 - CI/CD And Azure Migration Templates
+
+## Objective
+
+Module 6 adds an Azure DevOps pipeline design that turns the Module 5 container work into a controlled migration delivery path. The pipeline runs discovery, build, test, image build, infrastructure deployment and image push to Azure Container Registry.
+
+## Evidence Produced
+
+| Evidence | Purpose |
+|---|---|
+| [`azure-pipelines.yml`](../azure-pipelines.yml) | Main Azure DevOps pipeline |
+| [`pipelines/templates/build-container.yml`](../pipelines/templates/build-container.yml) | Reusable container build, scan and push job template |
+| [`pipelines/templates/deploy-target.yml`](../pipelines/templates/deploy-target.yml) | Reusable Terraform deployment job template |
+| [`infra/terraform/acr/`](../infra/terraform/acr/) | Terraform root module for ACR deployment |
+| [`infra/terraform/modules/acr/`](../infra/terraform/modules/acr/) | Reusable ACR Terraform module |
+| [`scripts/push_image_to_acr.ps1`](../scripts/push_image_to_acr.ps1) | Local/controlled image push evidence helper |
+| [`evidence/logs/module6-pipeline-validation.log`](../evidence/logs/module6-pipeline-validation.log) | Static validation evidence for pipeline structure |
+| [`evidence/logs/module6-terraform-validation.log`](../evidence/logs/module6-terraform-validation.log) | Terraform format and validation evidence |
+| [`evidence/logs/module6-acr-terraform-plan.log`](../evidence/logs/module6-acr-terraform-plan.log) | Terraform ACR plan evidence |
+| [`evidence/logs/module6-acr-terraform-apply.log`](../evidence/logs/module6-acr-terraform-apply.log) | Terraform ACR apply evidence |
+| [`evidence/logs/module6-acr-terraform-outputs.json`](../evidence/logs/module6-acr-terraform-outputs.json) | ACR name and login server outputs |
+| [`evidence/logs/acr-image-evidence.md`](../evidence/logs/acr-image-evidence.md) | Live ACR image push evidence |
+
+## Pipeline Stages
+
+| Stage | Purpose | Quality Gate |
+|---|---|---|
+| Discovery | Runs the dependency crawler and publishes inventory artifacts | Inventory generated without script failure |
+| Build | Builds the Maven package | Maven package succeeds |
+| Test | Runs Maven tests and publishes JUnit results | Tests pass |
+| Deploy | Runs Terraform for Azure migration target infrastructure | Terraform init, fmt, validate and plan/apply |
+| ImageBuild | Builds the Docker image from the production Dockerfile | Image inspect succeeds and scan runs or records scanner requirement |
+| ImagePush | Logs into ACR and pushes immutable tags | ACR repository tags show pushed image |
+
+## Variable Group And Secret Handling
+
+The pipeline references the Azure DevOps variable group `petclinic-migration-dev`. Values expected in the group:
+
+| Variable | Secret | Purpose |
+|---|---|---|
+| `AZURE_SERVICE_CONNECTION` | No | Azure DevOps service connection name |
+| `SUBSCRIPTION_ID` | No | Target Azure subscription |
+| `RESOURCE_GROUP_NAME` | No | Terraform target resource group |
+| `AZURE_LOCATION` | No | Azure region, for example `centralus` |
+| `ACR_NAME` | No | Globally unique ACR name |
+| `ACR_SKU` | No | ACR SKU, default `Basic` |
+| `terraformCommand` | No | `plan` by default, set to `apply` after approval |
+
+Sensitive application values such as database passwords, TLS keystore passwords and service credentials must come from Azure DevOps secret variables or Azure Key Vault. They are not stored in YAML, Terraform variable files or Dockerfiles.
+
+## ACR Image Tagging
+
+The container template tags each image with:
+
+| Tag | Purpose |
+|---|---|
+| `<short-git-sha>` | Immutable source revision traceability |
+| `<Build.BuildId>` | Azure DevOps run traceability |
+
+Recommended production promotion tags:
+
+| Stage | Example |
+|---|---|
+| Dev | `spring-petclinic:<short-git-sha>` |
+| Test | `spring-petclinic:test-<build-id>` |
+| Release candidate | `spring-petclinic:rc-<release-id>` |
+| Production | `spring-petclinic:prod-<release-id>` |
+
+## Terraform Deployment
+
+The Terraform ACR root module creates:
+
+| Resource | Purpose |
+|---|---|
+| Resource group | CI/CD shared services boundary |
+| Azure Container Registry | Image repository for migration pipeline |
+| ACR managed identity | Future integration point for Defender and policy controls |
+| Optional AcrPull assignments | Grants target runtime identities pull access |
+
+The Azure DevOps deploy template runs:
+
+```bash
+terraform init
+terraform fmt -check -recursive
+terraform validate
+terraform plan -out=tfplan
+terraform apply tfplan
+```
+
+`terraformCommand` defaults to `plan`. Set it to `apply` only after the environment approval gate is configured.
+
+## Requirement Traceability
+
+| Requirement | Status | Evidence |
+|---|---|---|
+| Azure DevOps YAML with discovery, build, test, image build, image push and deploy | Complete | [`azure-pipelines.yml`](../azure-pipelines.yml) |
+| Reusable build-container and deploy-target templates | Complete | [`pipelines/templates/`](../pipelines/templates/) |
+| Push images to ACR | Complete with live ACR push evidence | [`scripts/push_image_to_acr.ps1`](../scripts/push_image_to_acr.ps1), [`evidence/logs/acr-image-evidence.md`](../evidence/logs/acr-image-evidence.md) |
+| Deploy infrastructure through Terraform | Complete | [`infra/terraform/acr/`](../infra/terraform/acr/) |
+| Variable groups or Key Vault instead of hardcoded credentials | Complete | `Variable Group And Secret Handling` section |
+| Pipeline evidence and rollback strategy | Complete | [`evidence/logs/module6-pipeline-validation.log`](../evidence/logs/module6-pipeline-validation.log), [`docs/11-cicd-rollback-strategy.md`](11-cicd-rollback-strategy.md) |

@@ -62,3 +62,8 @@ terraform.tfvars.json
 *.auto.tfvars
 *.auto.tfvars.json
 !*.tfvars.example
+
+### Local container runtime ###
+.env
+*.env
+!.env.example

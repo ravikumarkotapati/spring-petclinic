@@ -16,6 +16,7 @@ Start here: [`docs/00-github-submission-index.md`](docs/00-github-submission-ind
 | Module 2 - ADDM-Style Discovery and Dependency Crawler | [`docs/02-discovery-findings-summary.md`](docs/02-discovery-findings-summary.md), [`scripts/dependency_crawler.py`](scripts/dependency_crawler.py), [`inventory/app_inventory.json`](inventory/app_inventory.json), [`inventory/egress_inventory.csv`](inventory/egress_inventory.csv), [`inventory/database_inventory.csv`](inventory/database_inventory.csv), [`inventory/dependency_graph.mmd`](inventory/dependency_graph.mmd) |
 | Module 3 - Migration Pattern Assessment | [`docs/03-migration-pattern-assessment.md`](docs/03-migration-pattern-assessment.md), [`inventory/migration_decision_matrix.csv`](inventory/migration_decision_matrix.csv), [`docs/09-adr-log.md`](docs/09-adr-log.md), [`docs/05-migration-wave-plan.md`](docs/05-migration-wave-plan.md), [`inventory/wave_plan.csv`](inventory/wave_plan.csv), [`docs/04-assumptions-risk-register.md`](docs/04-assumptions-risk-register.md), [`inventory/assumption_risk_register.csv`](inventory/assumption_risk_register.csv) |
 | Module 4 - Rehost to Azure VM | [`docs/06-rehost-runbook.md`](docs/06-rehost-runbook.md), [`docs/07-rehost-ingress-design.md`](docs/07-rehost-ingress-design.md), [`docs/rehost-ingress-design.mmd`](docs/rehost-ingress-design.mmd), [`infra/terraform/rehost-vm/main.tf`](infra/terraform/rehost-vm/main.tf), [`scripts/deploy_rehost_vm.ps1`](scripts/deploy_rehost_vm.ps1), [`tests/smoke_test_rehost.ps1`](tests/smoke_test_rehost.ps1), [`evidence/logs/rehost-smoke-test-evidence.md`](evidence/logs/rehost-smoke-test-evidence.md) |
+| Module 5 - Containerization and Configuration Remediation | [`Dockerfile`](Dockerfile), [`docker-compose.yml`](docker-compose.yml), [`docs/08-containerization-and-configuration-remediation.md`](docs/08-containerization-and-configuration-remediation.md), [`inventory/runtime_environment_matrix.csv`](inventory/runtime_environment_matrix.csv), [`evidence/logs/container-build.log`](evidence/logs/container-build.log), [`evidence/logs/container-image-scan-plan.md`](evidence/logs/container-image-scan-plan.md) |
 
 Module 1 local baseline uses `http://localhost:8081/` because Jenkins was already using port `8080` in the local baseline environment.
 
@@ -61,11 +62,14 @@ See below for more details.
 
 ## Building a Container
 
-There is no `Dockerfile` in this project. You can build a container image (if you have a docker daemon) using the Spring Boot build plugin:
+This fork includes a production-oriented multi-stage [`Dockerfile`](Dockerfile) for Module 5 of the Azure migration assessment. It builds the application with Maven in a JDK image, runs it from a smaller JRE image, uses a non-root runtime user, exposes port `8081`, and defines an actuator health check.
 
-```bash
-./mvnw spring-boot:build-image
+```powershell
+docker compose --env-file .env.example config
+docker build -t petclinic:module5-local .
 ```
+
+For the full containerization evidence, runtime environment matrix, image tagging approach and scan plan, see [`docs/08-containerization-and-configuration-remediation.md`](docs/08-containerization-and-configuration-remediation.md).
 
 ## In case you find a bug/suggested improvement for Spring Petclinic
 
@@ -82,28 +86,28 @@ A similar setup is provided for MySQL and PostgreSQL if a persistent database co
 You can start MySQL or PostgreSQL locally with whatever installer works for your OS or use docker:
 
 ```bash
-docker run -e MYSQL_USER=petclinic -e MYSQL_PASSWORD=petclinic -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=petclinic -p 3306:3306 mysql:9.6
+docker run -e MYSQL_USER=petclinic -e MYSQL_PASSWORD=petclinic -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=petclinic -p 3306:3306 mysql:8.4
 ```
 
 or
 
 ```bash
-docker run -e POSTGRES_USER=petclinic -e POSTGRES_PASSWORD=petclinic -e POSTGRES_DB=petclinic -p 5432:5432 postgres:18.3
+docker run -e POSTGRES_USER=petclinic -e POSTGRES_PASSWORD=petclinic -e POSTGRES_DB=petclinic -p 5432:5432 postgres:16-alpine
 ```
 
 Further documentation is provided for [MySQL](https://github.com/spring-projects/spring-petclinic/blob/main/src/main/resources/db/mysql/petclinic_db_setup_mysql.txt)
 and [PostgreSQL](https://github.com/spring-projects/spring-petclinic/blob/main/src/main/resources/db/postgres/petclinic_db_setup_postgres.txt).
 
-Instead of vanilla `docker` you can also use the provided `docker-compose.yml` file to start the database containers. Each one has a service named after the Spring profile:
+Instead of vanilla `docker` you can also use the provided `docker-compose.yml` file to start the application with PostgreSQL for a local on-prem simulation:
 
 ```bash
-docker compose up mysql
+docker compose --env-file .env.example up --build app
 ```
 
-or
+The optional MySQL service is available through the `mysql` profile:
 
 ```bash
-docker compose up postgres
+docker compose --profile mysql --env-file .env.example up mysql
 ```
 
 ## Test Applications

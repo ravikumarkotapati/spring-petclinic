@@ -1,0 +1,16 @@
+Variable,Required,Secret,Default/Example,Applies To,Purpose,Source Of Value
+SERVER_PORT,Yes,No,8081,Container and Azure VM,Application HTTP port,Compose or platform app setting
+SPRING_PROFILES_ACTIVE,Yes,No,postgres,Container and Azure VM,Selects runtime database profile,Compose or platform app setting
+POSTGRES_URL,When postgres profile is used,No,jdbc:postgresql://postgres:5432/petclinic,Container,Externalized PostgreSQL JDBC URL,Compose env or Key Vault/App Configuration
+POSTGRES_USER,When postgres profile is used,No,petclinic,Container,PostgreSQL username,Compose env or Key Vault/App Configuration
+POSTGRES_PASS,When postgres profile is used,Yes,<not committed>,Container,PostgreSQL password,Local .env or secret store
+MYSQL_URL,When mysql profile is used,No,jdbc:mysql://mysql:3306/petclinic,Optional MySQL profile,Externalized MySQL JDBC URL,Compose env or Key Vault/App Configuration
+MYSQL_USER,When mysql profile is used,No,petclinic,Optional MySQL profile,MySQL username,Compose env or Key Vault/App Configuration
+MYSQL_PASS,When mysql profile is used,Yes,<not committed>,Optional MySQL profile,MySQL password,Local .env or secret store
+MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE,No,No,"health,info",Container,Limits actuator exposure in container runtime,Compose or platform app setting
+PETCLINIC_EXTERNAL_API_BASE_URL,No,No,<empty>,Future external API dependency,External API endpoint placeholder,App Configuration or environment variable
+SERVER_SSL_ENABLED,No,No,false,TLS-enabled runtime,Enables embedded TLS when ingress does not terminate TLS,Platform app setting
+SERVER_SSL_KEY_STORE,No,No,<empty>,TLS-enabled runtime,TLS keystore path,Mounted secret or platform setting
+SERVER_SSL_KEY_STORE_PASSWORD,No,Yes,<not committed>,TLS-enabled runtime,TLS keystore password,Secret store
+PETCLINIC_FEATURE_EXPERIMENTAL_UI,No,No,false,Future feature flag,Feature toggle placeholder,App Configuration or environment variable
+JAVA_OPTS,No,No,-XX:MaxRAMPercentage=75.0,Container,JVM memory and runtime flags,Dockerfile default overridden by platform

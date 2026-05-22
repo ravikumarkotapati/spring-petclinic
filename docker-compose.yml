@@ -1,21 +1,75 @@
 services:
-  mysql:
-    image: mysql:9.6
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP_VERSION: ${IMAGE_TAG:-module5-local}
+        BUILD_REVISION: ${BUILD_REVISION:-local}
+        BUILD_CREATED: ${BUILD_CREATED:-local}
+    image: ${IMAGE_REPOSITORY:-petclinic}:${IMAGE_TAG:-module5-local}
     ports:
-      - "3306:3306"
+      - "${APP_HOST_PORT:-8081}:8081"
     environment:
-      - MYSQL_ROOT_PASSWORD=
-      - MYSQL_ALLOW_EMPTY_PASSWORD=true
-      - MYSQL_USER=petclinic
-      - MYSQL_PASSWORD=petclinic
-      - MYSQL_DATABASE=petclinic
-    volumes:
-      - "./conf.d:/etc/mysql/conf.d:ro"
+      SERVER_PORT: "8081"
+      SPRING_PROFILES_ACTIVE: postgres
+      POSTGRES_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-petclinic}
+      POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER in .env}
+      POSTGRES_PASS: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: health,info
+      PETCLINIC_EXTERNAL_API_BASE_URL: ${APP_EXTERNAL_API_BASE_URL:-}
+      SERVER_SSL_ENABLED: ${APP_TLS_ENABLED:-false}
+      SERVER_SSL_KEY_STORE: ${APP_TLS_KEYSTORE_PATH:-}
+      SERVER_SSL_KEY_STORE_PASSWORD: ${APP_TLS_KEYSTORE_PASSWORD:-}
+      PETCLINIC_FEATURE_EXPERIMENTAL_UI: ${FEATURE_EXPERIMENTAL_UI:-false}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8081/actuator/health | grep -q '\"status\":\"UP\"'"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 90s
+    restart: unless-stopped
+
   postgres:
-    image: postgres:18.3
+    image: postgres:16-alpine
     ports:
-      - "5432:5432"
+      - "${POSTGRES_HOST_PORT:-5432}:5432"
     environment:
-      - POSTGRES_PASSWORD=petclinic
-      - POSTGRES_USER=petclinic
-      - POSTGRES_DB=petclinic
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-petclinic}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  mysql:
+    image: mysql:8.4
+    profiles:
+      - mysql
+    ports:
+      - "${MYSQL_HOST_PORT:-3306}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD in .env}
+      MYSQL_USER: ${MYSQL_USER:?set MYSQL_USER in .env}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?set MYSQL_PASSWORD in .env}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-petclinic}
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u \"$${MYSQL_USER}\" --password=\"$${MYSQL_PASSWORD}\" --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  postgres-data:
+  mysql-data:

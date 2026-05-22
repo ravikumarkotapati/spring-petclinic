@@ -1,0 +1,56 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: spring-petclinic-deny-all-egress
+  namespace: petclinic
+  labels:
+    app.kubernetes.io/name: spring-petclinic
+    app.kubernetes.io/part-of: azure-migration-assessment
+spec:
+  podSelector:
+    matchLabels:
+      app: petclinic
+  policyTypes:
+    - Egress
+  egress: []
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: spring-petclinic-egress-allowlist
+  namespace: petclinic
+  labels:
+    app.kubernetes.io/name: spring-petclinic
+    app.kubernetes.io/part-of: azure-migration-assessment
+  annotations:
+    assessment.note: "Kubernetes NetworkPolicy is IP/CIDR based. Enforce FQDN rules with Azure Firewall, Cilium, Calico Enterprise or equivalent."
+spec:
+  podSelector:
+    matchLabels:
+      app: petclinic
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    - to:
+        - ipBlock:
+            cidr: 10.60.4.0/24
+      ports:
+        - protocol: TCP
+          port: 5432
+        - protocol: TCP
+          port: 443
+    - to:
+        - ipBlock:
+            cidr: 10.60.10.10/32
+      ports:
+        - protocol: TCP
+          port: 443

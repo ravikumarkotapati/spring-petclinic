@@ -1,0 +1,34 @@
+type: Microsoft.App/containerApps
+name: petclinic-container-app
+properties:
+  configuration:
+    ingress:
+      external: true
+      targetPort: 8081
+      transport: auto
+      allowInsecure: false
+      traffic:
+        - latestRevision: true
+          weight: 100
+    registries:
+      - server: petclinicacrc6mhqfua.azurecr.io
+        identity: <user-assigned-managed-identity-resource-id>
+  template:
+    containers:
+      - name: spring-petclinic
+        image: petclinicacrc6mhqfua.azurecr.io/spring-petclinic:300c8f7
+        env:
+          - name: SERVER_PORT
+            value: "8081"
+          - name: SPRING_PROFILES_ACTIVE
+            value: postgres
+          - name: POSTGRES_URL
+            secretRef: petclinic-postgres-jdbc-url
+          - name: POSTGRES_USER
+            secretRef: petclinic-postgres-username
+          - name: POSTGRES_PASS
+            secretRef: petclinic-postgres-password
+          - name: SPRING_DATASOURCE_HIKARI_DATA_SOURCE_PROPERTIES_SSLMODE
+            value: require
+          - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+            value: health,info

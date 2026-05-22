@@ -66,3 +66,16 @@ This ADR log records Module 3 migration architecture decisions for the Spring Pe
 | Rationale | The recommended path should demonstrate modernization architecture while retaining a safe fallback if managed container deployment is blocked. |
 | Consequences | Later modules should still include VM rehost design/runbook as requested, but the strategic recommendation remains Container Apps replatform. |
 | Evidence | `inventory/migration_decision_matrix.csv`, `docs/03-migration-pattern-assessment.md` |
+
+## ADR-0006: Use HTTPS Edge Ingress And Deny-By-Default Runtime Egress
+
+| Field | Value |
+|---|---|
+| Status | Accepted |
+| Date | 2026-05-22 |
+| Decision | Publish PetClinic through HTTPS `443` with WAF-capable edge ingress and enforce runtime egress through an allowlist. |
+| Context | Module 2 discovered HTTP ingress on TCP `8081`, unknown inbound TCP `8443`, database flows, DNS, build egress and SMTP-like egress. Modules 7 and 8 deployed the app to Azure Container Apps and PostgreSQL Flexible Server. |
+| Options Considered | Direct Container Apps public ingress only, Azure Front Door WAF, Application Gateway WAF, AKS ingress with NetworkPolicy, open outbound internet egress |
+| Rationale | HTTPS edge ingress with WAF provides a production-grade public contract, while deny-by-default egress reduces blast radius and forces unresolved SMTP/API/file-share dependencies to be validated before cutover. |
+| Consequences | Requires DNS/TLS cutover planning, private endpoint/private DNS design for PaaS services, Azure Firewall or equivalent egress controls, and explicit exceptions for validated dependencies. |
+| Evidence | `docs/14-ingress-egress-network-design.md`, `inventory/ingress_inventory.csv`, `inventory/egress_inventory.csv`, `inventory/network_egress_allowlist.csv`, `docs/dns-tls-cutover-plan.md` |

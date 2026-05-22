@@ -18,6 +18,7 @@ Module branches are kept as implementation history and review checkpoints:
 | `module6-cicd-azure-templates` | Module 6 Azure DevOps CI/CD, ACR and Terraform migration templates |
 | `module7-container-apps-replatform` | Module 7 Azure Container Apps replatform implementation and health evidence |
 | `module8-database-migration` | Module 8 PostgreSQL target selection, schema conversion, validation and cutover runbook |
+| `module9-network-dependency-design` | Module 9 ingress, egress, allowlist, DNS/TLS and network dependency design |
 
 ## Completed Assessment Scope
 
@@ -31,6 +32,7 @@ Module branches are kept as implementation history and review checkpoints:
 | Module 6 - CI/CD and Azure Migration Templates | Complete | [`azure-pipelines.yml`](../azure-pipelines.yml), [`pipelines/templates/`](../pipelines/templates/), [`infra/terraform/acr/`](../infra/terraform/acr/), [`infra/terraform/modules/acr/`](../infra/terraform/modules/acr/), [`docs/10-cicd-and-azure-migration-templates.md`](10-cicd-and-azure-migration-templates.md), [`docs/11-cicd-rollback-strategy.md`](11-cicd-rollback-strategy.md), [`evidence/logs/module6-pipeline-validation.log`](../evidence/logs/module6-pipeline-validation.log), [`evidence/logs/acr-image-evidence.md`](../evidence/logs/acr-image-evidence.md) |
 | Module 7 - Replatform to Managed Container Target | Complete | [`docs/12-replatform-container-apps.md`](12-replatform-container-apps.md), [`infra/terraform/container-apps/`](../infra/terraform/container-apps/), [`infra/container-apps/petclinic-containerapp.template.yaml`](../infra/container-apps/petclinic-containerapp.template.yaml), [`docs/replatform-container-apps-architecture.svg`](replatform-container-apps-architecture.svg), [`docs/replatform-container-apps-architecture.mmd`](replatform-container-apps-architecture.mmd), [`inventory/replatform_target_comparison.csv`](../inventory/replatform_target_comparison.csv), [`evidence/logs/container-app-deployment-summary.md`](../evidence/logs/container-app-deployment-summary.md), [`evidence/logs/container-app-health-evidence.md`](../evidence/logs/container-app-health-evidence.md) |
 | Module 8 - Database Migration, Schema Conversion and Data Cutover | Complete | [`docs/13-database-migration-summary.md`](13-database-migration-summary.md), [`inventory/database_inventory.csv`](../inventory/database_inventory.csv), [`docs/db-target-selection-adr.md`](db-target-selection-adr.md), [`scripts/schema_convert/`](../scripts/schema_convert/), [`scripts/data_validate/`](../scripts/data_validate/), [`scripts/db_migrate/run_local_pg_migration.ps1`](../scripts/db_migrate/run_local_pg_migration.ps1), [`docs/db-migration-runbook.md`](db-migration-runbook.md), [`evidence/dms/`](../evidence/dms/), [`evidence/logs/db-data-validation-results.md`](../evidence/logs/db-data-validation-results.md), [`evidence/logs/db-migration-log.md`](../evidence/logs/db-migration-log.md), [`evidence/logs/db-azure-postgres-deployment-summary.md`](../evidence/logs/db-azure-postgres-deployment-summary.md), [`evidence/logs/db-azure-restore-log.md`](../evidence/logs/db-azure-restore-log.md), [`evidence/logs/db-connection-string-remediation.md`](../evidence/logs/db-connection-string-remediation.md), [`evidence/logs/db-post-cutover-smoke-test-results.md`](../evidence/logs/db-post-cutover-smoke-test-results.md), [`evidence/logs/db-24h-observability-snapshot.md`](../evidence/logs/db-24h-observability-snapshot.md) |
+| Module 9 - Ingress, Egress and Network Dependency Design | Complete | [`docs/14-ingress-egress-network-design.md`](14-ingress-egress-network-design.md), [`inventory/ingress_inventory.csv`](../inventory/ingress_inventory.csv), [`inventory/egress_inventory.csv`](../inventory/egress_inventory.csv), [`inventory/network_egress_allowlist.csv`](../inventory/network_egress_allowlist.csv), [`infra/container-apps/petclinic-containerapp-ingress-networking.yaml`](../infra/container-apps/petclinic-containerapp-ingress-networking.yaml), [`k8s/ingress.yaml`](../k8s/ingress.yaml), [`k8s/networkpolicy-egress.yaml`](../k8s/networkpolicy-egress.yaml), [`docs/firewall-egress-design.md`](firewall-egress-design.md), [`docs/dns-tls-cutover-plan.md`](dns-tls-cutover-plan.md), [`docs/network-dependency-before-after.md`](network-dependency-before-after.md) |
 
 ## Module 4 Live Endpoint
 
@@ -89,6 +91,26 @@ Validation evidence is captured in:
 | Live Azure validation queries | [`evidence/logs/db-azure-validation-queries.txt`](../evidence/logs/db-azure-validation-queries.txt) |
 | Post-cutover Container App startup | [`evidence/logs/db-post-cutover-container-app-startup.log`](../evidence/logs/db-post-cutover-container-app-startup.log) |
 
+## Module 9 Network Design
+
+Module 9 defines the target ingress, egress and dependency controls for the Azure migration. The recommended path is HTTPS `443` through a WAF-capable edge such as Azure Front Door or Application Gateway, then managed Container Apps ingress to the Spring Boot container on port `8081`.
+
+Runtime egress is deny-by-default with explicit allow rules for PostgreSQL, Key Vault, ACR, Azure Monitor and DNS. SMTP, third-party APIs, file shares and authentication-provider flows are documented as conditional or blocked until validated.
+
+Validation evidence is captured in:
+
+| Evidence | File |
+|---|---|
+| Network design summary | [`docs/14-ingress-egress-network-design.md`](14-ingress-egress-network-design.md) |
+| Ingress inventory | [`inventory/ingress_inventory.csv`](../inventory/ingress_inventory.csv) |
+| Egress inventory | [`inventory/egress_inventory.csv`](../inventory/egress_inventory.csv) |
+| Egress allowlist | [`inventory/network_egress_allowlist.csv`](../inventory/network_egress_allowlist.csv) |
+| Container Apps ingress equivalent | [`infra/container-apps/petclinic-containerapp-ingress-networking.yaml`](../infra/container-apps/petclinic-containerapp-ingress-networking.yaml) |
+| AKS ingress reference | [`k8s/ingress.yaml`](../k8s/ingress.yaml) |
+| NetworkPolicy / firewall design | [`k8s/networkpolicy-egress.yaml`](../k8s/networkpolicy-egress.yaml), [`docs/firewall-egress-design.md`](firewall-egress-design.md) |
+| DNS/TLS cutover plan | [`docs/dns-tls-cutover-plan.md`](dns-tls-cutover-plan.md) |
+| Before/after network map | [`docs/network-dependency-before-after.md`](network-dependency-before-after.md), [`docs/network-dependency-before-after.mmd`](network-dependency-before-after.mmd) |
+
 ## Future Modules
 
-The assignment also defines Modules 9-11 for ingress/egress hardening, reengineering and cutover/hypercare. Those should continue from `main` using new module branches, then merge back to `main` after each module is complete.
+The assignment also defines Modules 10-11 for reengineering and cutover/hypercare. Those should continue from `main` using new module branches, then merge back to `main` after each module is complete.

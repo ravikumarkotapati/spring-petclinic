@@ -1,0 +1,93 @@
+# Firewall And Egress Enforcement Design
+
+## Objective
+
+The PetClinic runtime should use deny-by-default outbound controls, with explicit allow rules only for approved runtime dependencies.
+
+## Recommended Azure Pattern
+
+| Layer | Control | Purpose |
+|---|---|---|
+| App subnet or Container Apps environment subnet | UDR to Azure Firewall | Force outbound traffic through central inspection |
+| Azure Firewall | Application rules, network rules and service tags | Enforce approved destinations and ports |
+| Private DNS | Private zones for Azure PaaS endpoints | Resolve private endpoints instead of public endpoints |
+| Private Endpoints | PostgreSQL, Key Vault, ACR and optional Azure Files | Keep PaaS traffic on private IPs |
+| NAT Gateway | Stable outbound IP when direct internet egress is required | Provide predictable source IP, not filtering |
+| NSGs | Subnet-level allow/deny guardrails | Restrict east-west subnet traffic and private endpoint subnet access |
+| Kubernetes NetworkPolicy | Pod-level isolation for AKS alternative | Deny all pod egress except DNS and private endpoint CIDRs |
+
+## Allow Rules
+
+| Rule | Source | Destination | Port | Enforcement |
+|---|---|---|---:|---|
+| Runtime database | Container Apps environment or AKS pods | PostgreSQL private endpoint | 5432 | Private endpoint, PostgreSQL firewall, Azure Firewall network rule |
+| Secret retrieval | Container Apps environment or AKS pods | Key Vault private endpoint | 443 | Managed identity, Key Vault RBAC, private endpoint |
+| Image pull | Container Apps environment or AKS kubelet/workload identity | ACR private endpoint | 443 | AcrPull RBAC and ACR private endpoint |
+| Observability | Container Apps environment or AKS pods | Azure Monitor / Log Analytics | 443 | Azure Firewall service tag or application rule |
+| DNS | Container Apps environment or AKS pods | Approved DNS resolver | 53 | NSG/firewall rule to resolver only |
+| Build dependencies | CI/CD agent subnet | Maven Central, GitHub or approved artifact mirror | 443 | Build-network firewall rules only |
+
+## Deny Or Conditional Rules
+
+| Dependency | Default Decision | Reason |
+|---|---|---|
+| SMTP | Deny until validated | Discovery found SMTP-like egress but source scan did not confirm it |
+| Third-party APIs | Deny until validated | No confirmed API endpoint or owner |
+| File share | Deny until validated | No confirmed file share dependency |
+| Entra ID / OIDC | Conditional allow | Required only if application authentication is implemented |
+| Unknown inbound TCP `8443` | Do not publish | Must be explained before any DNS/TLS cutover |
+
+## NSG Role
+
+NSGs are useful for subnet and port controls but should not be the only egress-control mechanism. They do not provide reliable FQDN filtering for dependencies such as `*.vault.azure.net` or `*.postgres.database.azure.com`.
+
+Use NSGs to:
+
+1. Allow only required private endpoint subnet traffic.
+2. Deny lateral movement between unrelated subnets.
+3. Restrict administrative ports such as SSH to approved management paths.
+4. Preserve coarse defense-in-depth even when Azure Firewall is the primary egress filter.
+
+## Azure Firewall Role
+
+Azure Firewall should own central egress decisions for production:
+
+| Rule Type | Use |
+|---|---|
+| Application rule | FQDN-based HTTPS allowlist for Key Vault, ACR, Azure Monitor and approved external APIs |
+| Network rule | PostgreSQL TCP `5432`, DNS TCP/UDP `53`, SMTP if approved |
+| Service tags | AzureMonitor or AzureCloud dependencies when exact FQDNs are not practical |
+| Threat intelligence | Alert or deny known malicious destinations |
+
+## NAT Gateway Role
+
+Use NAT Gateway only when a stable outbound public IP is needed by an external service. NAT Gateway is not an allowlist by itself. If NAT Gateway is used without Azure Firewall, it gives source-IP stability but does not block unapproved destinations.
+
+## Private Endpoint Role
+
+Private Endpoints are preferred for:
+
+| Service | Private DNS Zone |
+|---|---|
+| PostgreSQL Flexible Server | `privatelink.postgres.database.azure.com` |
+| Key Vault | `privatelink.vaultcore.azure.net` |
+| Azure Container Registry | `privatelink.azurecr.io` |
+| Azure Files, if needed | `privatelink.file.core.windows.net` |
+
+## AKS NetworkPolicy Role
+
+`k8s/networkpolicy-egress.yaml` provides an AKS equivalent for pod-level isolation:
+
+1. Deny all egress from PetClinic pods by default.
+2. Allow DNS to `kube-system`.
+3. Allow private endpoint subnet traffic for PostgreSQL and Key Vault.
+4. Route FQDN-dependent traffic through Azure Firewall or use a CNI policy engine with FQDN support.
+
+## Evidence
+
+| Evidence | File |
+|---|---|
+| Egress inventory | `inventory/egress_inventory.csv` |
+| Egress allowlist | `inventory/network_egress_allowlist.csv` |
+| AKS NetworkPolicy equivalent | `k8s/networkpolicy-egress.yaml` |
+| Network design summary | `docs/14-ingress-egress-network-design.md` |

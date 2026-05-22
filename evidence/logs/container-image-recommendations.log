@@ -1,0 +1,92 @@
+    i New version 1.21.0 available (installed version is 1.20.4) at https://github.com/docker/scout-cli
+    v SBOM of image already cached, 330 packages indexed
+
+    i Base image was auto-detected. To get more accurate recommendations, build images with max-mode provenance attestations.
+      Review https://docs.docker.com/build/attestations/slsa-provenance/ for more information.
+      Alternatively, use  docker scout recommendations --tag <base image tag>  to pass a specific base image tag.
+
+ Target   │  petclinic:module5-local  
+   digest │  9ee0afc1730f             
+
+## Recommended fixes
+
+  Base image is  eclipse-temurin:17-jre-jammy 
+
+ Name            │  17-jre-jammy                                                             
+ Digest          │  sha256:d54695245a8c604aa3bfb0b6a2e2669a5e8d4e102d869ba5fb4712026b9983cf  
+ Vulnerabilities │    0C     0H    20M     9L                                                
+ Pushed          │ 6 days ago                                                                
+ Size            │ 94 MB                                                                     
+ Packages        │ 202                                                                       
+ Flavor          │ ubuntu                                                                    
+ OS              │ 22.04                                                                     
+ Runtime         │ 17.0.19_10                                                                
+
+                                                                                        
+  | The base image is also available under the supported tag(s) 17.0.19_10-jre-jammy. If
+  | you want to display recommendations specifically for a different tag, please re-run 
+  | the command using the --tag flag.                                                   
+
+
+
+Refresh base image
+  Rebuild the image using a newer base image version. Updating this may result in breaking changes.
+
+  v This image version is up to date.
+
+
+Change base image
+  The list displays new recommended tags in descending order, where the top results are rated as most suitable.
+
+
+             Tag              │                        Details                        │   Pushed   │       Vulnerabilities       
+──────────────────────────────┼───────────────────────────────────────────────────────┼────────────┼─────────────────────────────
+  26-jre-jammy                │ Benefits:                                             │ 6 days ago │    0C     0H    19M     9L  
+ Major runtime version update │ • Same OS detected                                    │            │                  -1         
+ Also known as:               │ • Image contains 39 fewer packages                    │            │                             
+ • 26.0.1_8-jre-jammy         │ • Major runtime version update                        │            │                             
+                              │ • Tag was pushed more recently                        │            │                             
+                              │ • Image has similar size                              │            │                             
+                              │ • Image introduces no new vulnerability but removes 1 │            │                             
+                              │                                                       │            │                             
+                              │ Image details:                                        │            │                             
+                              │ • Size: 106 MB                                        │            │                             
+                              │ • Flavor: ubuntu                                      │            │                             
+                              │ • OS: 22.04                                           │            │                             
+                              │ • Runtime: 26.0.1_8                                   │            │                             
+                              │                                                       │            │                             
+                              │                                                       │            │                             
+                              │                                                       │            │                             
+  25-jre-jammy                │ Benefits:                                             │ 6 days ago │    0C     0H    19M     9L  
+ Major runtime version update │ • Same OS detected                                    │            │                  -1         
+ Also known as:               │ • Image contains 39 fewer packages                    │            │                             
+ • 25.0.3_9-jre-jammy         │ • Major runtime version update                        │            │                             
+                              │ • Tag was pushed more recently                        │            │                             
+                              │ • Image has similar size                              │            │                             
+                              │ • Image introduces no new vulnerability but removes 1 │            │                             
+                              │                                                       │            │                             
+                              │ Image details:                                        │            │                             
+                              │ • Size: 104 MB                                        │            │                             
+                              │ • Flavor: ubuntu                                      │            │                             
+                              │ • OS: 22.04                                           │            │                             
+                              │ • Runtime: 25.0.3_9                                   │            │                             
+                              │                                                       │            │                             
+                              │                                                       │            │                             
+                              │                                                       │            │                             
+  21-jre-jammy                │ Benefits:                                             │ 6 days ago │    0C     0H    20M     9L  
+ Major runtime version update │ • Same OS detected                                    │            │                             
+ Also known as:               │ • Major runtime version update                        │            │                             
+ • 21.0.11_10-jre-jammy       │ • Tag was pushed more recently                        │            │                             
+                              │ • Image has similar size                              │            │                             
+                              │ • Image has same number of vulnerabilities            │            │                             
+                              │ • Image contains equal number of packages             │            │                             
+                              │                                                       │            │                             
+                              │ Image details:                                        │            │                             
+                              │ • Size: 99 MB                                         │            │                             
+                              │ • Flavor: ubuntu                                      │            │                             
+                              │ • OS: 22.04                                           │            │                             
+                              │ • Runtime: 21.0.11_10                                 │            │                             
+                              │                                                       │            │                             
+                              │                                                       │            │                             
+                              │                                                       │            │                             
+

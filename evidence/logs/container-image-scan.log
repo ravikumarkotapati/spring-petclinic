@@ -1,0 +1,531 @@
+    i New version 1.21.0 available (installed version is 1.20.4) at https://github.com/docker/scout-cli
+    ...Storing image for indexing
+    v Image stored for indexing
+    ...Indexing
+    v Indexed 330 packages
+    x Detected 21 vulnerable packages with a total of 57 vulnerabilities
+
+
+## Overview
+
+                   │                    Analyzed Image                     
+───────────────────┼───────────────────────────────────────────────────────
+ Target            │  petclinic:module5-local                              
+   digest          │  9ee0afc1730f                                         
+   platform        │ linux/amd64                                           
+   provenance      │ https://github.com/ravikumarkotapati/spring-petclinic 
+                   │  https://github.com/ravikumarkotapati/spring-petclinic/blob/eae4415                                              
+   vulnerabilities │   11C    12H    25M    11L     1?                     
+   size            │ 156 MB                                                
+   packages        │ 330                                                   
+
+
+## Packages and Vulnerabilities
+
+   4C     8H     2M     1L  org.apache.tomcat.embed/tomcat-embed-core 11.0.18
+pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.18
+
+    x CRITICAL CVE-2026-43512 [Improper Authentication]
+      https://scout.docker.com/v/CVE-2026-43512?s=github&n=tomcat-embed-core&ns=org.apache.tomcat.embed&t=maven&vr=%3E%3D11.0.0-M1%2C%3C11.0.22
+      Affected range : >=11.0.0-M1                                  
+                     : <11.0.22                                     
+      Fixed version  : 11.0.22                                      
+      CVSS Score     : 9.8                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H 
+    
+    x CRITICAL CVE-2026-41293 [Improper Input Validation]
+      https://scout.docker.com/v/CVE-2026-41293?s=github&n=tomcat-embed-core&ns=org.apache.tomcat.embed&t=maven&vr=%3E%3D11.0.0-M1%2C%3C11.0.22
+      Affected range : >=11.0.0-M1                                  
+                     : <11.0.22                                     
+      Fixed version  : 11.0.22                                      
+      CVSS Score     : 9.8                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H 
+    
+    x CRITICAL CVE-2026-43515 [Improper Authorization]
+      https://scout.docker.com/v/CVE-2026-43515?s=github&n=tomcat-embed-core&ns=org.apache.tomcat.embed&t=maven&vr=%3E%3D11.0.0-M1%2C%3C11.0.22
+      Affected range : >=11.0.0-M1                                  
+                     : <11.0.22                                     
+      Fixed version  : 11.0.22                                      
+      CVSS Score     : 9.1                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N 
+    
+    x CRITICAL CVE-2026-29145 [Improper Authentication]
+      https://scout.docker.com/v/CVE-2026-29145?s=github&n=tomcat-embed-core&ns=org.apache.tomcat.embed&t=maven&vr=%3E%3D11.0.0-M1%2C%3C11.0.20
+      Affected range : >=11.0.0-M1                                  
+                     : <11.0.20                                     
+      Fixed version  : 11.0.20                                      
+      CVSS Score     : 9.1                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N 
+    
+    x HIGH CVE-2026-29146 [Generation of Error Message Containing Sensitive Information]
+      https://scout.docker.com/v/CVE-2026-29146?s=github&n=tomcat-embed-core&ns=org.apache.tomcat.embed&t=maven&vr=%3E%3D11.0.0-M1%2C%3C%3D11.0.18
+      Affected range : >=11.0.0-M1                                                     
+                     : <=11.0.18                                                       
+      Fixed version  : 11.0.19                                                         
+      CVSS Score     : 8.7                                                             
+      CVSS Vector    : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N 
+    
+    x HIGH CVE-2026-43513 [Improper Handling of Case Sensitivity]
+      https://scout.docker.com/v/CVE-2026-43513?s=github&n=tomcat-embed-core&ns=org.apache.tomcat.embed&t=maven&vr=%3E%3D11.0.0-M1%2C%3C11.0.22
+      Affected range : >=11.0.0-M1                                  
+                     : <11.0.22                                     
+      Fixed version  : 11.0.22                                      
+      CVSS Score     : 7.5                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N 
+    
+    x HIGH CVE-2026-41284 [Allocation of Resources Without Limits or Throttling]
+      https://scout.docker.com/v/CVE-2026-41284?s=github&n=tomcat-embed-core&ns=org.apache.tomcat.embed&t=maven&vr=%3E%3D11.0.0-M1%2C%3C11.0.22
+      Affected range : >=11.0.0-M1                                  
+                     : <11.0.22                                     
+      Fixed version  : 11.0.22                                      
+      CVSS Score     : 7.5                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H 
+    
+    x HIGH CVE-2026-34487 [Insertion of Sensitive Information into Log File]
+      https://scout.docker.com/v/CVE-2026-34487?s=github&n=tomcat-embed-core&ns=org.apache.tomcat.embed&t=maven&vr=%3E%3D11.0.0-M1%2C%3C11.0.21
+      Affected range : >=11.0.0-M1                                  
+                     : <11.0.21                                     
+      Fixed version  : 11.0.21                                      
+      CVSS Score     : 7.5                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N 
+    
+    x HIGH CVE-2026-34483 [Improper Encoding or Escaping of Output]
+      https://scout.docker.com/v/CVE-2026-34483?s=github&n=tomcat-embed-core&ns=org.apache.tomcat.embed&t=maven&vr=%3E%3D11.0.0-M1%2C%3C11.0.21
+      Affected range : >=11.0.0-M1                                  
+                     : <11.0.21                                     
+      Fixed version  : 11.0.21                                      
+      CVSS Score     : 7.5                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N 
+    
+    x HIGH CVE-2026-29129 [Use of a Broken or Risky Cryptographic Algorithm]
+      https://scout.docker.com/v/CVE-2026-29129?s=github&n=tomcat-embed-core&ns=org.apache.tomcat.embed&t=maven&vr=%3E%3D11.0.16%2C%3C11.0.20
+      Affected range : >=11.0.16                                    
+                     : <11.0.20                                     
+      Fixed version  : 11.0.20                                      
+      CVSS Score     : 7.5                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N 
+    
+    x HIGH CVE-2026-24880 [Inconsistent Interpretation of HTTP Requests ('HTTP Request/Response Smuggling')]
+      https://scout.docker.com/v/CVE-2026-24880?s=github&n=tomcat-embed-core&ns=org.apache.tomcat.embed&t=maven&vr=%3E%3D11.0.0-M1%2C%3C%3D11.0.18
+      Affected range : >=11.0.0-M1                                  
+                     : <=11.0.18                                    
+      Fixed version  : 11.0.20                                      
+      CVSS Score     : 7.5                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N 
+    
+    x HIGH CVE-2026-42498 [Exposure of Sensitive Information to an Unauthorized Actor]
+      https://scout.docker.com/v/CVE-2026-42498?s=github&n=tomcat-embed-core&ns=org.apache.tomcat.embed&t=maven&vr=%3E%3D11.0.0-M1%2C%3C11.0.22
+      Affected range : >=11.0.0-M1                                  
+                     : <11.0.22                                     
+      Fixed version  : 11.0.22                                      
+      CVSS Score     : 7.3                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L 
+    
+    x MEDIUM CVE-2026-32990 [Improper Input Validation]
+      https://scout.docker.com/v/CVE-2026-32990?s=github&n=tomcat-embed-core&ns=org.apache.tomcat.embed&t=maven&vr=%3E%3D11.0.15%2C%3C%3D11.0.18
+      Affected range : >=11.0.15                                                       
+                     : <=11.0.18                                                       
+      Fixed version  : 11.0.20                                                         
+      CVSS Score     : 6.9                                                             
+      CVSS Vector    : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N 
+    
+    x MEDIUM CVE-2026-25854 [URL Redirection to Untrusted Site ('Open Redirect')]
+      https://scout.docker.com/v/CVE-2026-25854?s=github&n=tomcat-embed-core&ns=org.apache.tomcat.embed&t=maven&vr=%3E%3D11.0.0-M1%2C%3C11.0.20
+      Affected range : >=11.0.0-M1                                                     
+                     : <11.0.20                                                        
+      Fixed version  : 11.0.20                                                         
+      CVSS Score     : 6.9                                                             
+      CVSS Vector    : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:N/SC:L/SI:N/SA:N 
+    
+    x LOW CVE-2026-43514 [Observable Timing Discrepancy]
+      https://scout.docker.com/v/CVE-2026-43514?s=github&n=tomcat-embed-core&ns=org.apache.tomcat.embed&t=maven&vr=%3E%3D11.0.0-M1%2C%3C11.0.22
+      Affected range : >=11.0.0-M1                                  
+                     : <11.0.22                                     
+      Fixed version  : 11.0.22                                      
+      CVSS Score     : 3.7                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N 
+    
+
+   3C     0H     0M     0L  org.thymeleaf/thymeleaf-spring6 3.1.3.RELEASE
+pkg:maven/org.thymeleaf/thymeleaf-spring6@3.1.3.RELEASE
+
+    x CRITICAL CVE-2026-41901 [Improper Neutralization of Special Elements Used in a Template Engine]
+      https://scout.docker.com/v/CVE-2026-41901?s=github&n=thymeleaf-spring6&ns=org.thymeleaf&t=maven&vr=%3C%3D3.1.4.RELEASE
+      Affected range : <=3.1.4.RELEASE                              
+      Fixed version  : 3.1.5.RELEASE                                
+      CVSS Score     : 9.0                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H 
+    
+    x CRITICAL CVE-2026-40478 [Improper Neutralization of Special Elements Used in a Template Engine]
+      https://scout.docker.com/v/CVE-2026-40478?s=github&n=thymeleaf-spring6&ns=org.thymeleaf&t=maven&vr=%3C%3D3.1.3.RELEASE
+      Affected range : <=3.1.3.RELEASE                              
+      Fixed version  : 3.1.4.RELEASE                                
+      CVSS Score     : 9.0                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H 
+    
+    x CRITICAL CVE-2026-40477 [Improper Neutralization of Special Elements Used in a Template Engine]
+      https://scout.docker.com/v/CVE-2026-40477?s=github&n=thymeleaf-spring6&ns=org.thymeleaf&t=maven&vr=%3C%3D3.1.3.RELEASE
+      Affected range : <=3.1.3.RELEASE                              
+      Fixed version  : 3.1.4.RELEASE                                
+      CVSS Score     : 9.0                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H 
+    
+
+   3C     0H     0M     0L  org.thymeleaf/thymeleaf 3.1.3.RELEASE
+pkg:maven/org.thymeleaf/thymeleaf@3.1.3.RELEASE
+
+    x CRITICAL CVE-2026-41901 [Improper Neutralization of Special Elements Used in a Template Engine]
+      https://scout.docker.com/v/CVE-2026-41901?s=github&n=thymeleaf&ns=org.thymeleaf&t=maven&vr=%3C%3D3.1.4.RELEASE
+      Affected range : <=3.1.4.RELEASE                              
+      Fixed version  : 3.1.5.RELEASE                                
+      CVSS Score     : 9.0                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H 
+    
+    x CRITICAL CVE-2026-40478 [Improper Neutralization of Special Elements Used in a Template Engine]
+      https://scout.docker.com/v/CVE-2026-40478?s=github&n=thymeleaf&ns=org.thymeleaf&t=maven&vr=%3C%3D3.1.3.RELEASE
+      Affected range : <=3.1.3.RELEASE                              
+      Fixed version  : 3.1.4.RELEASE                                
+      CVSS Score     : 9.0                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H 
+    
+    x CRITICAL CVE-2026-40477 [Improper Neutralization of Special Elements Used in a Template Engine]
+      https://scout.docker.com/v/CVE-2026-40477?s=github&n=thymeleaf&ns=org.thymeleaf&t=maven&vr=%3C%3D3.1.3.RELEASE
+      Affected range : <=3.1.3.RELEASE                              
+      Fixed version  : 3.1.4.RELEASE                                
+      CVSS Score     : 9.0                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H 
+    
+
+   1C     1H     0M     0L  org.springframework.boot/spring-boot 4.0.3
+pkg:maven/org.springframework.boot/spring-boot@4.0.3
+
+    x CRITICAL CVE-2026-40976 [Missing Authorization]
+      https://scout.docker.com/v/CVE-2026-40976?s=github&n=spring-boot&ns=org.springframework.boot&t=maven&vr=%3E%3D4.0.0%2C%3C4.0.6
+      Affected range : >=4.0.0                                      
+                     : <4.0.6                                       
+      Fixed version  : 4.0.6                                        
+      CVSS Score     : 9.1                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N 
+    
+    x HIGH CVE-2026-40973 [Insecure Temporary File]
+      https://scout.docker.com/v/CVE-2026-40973?s=github&n=spring-boot&ns=org.springframework.boot&t=maven&vr=%3E%3D4.0.0%2C%3C4.0.6
+      Affected range : >=4.0.0                                      
+                     : <4.0.6                                       
+      Fixed version  : 4.0.6                                        
+      CVSS Score     : 7.0                                          
+      CVSS Vector    : CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H 
+    
+
+   0C     2H     1M     0L  tools.jackson.core/jackson-core 3.0.4
+pkg:maven/tools.jackson.core/jackson-core@3.0.4
+
+    x HIGH CVE-2026-29062 [Allocation of Resources Without Limits or Throttling]
+      https://scout.docker.com/v/CVE-2026-29062?s=github&n=jackson-core&ns=tools.jackson.core&t=maven&vr=%3E%3D3.0.0%2C%3C3.1.0
+      Affected range : >=3.0.0                                                         
+                     : <3.1.0                                                          
+      Fixed version  : 3.1.0                                                           
+      CVSS Score     : 8.7                                                             
+      CVSS Vector    : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N 
+    
+    x HIGH GHSA-2m67-wjpj-xhg9 [Allocation of Resources Without Limits or Throttling]
+      https://scout.docker.com/v/GHSA-2m67-wjpj-xhg9?s=github&n=jackson-core&ns=tools.jackson.core&t=maven&vr=%3E%3D3.0.0%2C%3C%3D3.1.0
+      Affected range : >=3.0.0                                      
+                     : <=3.1.0                                      
+      Fixed version  : 3.1.1                                        
+      CVSS Score     : 7.5                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H 
+    
+    x MEDIUM GHSA-72hv-8253-57qq [Allocation of Resources Without Limits or Throttling]
+      https://scout.docker.com/v/GHSA-72hv-8253-57qq?s=github&n=jackson-core&ns=tools.jackson.core&t=maven&vr=%3E%3D3.0.0%2C%3C3.1.0
+      Affected range : >=3.0.0                                                         
+                     : <3.1.0                                                          
+      Fixed version  : 3.1.0                                                           
+      CVSS Score     : 6.9                                                             
+      CVSS Vector    : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N 
+    
+
+   0C     1H     0M     0L  org.postgresql/postgresql 42.7.10
+pkg:maven/org.postgresql/postgresql@42.7.10
+
+    x HIGH CVE-2026-42198 [Allocation of Resources Without Limits or Throttling]
+      https://scout.docker.com/v/CVE-2026-42198?s=github&n=postgresql&ns=org.postgresql&t=maven&vr=%3E%3D42.2.0%2C%3C42.7.11
+      Affected range : >=42.2.0                                     
+                     : <42.7.11                                     
+      Fixed version  : 42.7.11                                      
+      CVSS Score     : 7.5                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H 
+    
+
+   0C     0H    12M     0L  gnutls28 3.7.3-4ubuntu1.8
+pkg:deb/ubuntu/gnutls28@3.7.3-4ubuntu1.8?os_distro=jammy&os_name=ubuntu&os_version=22.04
+
+    x MEDIUM CVE-2026-42010
+      https://scout.docker.com/v/CVE-2026-42010?s=ubuntu&n=gnutls28&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3C3.7.3-4ubuntu1.9
+      Affected range : <3.7.3-4ubuntu1.9                            
+      Fixed version  : 3.7.3-4ubuntu1.9                             
+      CVSS Score     : 9.8                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H 
+    
+    x MEDIUM CVE-2026-33845
+      https://scout.docker.com/v/CVE-2026-33845?s=ubuntu&n=gnutls28&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3C3.7.3-4ubuntu1.9
+      Affected range : <3.7.3-4ubuntu1.9                            
+      Fixed version  : 3.7.3-4ubuntu1.9                             
+      CVSS Score     : 9.1                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:H 
+    
+    x MEDIUM CVE-2026-3833
+      https://scout.docker.com/v/CVE-2026-3833?s=ubuntu&n=gnutls28&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3C3.7.3-4ubuntu1.9
+      Affected range : <3.7.3-4ubuntu1.9                            
+      Fixed version  : 3.7.3-4ubuntu1.9                             
+      CVSS Score     : 7.4                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N 
+    
+    x MEDIUM CVE-2026-5260
+      https://scout.docker.com/v/CVE-2026-5260?s=ubuntu&n=gnutls28&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3C3.7.3-4ubuntu1.9
+      Affected range : <3.7.3-4ubuntu1.9 
+      Fixed version  : 3.7.3-4ubuntu1.9  
+    
+    x MEDIUM CVE-2026-42015
+      https://scout.docker.com/v/CVE-2026-42015?s=ubuntu&n=gnutls28&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3C3.7.3-4ubuntu1.9
+      Affected range : <3.7.3-4ubuntu1.9 
+      Fixed version  : 3.7.3-4ubuntu1.9  
+    
+    x MEDIUM CVE-2026-42014
+      https://scout.docker.com/v/CVE-2026-42014?s=ubuntu&n=gnutls28&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3C3.7.3-4ubuntu1.9
+      Affected range : <3.7.3-4ubuntu1.9 
+      Fixed version  : 3.7.3-4ubuntu1.9  
+    
+    x MEDIUM CVE-2026-42013
+      https://scout.docker.com/v/CVE-2026-42013?s=ubuntu&n=gnutls28&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3C3.7.3-4ubuntu1.9
+      Affected range : <3.7.3-4ubuntu1.9 
+      Fixed version  : 3.7.3-4ubuntu1.9  
+    
+    x MEDIUM CVE-2026-42012
+      https://scout.docker.com/v/CVE-2026-42012?s=ubuntu&n=gnutls28&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3C3.7.3-4ubuntu1.9
+      Affected range : <3.7.3-4ubuntu1.9 
+      Fixed version  : 3.7.3-4ubuntu1.9  
+    
+    x MEDIUM CVE-2026-42011
+      https://scout.docker.com/v/CVE-2026-42011?s=ubuntu&n=gnutls28&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3C3.7.3-4ubuntu1.9
+      Affected range : <3.7.3-4ubuntu1.9 
+      Fixed version  : 3.7.3-4ubuntu1.9  
+    
+    x MEDIUM CVE-2026-42009
+      https://scout.docker.com/v/CVE-2026-42009?s=ubuntu&n=gnutls28&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3C3.7.3-4ubuntu1.9
+      Affected range : <3.7.3-4ubuntu1.9 
+      Fixed version  : 3.7.3-4ubuntu1.9  
+    
+    x MEDIUM CVE-2026-3832
+      https://scout.docker.com/v/CVE-2026-3832?s=ubuntu&n=gnutls28&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3C3.7.3-4ubuntu1.9
+      Affected range : <3.7.3-4ubuntu1.9 
+      Fixed version  : 3.7.3-4ubuntu1.9  
+    
+    x MEDIUM CVE-2026-33846
+      https://scout.docker.com/v/CVE-2026-33846?s=ubuntu&n=gnutls28&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3C3.7.3-4ubuntu1.9
+      Affected range : <3.7.3-4ubuntu1.9 
+      Fixed version  : 3.7.3-4ubuntu1.9  
+    
+
+   0C     0H     3M     0L  glibc 2.35-0ubuntu3.13
+pkg:deb/ubuntu/glibc@2.35-0ubuntu3.13?os_distro=jammy&os_name=ubuntu&os_version=22.04
+
+    x MEDIUM CVE-2026-4438
+      https://scout.docker.com/v/CVE-2026-4438?s=ubuntu&n=glibc&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0       
+      Fixed version  : not fixed 
+    
+    x MEDIUM CVE-2026-4437
+      https://scout.docker.com/v/CVE-2026-4437?s=ubuntu&n=glibc&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0       
+      Fixed version  : not fixed 
+    
+    x MEDIUM CVE-2026-4046
+      https://scout.docker.com/v/CVE-2026-4046?s=ubuntu&n=glibc&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0       
+      Fixed version  : not fixed 
+    
+
+   0C     0H     2M     1L     1?  org.springframework/spring-webmvc 7.0.5
+pkg:maven/org.springframework/spring-webmvc@7.0.5
+
+    x MEDIUM CVE-2026-22737 [Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')]
+      https://scout.docker.com/v/CVE-2026-22737?s=github&n=spring-webmvc&ns=org.springframework&t=maven&vr=%3E%3D7.0.0-M1%2C%3C7.0.6
+      Affected range : >=7.0.0-M1                                   
+                     : <7.0.6                                       
+      Fixed version  : 7.0.6                                        
+      CVSS Score     : 5.9                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N 
+    
+    x MEDIUM CVE-2026-22745 [Uncontrolled Resource Consumption]
+      https://scout.docker.com/v/CVE-2026-22745?s=github&n=spring-webmvc&ns=org.springframework&t=maven&vr=%3E%3D7.0.0%2C%3C%3D7.0.6
+      Affected range : >=7.0.0                                      
+                     : <=7.0.6                                      
+      Fixed version  : 7.0.7                                        
+      CVSS Score     : 5.3                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L 
+    
+    x LOW CVE-2026-22735 [Improper Locking]
+      https://scout.docker.com/v/CVE-2026-22735?s=github&n=spring-webmvc&ns=org.springframework&t=maven&vr=%3E%3D7.0.0-M1%2C%3C7.0.6
+      Affected range : >=7.0.0-M1                                   
+                     : <7.0.6                                       
+      Fixed version  : 7.0.6                                        
+      CVSS Score     : 2.6                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:H/PR:L/UI:R/S:U/C:N/I:L/A:N 
+    
+    x UNSPECIFIED CVE-2026-22741 [Use of Cache Containing Sensitive Information]
+      https://scout.docker.com/v/CVE-2026-22741?s=github&n=spring-webmvc&ns=org.springframework&t=maven&vr=%3E%3D7.0.0%2C%3C%3D7.0.6
+      Affected range : >=7.0.0 
+                     : <=7.0.6 
+      Fixed version  : 7.0.7   
+    
+
+   0C     0H     2M     0L  tar 1.34+dfsg-1ubuntu0.1.22.04.2
+pkg:deb/ubuntu/tar@1.34%2Bdfsg-1ubuntu0.1.22.04.2?os_distro=jammy&os_name=ubuntu&os_version=22.04
+
+    x MEDIUM CVE-2026-5704
+      https://scout.docker.com/v/CVE-2026-5704?s=ubuntu&n=tar&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0                                          
+      Fixed version  : not fixed                                    
+      CVSS Score     : 5.5                                          
+      CVSS Vector    : CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N 
+    
+    x MEDIUM CVE-2025-45582
+      https://scout.docker.com/v/CVE-2025-45582?s=ubuntu&n=tar&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0       
+      Fixed version  : not fixed 
+    
+
+   0C     0H     1M     0L  expat 2.4.7-1ubuntu0.7
+pkg:deb/ubuntu/expat@2.4.7-1ubuntu0.7?os_distro=jammy&os_name=ubuntu&os_version=22.04
+
+    x MEDIUM CVE-2025-66382
+      https://scout.docker.com/v/CVE-2025-66382?s=ubuntu&n=expat&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0                                          
+      Fixed version  : not fixed                                    
+      CVSS Score     : 5.5                                          
+      CVSS Vector    : CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H 
+    
+
+   0C     0H     1M     0L  wget 1.21.2-2ubuntu1.1
+pkg:deb/ubuntu/wget@1.21.2-2ubuntu1.1?os_distro=jammy&os_name=ubuntu&os_version=22.04
+
+    x MEDIUM CVE-2021-31879
+      https://scout.docker.com/v/CVE-2021-31879?s=ubuntu&n=wget&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0                                          
+      Fixed version  : not fixed                                    
+      CVSS Score     : 6.1                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N 
+    
+
+   0C     0H     1M     0L  util-linux 2.37.2-4ubuntu3.5
+pkg:deb/ubuntu/util-linux@2.37.2-4ubuntu3.5?os_distro=jammy&os_name=ubuntu&os_version=22.04
+
+    x MEDIUM CVE-2026-27456
+      https://scout.docker.com/v/CVE-2026-27456?s=ubuntu&n=util-linux&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0       
+      Fixed version  : not fixed 
+    
+
+   0C     0H     0M     2L  shadow 1:4.8.1-2ubuntu2.2
+pkg:deb/ubuntu/shadow@1%3A4.8.1-2ubuntu2.2?os_distro=jammy&os_name=ubuntu&os_version=22.04
+
+    x LOW CVE-2023-29383
+      https://scout.docker.com/v/CVE-2023-29383?s=ubuntu&n=shadow&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0                                          
+      Fixed version  : not fixed                                    
+      CVSS Score     : 3.3                                          
+      CVSS Vector    : CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N 
+    
+    x LOW CVE-2024-56433
+      https://scout.docker.com/v/CVE-2024-56433?s=ubuntu&n=shadow&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0       
+      Fixed version  : not fixed 
+    
+
+   0C     0H     0M     1L  libgcrypt20 1.9.4-3ubuntu3
+pkg:deb/ubuntu/libgcrypt20@1.9.4-3ubuntu3?os_distro=jammy&os_name=ubuntu&os_version=22.04
+
+    x LOW CVE-2024-2236
+      https://scout.docker.com/v/CVE-2024-2236?s=ubuntu&n=libgcrypt20&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0       
+      Fixed version  : not fixed 
+    
+
+   0C     0H     0M     1L  pcre2 10.39-3ubuntu0.1
+pkg:deb/ubuntu/pcre2@10.39-3ubuntu0.1?os_distro=jammy&os_name=ubuntu&os_version=22.04
+
+    x LOW CVE-2022-41409
+      https://scout.docker.com/v/CVE-2022-41409?s=ubuntu&n=pcre2&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0                                          
+      Fixed version  : not fixed                                    
+      CVSS Score     : 7.5                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H 
+    
+
+   0C     0H     0M     1L  systemd 249.11-0ubuntu3.20
+pkg:deb/ubuntu/systemd@249.11-0ubuntu3.20?os_distro=jammy&os_name=ubuntu&os_version=22.04
+
+    x LOW CVE-2023-7008
+      https://scout.docker.com/v/CVE-2023-7008?s=ubuntu&n=systemd&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0                                          
+      Fixed version  : not fixed                                    
+      CVSS Score     : 5.9                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N 
+    
+
+   0C     0H     0M     1L  libzstd 1.4.8+dfsg-3build1
+pkg:deb/ubuntu/libzstd@1.4.8%2Bdfsg-3build1?os_distro=jammy&os_name=ubuntu&os_version=22.04
+
+    x LOW CVE-2022-4899
+      https://scout.docker.com/v/CVE-2022-4899?s=ubuntu&n=libzstd&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0                                          
+      Fixed version  : not fixed                                    
+      CVSS Score     : 7.5                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H 
+    
+
+   0C     0H     0M     1L  ncurses 6.3-2ubuntu0.1
+pkg:deb/ubuntu/ncurses@6.3-2ubuntu0.1?os_distro=jammy&os_name=ubuntu&os_version=22.04
+
+    x LOW CVE-2023-50495
+      https://scout.docker.com/v/CVE-2023-50495?s=ubuntu&n=ncurses&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0                                          
+      Fixed version  : not fixed                                    
+      CVSS Score     : 6.5                                          
+      CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H 
+    
+
+   0C     0H     0M     1L  gcc-12 12.3.0-1ubuntu1~22.04.3
+pkg:deb/ubuntu/gcc-12@12.3.0-1ubuntu1~22.04.3?os_distro=jammy&os_name=ubuntu&os_version=22.04
+
+    x LOW CVE-2022-27943
+      https://scout.docker.com/v/CVE-2022-27943?s=ubuntu&n=gcc-12&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0                                          
+      Fixed version  : not fixed                                    
+      CVSS Score     : 5.5                                          
+      CVSS Vector    : CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H 
+    
+
+   0C     0H     0M     1L  pcre3 2:8.39-13ubuntu0.22.04.1
+pkg:deb/ubuntu/pcre3@2%3A8.39-13ubuntu0.22.04.1?os_distro=jammy&os_name=ubuntu&os_version=22.04
+
+    x LOW CVE-2017-11164
+      https://scout.docker.com/v/CVE-2017-11164?s=ubuntu&n=pcre3&ns=ubuntu&t=deb&osn=ubuntu&osv=22.04&vr=%3E%3D0
+      Affected range : >=0                                          
+      Fixed version  : not fixed                                    
+      CVSS Score     : 7.5                                          
+      CVSS Vector    : CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H 
+    
+
+
+60 vulnerabilities found in 21 packages
+  CRITICAL     11 
+  HIGH         12 
+  MEDIUM       25 
+  LOW          11 
+  UNSPECIFIED  1  
+
+
+What's next:
+    View base image update recommendations → docker scout recommendations petclinic:module5-local
+

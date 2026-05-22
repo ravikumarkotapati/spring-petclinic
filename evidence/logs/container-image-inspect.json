@@ -1,0 +1,87 @@
+[
+    {
+        "Id": "sha256:9ee0afc1730fb402e28ac1bcfce5268a2e4686ade4ef1a1a0fc623a2e1bdf8ec",
+        "RepoTags": [
+            "petclinic:eae4415",
+            "petclinic:module5-local"
+        ],
+        "RepoDigests": [
+            "petclinic@sha256:9ee0afc1730fb402e28ac1bcfce5268a2e4686ade4ef1a1a0fc623a2e1bdf8ec"
+        ],
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-05-22T03:52:33.381931083Z",
+        "Config": {
+            "User": "appuser",
+            "ExposedPorts": {
+                "8081/tcp": {}
+            },
+            "Env": [
+                "PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "JAVA_HOME=/opt/java/openjdk",
+                "LANG=en_US.UTF-8",
+                "LANGUAGE=en_US:en",
+                "LC_ALL=en_US.UTF-8",
+                "JAVA_VERSION=jdk-17.0.19+10",
+                "SERVER_PORT=8081",
+                "SPRING_PROFILES_ACTIVE=postgres",
+                "JAVA_OPTS=-XX:MaxRAMPercentage=75.0 -Djava.security.egd=file:/dev/./urandom"
+            ],
+            "Entrypoint": [
+                "sh",
+                "-c",
+                "java $JAVA_OPTS -jar /app/app.jar"
+            ],
+            "WorkingDir": "/app",
+            "Labels": {
+                "org.opencontainers.image.created": "2026-05-22T11:52:17+08:00",
+                "org.opencontainers.image.description": "Containerized Spring PetClinic for Azure migration assessment Module 5",
+                "org.opencontainers.image.revision": "eae4415",
+                "org.opencontainers.image.source": "https://github.com/ravikumarkotapati/spring-petclinic",
+                "org.opencontainers.image.title": "Spring PetClinic",
+                "org.opencontainers.image.version": "eae4415"
+            },
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "curl -fsS \"http://localhost:${SERVER_PORT}/actuator/health\" | grep -q '\"status\":\"UP\"' || exit 1"
+                ],
+                "Interval": 30000000000,
+                "Timeout": 5000000000,
+                "StartPeriod": 60000000000,
+                "Retries": 3
+            }
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 155677804,
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:8bba68e7621928237aa6d6e2c680cb9572c942ee23c2adabd22016bb67cb938d",
+                "sha256:a41a57c4076811792e0ab770c6d01abd521afbd17cd55108bec6e1006e92beba",
+                "sha256:7379fd83bfa6a386f01d6b9b78331613dee62627bfb3d81fd2b3cdc4fc78ceca",
+                "sha256:52a8fa809226f0916584b0f30593e3c6c1603005fed4fa1310e4c907b4907159",
+                "sha256:601cb79c9a3f3a39782dc0e6afe31000a7122792916eee308d4858c5e1a30cc4",
+                "sha256:b9f9fdc8f25f85e0b848b668293df199cd414cd01341c7b59c71b0055f97b78f",
+                "sha256:72217620dcdb38816ebe93a7a0c538013724ca7512ae75b660d0b999587f1782",
+                "sha256:f57683238e0b6c45c6279d987cdcc498840fac0880c4a1db94734140529b6f2e"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2026-05-22T03:52:38.730104655Z"
+        },
+        "Descriptor": {
+            "mediaType": "application/vnd.oci.image.index.v1+json",
+            "digest": "sha256:9ee0afc1730fb402e28ac1bcfce5268a2e4686ade4ef1a1a0fc623a2e1bdf8ec",
+            "size": 856
+        },
+        "Identity": {
+            "Build": [
+                {
+                    "Ref": "w9d0sk51soywpztububhwcr4c",
+                    "CreatedAt": "2026-05-22T03:52:38.762704048Z"
+                }
+            ]
+        }
+    }
+]

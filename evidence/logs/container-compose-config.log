@@ -1,0 +1,75 @@
+name: spring-petclinic
+services:
+  app:
+    build:
+      context: E:\spring-petclinic
+      dockerfile: Dockerfile
+      args:
+        APP_VERSION: module5-local
+        BUILD_CREATED: local
+        BUILD_REVISION: local
+    depends_on:
+      postgres:
+        condition: service_healthy
+        required: true
+    environment:
+      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: health,info
+      PETCLINIC_EXTERNAL_API_BASE_URL: ""
+      PETCLINIC_FEATURE_EXPERIMENTAL_UI: "false"
+      POSTGRES_PASS: replace-with-local-development-password
+      POSTGRES_URL: jdbc:postgresql://postgres:5432/petclinic
+      POSTGRES_USER: petclinic
+      SERVER_PORT: "8081"
+      SERVER_SSL_ENABLED: "false"
+      SERVER_SSL_KEY_STORE: ""
+      SERVER_SSL_KEY_STORE_PASSWORD: ""
+      SPRING_PROFILES_ACTIVE: postgres
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - curl -fsS http://localhost:8081/actuator/health | grep -q '"status":"UP"'
+      timeout: 5s
+      interval: 30s
+      retries: 5
+      start_period: 1m30s
+    image: petclinic:module5-local
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8081
+        published: "8081"
+        protocol: tcp
+    restart: unless-stopped
+  postgres:
+    environment:
+      POSTGRES_DB: petclinic
+      POSTGRES_PASSWORD: replace-with-local-development-password
+      POSTGRES_USER: petclinic
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"
+      timeout: 5s
+      interval: 10s
+      retries: 10
+      start_period: 20s
+    image: postgres:16-alpine
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5432
+        published: "5432"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: postgres-data
+        target: /var/lib/postgresql/data
+        volume: {}
+networks:
+  default:
+    name: spring-petclinic_default
+volumes:
+  postgres-data:
+    name: spring-petclinic_postgres-data

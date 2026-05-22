@@ -1,0 +1,11 @@
+flowchart LR
+    User["User Browser"] -->|"HTTPS 443"| Ingress["Azure Container Apps Managed Ingress"]
+    Ingress --> App["Container App Revision<br/>spring-petclinic:300c8f7<br/>port 8081"]
+    App -->|"image pull via managed identity"| ACR["Azure Container Registry<br/>petclinicacrc6mhqfua.azurecr.io"]
+    App --> Logs["Log Analytics Workspace"]
+    App --> Secrets["Container App Secrets<br/>feature flags and future config"]
+    App --> H2["Embedded H2 database<br/>temporary Module 7 runtime"]
+    Ops["Pipeline / Operator"] --> Terraform["Terraform Container Apps Template"]
+    Terraform --> ACAEnv["Container Apps Environment"]
+    Terraform --> Identity["User Assigned Managed Identity<br/>AcrPull"]
+    Identity --> ACR

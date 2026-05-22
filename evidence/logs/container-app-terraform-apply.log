@@ -1,0 +1,36 @@
+[0m[1mazurerm_resource_group.main: Creating...[0m[0m
+[0m[1mazurerm_resource_group.main: Still creating... [00m10s elapsed][0m[0m
+[0m[1mazurerm_resource_group.main: Still creating... [00m20s elapsed][0m[0m
+[0m[1mazurerm_resource_group.main: Creation complete after 26s [id=/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-containerapps-dev][0m
+[0m[1mazurerm_user_assigned_identity.container_app: Creating...[0m[0m
+[0m[1mazurerm_log_analytics_workspace.main: Creating...[0m[0m
+[0m[1mazurerm_user_assigned_identity.container_app: Creation complete after 6s [id=/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-containerapps-dev/providers/Microsoft.ManagedIdentity/userAssignedIdentities/petclinic-ca-mi][0m
+[0m[1mazurerm_role_assignment.acr_pull: Creating...[0m[0m
+[0m[1mazurerm_log_analytics_workspace.main: Still creating... [00m10s elapsed][0m[0m
+[0m[1mazurerm_role_assignment.acr_pull: Still creating... [00m10s elapsed][0m[0m
+[0m[1mazurerm_log_analytics_workspace.main: Still creating... [00m20s elapsed][0m[0m
+[0m[1mazurerm_role_assignment.acr_pull: Still creating... [00m20s elapsed][0m[0m
+[0m[1mazurerm_log_analytics_workspace.main: Still creating... [00m30s elapsed][0m[0m
+[0m[1mazurerm_role_assignment.acr_pull: Creation complete after 29s [id=/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-cicd-dev/providers/Microsoft.ContainerRegistry/registries/petclinicacrc6mhqfua/providers/Microsoft.Authorization/roleAssignments/998f6565-fea9-0e3d-5ddd-ae50f5f7043f][0m
+[0m[1mazurerm_log_analytics_workspace.main: Still creating... [00m40s elapsed][0m[0m
+[0m[1mazurerm_log_analytics_workspace.main: Creation complete after 49s [id=/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-containerapps-dev/providers/Microsoft.OperationalInsights/workspaces/petclinic-ca-law][0m
+[0m[1mazurerm_container_app_environment.main: Creating...[0m[0m
+[0m[1mazurerm_container_app_environment.main: Still creating... [00m10s elapsed][0m[0m
+[0m[1mazurerm_container_app_environment.main: Still creating... [00m20s elapsed][0m[0m
+[0m[1mazurerm_container_app_environment.main: Still creating... [00m30s elapsed][0m[0m
+[0m[1mazurerm_container_app_environment.main: Creation complete after 39s [id=/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-containerapps-dev/providers/Microsoft.App/managedEnvironments/petclinic-ca-env][0m
+[0m[1mazurerm_container_app.petclinic: Creating...[0m[0m
+[0m[1mazurerm_container_app.petclinic: Still creating... [00m10s elapsed][0m[0m
+[0m[1mazurerm_container_app.petclinic: Still creating... [00m20s elapsed][0m[0m
+[0m[1mazurerm_container_app.petclinic: Creation complete after 20s [id=/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-containerapps-dev/providers/Microsoft.App/containerApps/petclinic-container-app][0m
+[0m[1m[32m
+Apply complete! Resources: 6 added, 0 changed, 0 destroyed.[0m
+[0m[1m[32m
+Outputs:
+
+[0mcontainer_app_fqdn = "petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io"
+container_app_name = "petclinic-container-app"
+deployed_image = "petclinicacrc6mhqfua.azurecr.io/spring-petclinic:300c8f7"
+endpoint_url = "https://petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io"
+managed_identity_principal_id = "6df9ae73-2547-40ae-a1a9-28c91e906443"
+resource_group_name = "rg-petclinic-containerapps-dev"

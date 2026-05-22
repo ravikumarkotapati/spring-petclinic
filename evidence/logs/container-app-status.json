@@ -1,0 +1,135 @@
+{
+  "id": "/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-containerapps-dev/providers/Microsoft.App/containerapps/petclinic-container-app",
+  "identity": {
+    "type": "UserAssigned",
+    "userAssignedIdentities": {
+      "/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourcegroups/rg-petclinic-containerapps-dev/providers/Microsoft.ManagedIdentity/userAssignedIdentities/petclinic-ca-mi": {
+        "clientId": "f961c181-9ac7-4bfb-aace-da319eeddc87",
+        "principalId": "6df9ae73-2547-40ae-a1a9-28c91e906443"
+      }
+    }
+  },
+  "location": "Central US",
+  "name": "petclinic-container-app",
+  "properties": {
+    "configuration": {
+      "activeRevisionsMode": "Single",
+      "dapr": null,
+      "identitySettings": [],
+      "ingress": {
+        "additionalPortMappings": null,
+        "allowInsecure": false,
+        "clientCertificateMode": null,
+        "corsPolicy": null,
+        "customDomains": null,
+        "exposedPort": 0,
+        "external": true,
+        "fqdn": "petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io",
+        "ipSecurityRestrictions": null,
+        "stickySessions": null,
+        "targetPort": 8081,
+        "traffic": [
+          {
+            "latestRevision": true,
+            "weight": 100
+          }
+        ],
+        "transport": "Auto"
+      },
+      "maxInactiveRevisions": 0,
+      "registries": [
+        {
+          "identity": "/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-containerapps-dev/providers/Microsoft.ManagedIdentity/userAssignedIdentities/petclinic-ca-mi",
+          "passwordSecretRef": "",
+          "server": "petclinicacrc6mhqfua.azurecr.io",
+          "username": ""
+        }
+      ],
+      "runtime": null,
+      "secrets": [
+        {
+          "name": "feature-experimental-ui"
+        }
+      ],
+      "service": null
+    },
+    "customDomainVerificationId": "E078F1242BF392314328A96B2E7A43CD5AE09C6D87A60147F4C49D545C89ACBD",
+    "delegatedIdentities": [],
+    "environmentId": "/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-containerapps-dev/providers/Microsoft.App/managedEnvironments/petclinic-ca-env",
+    "eventStreamEndpoint": "https://centralus.azurecontainerapps.dev/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-containerapps-dev/containerApps/petclinic-container-app/eventstream",
+    "latestReadyRevisionName": "petclinic-container-app--x9s2a7b",
+    "latestRevisionFqdn": "petclinic-container-app--x9s2a7b.victorioussand-ef83e08c.centralus.azurecontainerapps.io",
+    "latestRevisionName": "petclinic-container-app--x9s2a7b",
+    "managedEnvironmentId": "/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-containerapps-dev/providers/Microsoft.App/managedEnvironments/petclinic-ca-env",
+    "outboundIpAddresses": [
+      "20.221.50.190"
+    ],
+    "provisioningState": "Succeeded",
+    "runningStatus": "Running",
+    "template": {
+      "containers": [
+        {
+          "env": [
+            {
+              "name": "SERVER_PORT",
+              "value": "8081"
+            },
+            {
+              "name": "SPRING_PROFILES_ACTIVE",
+              "value": "default"
+            },
+            {
+              "name": "MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE",
+              "value": "health,info"
+            },
+            {
+              "name": "PETCLINIC_FEATURE_EXPERIMENTAL_UI",
+              "secretRef": "feature-experimental-ui"
+            },
+            {
+              "name": "JAVA_OPTS",
+              "value": "-XX:MaxRAMPercentage=75.0 -Djava.security.egd=file:/dev/./urandom"
+            }
+          ],
+          "image": "petclinicacrc6mhqfua.azurecr.io/spring-petclinic:300c8f7",
+          "name": "spring-petclinic",
+          "probes": [],
+          "resources": {
+            "cpu": 0.5,
+            "ephemeralStorage": "2Gi",
+            "memory": "1Gi"
+          }
+        }
+      ],
+      "initContainers": null,
+      "revisionSuffix": "",
+      "scale": {
+        "cooldownPeriod": 300,
+        "maxReplicas": 2,
+        "minReplicas": 1,
+        "pollingInterval": 30,
+        "rules": null
+      },
+      "serviceBinds": null,
+      "terminationGracePeriodSeconds": null,
+      "volumes": []
+    },
+    "workloadProfileName": null
+  },
+  "resourceGroup": "rg-petclinic-containerapps-dev",
+  "systemData": {
+    "createdAt": "2026-05-22T06:21:07.7668626",
+    "createdBy": "ravik.kotapati@outlook.com",
+    "createdByType": "User",
+    "lastModifiedAt": "2026-05-22T06:21:07.7668626",
+    "lastModifiedBy": "ravik.kotapati@outlook.com",
+    "lastModifiedByType": "User"
+  },
+  "tags": {
+    "environment": "dev",
+    "module": "module-7-replatform",
+    "target": "azure-container-apps",
+    "workload": "spring-petclinic"
+  },
+  "type": "Microsoft.App/containerApps"
+}

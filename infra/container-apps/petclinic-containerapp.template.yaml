@@ -1,0 +1,38 @@
+type: Microsoft.App/containerApps
+name: petclinic-container-app
+properties:
+  managedEnvironmentId: <container-app-environment-resource-id>
+  configuration:
+    activeRevisionsMode: Single
+    registries:
+      - server: petclinicacrc6mhqfua.azurecr.io
+        identity: <user-assigned-managed-identity-resource-id>
+    secrets:
+      - name: feature-experimental-ui
+        value: "<secret-value-from-key-vault-or-variable-group>"
+    ingress:
+      external: true
+      targetPort: 8081
+      transport: auto
+      traffic:
+        - latestRevision: true
+          weight: 100
+  template:
+    scale:
+      minReplicas: 1
+      maxReplicas: 2
+    containers:
+      - name: spring-petclinic
+        image: petclinicacrc6mhqfua.azurecr.io/spring-petclinic:300c8f7
+        resources:
+          cpu: 0.5
+          memory: 1Gi
+        env:
+          - name: SERVER_PORT
+            value: "8081"
+          - name: SPRING_PROFILES_ACTIVE
+            value: default
+          - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+            value: health,info
+          - name: PETCLINIC_FEATURE_EXPERIMENTAL_UI
+            secretRef: feature-experimental-ui

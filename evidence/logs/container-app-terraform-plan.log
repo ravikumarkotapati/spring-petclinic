@@ -1,0 +1,199 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # azurerm_container_app.petclinic will be created
+  + resource "azurerm_container_app" "petclinic" {
+      + container_app_environment_id  = (known after apply)
+      + custom_domain_verification_id = (sensitive value)
+      + id                            = (known after apply)
+      + latest_revision_fqdn          = (known after apply)
+      + latest_revision_name          = (known after apply)
+      + location                      = (known after apply)
+      + name                          = "petclinic-container-app"
+      + outbound_ip_addresses         = (known after apply)
+      + resource_group_name           = "rg-petclinic-containerapps-dev"
+      + revision_mode                 = "Single"
+      + tags                          = {
+          + "environment" = "dev"
+          + "module"      = "module-7-replatform"
+          + "target"      = "azure-container-apps"
+          + "workload"    = "spring-petclinic"
+        }
+
+      + identity {
+          + identity_ids = (known after apply)
+          + principal_id = (known after apply)
+          + tenant_id    = (known after apply)
+          + type         = "UserAssigned"
+        }
+
+      + ingress {
+          + allow_insecure_connections = false
+          + custom_domain              = (known after apply)
+          + external_enabled           = true
+          + fqdn                       = (known after apply)
+          + target_port                = 8081
+          + transport                  = "auto"
+
+          + traffic_weight {
+              + latest_revision = true
+              + percentage      = 100
+            }
+        }
+
+      + registry {
+          + identity = (known after apply)
+          + server   = "petclinicacrc6mhqfua.azurecr.io"
+        }
+
+      + secret {
+          # At least one attribute in this block is (or was) sensitive,
+          # so its contents will not be displayed.
+        }
+
+      + template {
+          + cooldown_period_in_seconds       = 300
+          + max_replicas                     = 2
+          + min_replicas                     = 1
+          + polling_interval_in_seconds      = 30
+          + revision_suffix                  = (known after apply)
+          + termination_grace_period_seconds = 0
+
+          + container {
+              + cpu               = 0.5
+              + ephemeral_storage = (known after apply)
+              + image             = "petclinicacrc6mhqfua.azurecr.io/spring-petclinic:300c8f7"
+              + memory            = "1Gi"
+              + name              = "spring-petclinic"
+
+              + env {
+                  + name  = "SERVER_PORT"
+                  + value = "8081"
+                }
+              + env {
+                  + name  = "SPRING_PROFILES_ACTIVE"
+                  + value = "default"
+                }
+              + env {
+                  + name  = "MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE"
+                  + value = "health,info"
+                }
+              + env {
+                  + name        = "PETCLINIC_FEATURE_EXPERIMENTAL_UI"
+                  + secret_name = "feature-experimental-ui"
+                }
+              + env {
+                  + name  = "JAVA_OPTS"
+                  + value = "-XX:MaxRAMPercentage=75.0 -Djava.security.egd=file:/dev/./urandom"
+                }
+            }
+        }
+    }
+
+  # azurerm_container_app_environment.main will be created
+  + resource "azurerm_container_app_environment" "main" {
+      + custom_domain_verification_id    = (known after apply)
+      + default_domain                   = (known after apply)
+      + docker_bridge_cidr               = (known after apply)
+      + id                               = (known after apply)
+      + internal_load_balancer_enabled   = false
+      + location                         = "centralus"
+      + log_analytics_workspace_id       = (known after apply)
+      + logs_destination                 = (known after apply)
+      + mutual_tls_enabled               = false
+      + name                             = "petclinic-ca-env"
+      + platform_reserved_cidr           = (known after apply)
+      + platform_reserved_dns_ip_address = (known after apply)
+      + public_network_access            = (known after apply)
+      + resource_group_name              = "rg-petclinic-containerapps-dev"
+      + static_ip_address                = (known after apply)
+      + tags                             = {
+          + "environment" = "dev"
+          + "module"      = "module-7-replatform"
+          + "target"      = "azure-container-apps"
+          + "workload"    = "spring-petclinic"
+        }
+      + zone_redundancy_enabled          = false
+    }
+
+  # azurerm_log_analytics_workspace.main will be created
+  + resource "azurerm_log_analytics_workspace" "main" {
+      + allow_resource_only_permissions = true
+      + daily_quota_gb                  = -1
+      + id                              = (known after apply)
+      + internet_ingestion_enabled      = true
+      + internet_query_enabled          = true
+      + local_authentication_disabled   = (known after apply)
+      + local_authentication_enabled    = true
+      + location                        = "centralus"
+      + name                            = "petclinic-ca-law"
+      + primary_shared_key              = (sensitive value)
+      + resource_group_name             = "rg-petclinic-containerapps-dev"
+      + retention_in_days               = 30
+      + secondary_shared_key            = (sensitive value)
+      + sku                             = "PerGB2018"
+      + tags                            = {
+          + "environment" = "dev"
+          + "module"      = "module-7-replatform"
+          + "target"      = "azure-container-apps"
+          + "workload"    = "spring-petclinic"
+        }
+      + workspace_id                    = (known after apply)
+    }
+
+  # azurerm_resource_group.main will be created
+  + resource "azurerm_resource_group" "main" {
+      + id       = (known after apply)
+      + location = "centralus"
+      + name     = "rg-petclinic-containerapps-dev"
+      + tags     = {
+          + "environment" = "dev"
+          + "module"      = "module-7-replatform"
+          + "target"      = "azure-container-apps"
+          + "workload"    = "spring-petclinic"
+        }
+    }
+
+  # azurerm_role_assignment.acr_pull will be created
+  + resource "azurerm_role_assignment" "acr_pull" {
+      + condition_version                = (known after apply)
+      + id                               = (known after apply)
+      + name                             = (known after apply)
+      + principal_id                     = (known after apply)
+      + principal_type                   = (known after apply)
+      + role_definition_id               = (known after apply)
+      + role_definition_name             = "AcrPull"
+      + scope                            = "/subscriptions/eafa948e-b96e-405c-bf43-63117e6d3402/resourceGroups/rg-petclinic-cicd-dev/providers/Microsoft.ContainerRegistry/registries/petclinicacrc6mhqfua"
+      + skip_service_principal_aad_check = (known after apply)
+    }
+
+  # azurerm_user_assigned_identity.container_app will be created
+  + resource "azurerm_user_assigned_identity" "container_app" {
+      + client_id           = (known after apply)
+      + id                  = (known after apply)
+      + location            = "centralus"
+      + name                = "petclinic-ca-mi"
+      + principal_id        = (known after apply)
+      + resource_group_name = "rg-petclinic-containerapps-dev"
+      + tags                = {
+          + "environment" = "dev"
+          + "module"      = "module-7-replatform"
+          + "target"      = "azure-container-apps"
+          + "workload"    = "spring-petclinic"
+        }
+      + tenant_id           = (known after apply)
+    }
+
+Plan: 6 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + container_app_fqdn            = (known after apply)
+  + container_app_name            = "petclinic-container-app"
+  + deployed_image                = "petclinicacrc6mhqfua.azurecr.io/spring-petclinic:300c8f7"
+  + endpoint_url                  = (known after apply)
+  + managed_identity_principal_id = (known after apply)
+  + resource_group_name           = "rg-petclinic-containerapps-dev"

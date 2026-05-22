@@ -1,0 +1,53 @@
+{"TimeStamp": "2026-05-22T06:32:44.66015", "Log": "Connecting to the container 'spring-petclinic'..."}
+{"TimeStamp": "2026-05-22T06:32:44.68415", "Log": "Successfully Connected to container: 'spring-petclinic' [Revision: 'petclinic-container-app--x9s2a7b', Replica: 'petclinic-container-app--x9s2a7b-85b4dccc68-65pst']"}
+{"TimeStamp": "2026-05-22T06:21:50.4627893+00:00", "Log": ""}
+{"TimeStamp": "2026-05-22T06:21:50.462844+00:00", "Log": ""}
+{"TimeStamp": "2026-05-22T06:21:50.4628515+00:00", "Log": "|\\      _,,,--,,_"}
+{"TimeStamp": "2026-05-22T06:21:50.4628561+00:00", "Log": "/,`.-'`'   ._  \\-;;,_"}
+{"TimeStamp": "2026-05-22T06:21:50.4628601+00:00", "Log": "_______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______"}
+{"TimeStamp": "2026-05-22T06:21:50.4628626+00:00", "Log": "|       | '---''(_/._)-'(_\\_)   |   |   |   |  |  | |   |       |"}
+{"TimeStamp": "2026-05-22T06:21:50.4628653+00:00", "Log": "|    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _"}
+{"TimeStamp": "2026-05-22T06:21:50.4628682+00:00", "Log": "|   |_| |   |___  |   | |       |   |   |   |       |   |       | \\ \\ \\ \\"}
+{"TimeStamp": "2026-05-22T06:21:50.4628718+00:00", "Log": "|    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \\ \\ \\ \\"}
+{"TimeStamp": "2026-05-22T06:21:50.4628746+00:00", "Log": "|   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )"}
+{"TimeStamp": "2026-05-22T06:21:50.4628777+00:00", "Log": "|___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /"}
+{"TimeStamp": "2026-05-22T06:21:50.4628805+00:00", "Log": "==================================================================/_/_/_/"}
+{"TimeStamp": "2026-05-22T06:21:50.4628828+00:00", "Log": ""}
+{"TimeStamp": "2026-05-22T06:21:50.4628855+00:00", "Log": "Built with Spring Boot :: 4.0.3"}
+{"TimeStamp": "2026-05-22T06:21:50.4628882+00:00", "Log": ""}
+{"TimeStamp": "2026-05-22T06:21:50.4628905+00:00", "Log": ""}
+{"TimeStamp": "2026-05-22T06:21:50.9670371+00:00", "Log": "INFO 7 --- [           main] o.s.s.petclinic.PetClinicApplication     : Starting PetClinicApplication v4.0.0-SNAPSHOT using Java 17.0.19 with PID 7 (/app/app.jar started by appuser in /app)"}
+{"TimeStamp": "2026-05-22T06:21:50.9693386+00:00", "Log": "INFO 7 --- [           main] o.s.s.petclinic.PetClinicApplication     : The following 1 profile is active: \"default\""}
+{"TimeStamp": "2026-05-22T06:21:58.0750301+00:00", "Log": "INFO 7 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode."}
+{"TimeStamp": "2026-05-22T06:21:58.4770863+00:00", "Log": "INFO 7 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 308 ms. Found 3 JPA repository interfaces."}
+{"TimeStamp": "2026-05-22T06:22:03.9703218+00:00", "Log": "INFO 7 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8081 (http)"}
+{"TimeStamp": "2026-05-22T06:22:04.0600391+00:00", "Log": "INFO 7 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]"}
+{"TimeStamp": "2026-05-22T06:22:04.060272+00:00", "Log": "INFO 7 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]"}
+{"TimeStamp": "2026-05-22T06:22:04.7643761+00:00", "Log": "INFO 7 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 13381 ms"}
+{"TimeStamp": "2026-05-22T06:22:07.6668346+00:00", "Log": "INFO 7 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting..."}
+{"TimeStamp": "2026-05-22T06:22:08.7650338+00:00", "Log": "INFO 7 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:fb552bf9-a567-49d5-93e6-f64fe9db3f7b user=SA"}
+{"TimeStamp": "2026-05-22T06:22:08.7664739+00:00", "Log": "INFO 7 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed."}
+{"TimeStamp": "2026-05-22T06:22:09.6789989+00:00", "Log": "INFO 7 --- [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]"}
+{"TimeStamp": "2026-05-22T06:22:09.9825504+00:00", "Log": "INFO 7 --- [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final"}
+{"TimeStamp": "2026-05-22T06:22:12.881766+00:00", "Log": "INFO 7 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer"}
+{"TimeStamp": "2026-05-22T06:22:13.4739215+00:00", "Log": "INFO 7 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:"}
+{"TimeStamp": "2026-05-22T06:22:13.4739826+00:00", "Log": "JDBC URL [jdbc:h2:mem:fb552bf9-a567-49d5-93e6-f64fe9db3f7b]"}
+{"TimeStamp": "2026-05-22T06:22:13.4739877+00:00", "Log": "driver: H2 JDBC Driver"}
+{"TimeStamp": "2026-05-22T06:22:13.4739907+00:00", "Log": "dialect: H2Dialect"}
+{"TimeStamp": "2026-05-22T06:22:13.4739937+00:00", "Log": "version: 2.4.240"}
+{"TimeStamp": "2026-05-22T06:22:13.4739967+00:00", "Log": "catalog/schema: FB552BF9-A567-49D5-93E6-F64FE9DB3F7B/PUBLIC"}
+{"TimeStamp": "2026-05-22T06:22:13.4740016+00:00", "Log": "mode: undefined/unknown"}
+{"TimeStamp": "2026-05-22T06:22:13.4740053+00:00", "Log": "level: READ_COMMITTED [default READ_COMMITTED]"}
+{"TimeStamp": "2026-05-22T06:22:13.4740088+00:00", "Log": "fetch size: 100"}
+{"TimeStamp": "2026-05-22T06:22:13.4740117+00:00", "Log": "DataSourceConnectionProvider"}
+{"TimeStamp": "2026-05-22T06:22:13.4740146+00:00", "Log": "pool size: undefined/unknown"}
+{"TimeStamp": "2026-05-22T06:22:13.4740177+00:00", "Log": "pool size: undefined/unknown"}
+{"TimeStamp": "2026-05-22T06:22:20.6984944+00:00", "Log": "INFO 7 --- [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)"}
+{"TimeStamp": "2026-05-22T06:22:20.77481+00:00", "Log": "INFO 7 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'"}
+{"TimeStamp": "2026-05-22T06:22:21.4761623+00:00", "Log": "INFO 7 --- [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used."}
+{"TimeStamp": "2026-05-22T06:22:29.8760216+00:00", "Log": "INFO 7 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoints beneath base path '/actuator'"}
+{"TimeStamp": "2026-05-22T06:22:30.5909331+00:00", "Log": "INFO 7 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8081 (http) with context path '/'"}
+{"TimeStamp": "2026-05-22T06:22:30.6856988+00:00", "Log": "INFO 7 --- [           main] o.s.s.petclinic.PetClinicApplication     : Started PetClinicApplication in 43.117 seconds (process running for 46.897)"}
+{"TimeStamp": "2026-05-22T06:22:31.5672588+00:00", "Log": "INFO 7 --- [nio-8081-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'"}
+{"TimeStamp": "2026-05-22T06:22:31.5689736+00:00", "Log": "INFO 7 --- [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'"}
+{"TimeStamp": "2026-05-22T06:22:31.574571+00:00", "Log": "INFO 7 --- [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms"}

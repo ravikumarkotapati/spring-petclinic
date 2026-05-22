@@ -1,0 +1,46 @@
+# Container Apps Deployment Summary
+
+| Item | Value |
+|---|---|
+| Module | Module 7 - Replatform to Managed Container Target |
+| Managed target | Azure Container Apps |
+| Resource group | `rg-petclinic-containerapps-dev` |
+| Region | `centralus` |
+| Container App | `petclinic-container-app` |
+| Endpoint URL | `https://petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io` |
+| Container image | `petclinicacrc6mhqfua.azurecr.io/spring-petclinic:300c8f7` |
+| ACR source | `petclinicacrc6mhqfua.azurecr.io` |
+| Ingress | External HTTPS ingress, target port `8081` |
+| Revision traffic | Single revision mode, 100% traffic to latest revision |
+| Latest revision | `petclinic-container-app--x9s2a7b` |
+| Scale setting | Minimum 1 replica, maximum 2 replicas |
+| Identity | User-assigned managed identity with `AcrPull` on ACR |
+| Secrets pattern | Container App secret for `PETCLINIC_FEATURE_EXPERIMENTAL_UI`; future DB, TLS and API secrets follow the same pattern |
+| Runtime profile | `SPRING_PROFILES_ACTIVE=default` for Module 7 H2-backed replatform validation |
+
+## Validation Evidence
+
+| Evidence | File |
+|---|---|
+| Terraform plan | `evidence/logs/container-app-terraform-plan.log` |
+| Terraform apply | `evidence/logs/container-app-terraform-apply.log` |
+| Terraform outputs | `evidence/logs/container-app-terraform-outputs.json` |
+| Azure Container App status | `evidence/logs/container-app-status.json` |
+| Revision traffic and health | `evidence/logs/container-app-revisions.txt` |
+| Startup logs | `evidence/logs/container-app-startup.log` |
+| Endpoint health checks | `evidence/logs/container-app-health-evidence.md` |
+| Health result CSV | `evidence/logs/container-app-health-results.csv` |
+
+## Health Check Result
+
+The smoke test validated the live endpoint, actuator health endpoint and owners page.
+
+| Check | Result |
+|---|---|
+| `/` | HTTP `200` |
+| `/actuator/health` | HTTP `200`, `status: UP` |
+| `/owners/find` | HTTP `200` |
+
+## Platform Status
+
+Azure reported the Container App as `Succeeded` and `Running`. The active revision `petclinic-container-app--x9s2a7b` had one active replica, `Healthy` health state and `100%` traffic weight.

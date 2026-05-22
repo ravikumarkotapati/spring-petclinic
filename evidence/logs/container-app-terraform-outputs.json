@@ -1,0 +1,32 @@
+{
+  "container_app_fqdn": {
+    "sensitive": false,
+    "type": "string",
+    "value": "petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io"
+  },
+  "container_app_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "petclinic-container-app"
+  },
+  "deployed_image": {
+    "sensitive": false,
+    "type": "string",
+    "value": "petclinicacrc6mhqfua.azurecr.io/spring-petclinic:300c8f7"
+  },
+  "endpoint_url": {
+    "sensitive": false,
+    "type": "string",
+    "value": "https://petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io"
+  },
+  "managed_identity_principal_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "6df9ae73-2547-40ae-a1a9-28c91e906443"
+  },
+  "resource_group_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "rg-petclinic-containerapps-dev"
+  }
+}

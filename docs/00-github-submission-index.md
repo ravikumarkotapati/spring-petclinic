@@ -16,6 +16,7 @@ Module branches are kept as implementation history and review checkpoints:
 | `module4-rehost-azure-vm` | Module 4 Azure VM rehost implementation and smoke-test evidence |
 | `module5-containerization` | Module 5 container image, Compose simulation and configuration remediation |
 | `module6-cicd-azure-templates` | Module 6 Azure DevOps CI/CD, ACR and Terraform migration templates |
+| `module7-container-apps-replatform` | Module 7 Azure Container Apps replatform implementation and health evidence |
 
 ## Completed Assessment Scope
 
@@ -27,6 +28,7 @@ Module branches are kept as implementation history and review checkpoints:
 | Module 4 - Rehost to Azure VM | Complete | [`infra/terraform/rehost-vm/`](../infra/terraform/rehost-vm/), [`scripts/deploy_rehost_vm.ps1`](../scripts/deploy_rehost_vm.ps1), [`docs/06-rehost-runbook.md`](06-rehost-runbook.md), [`docs/07-rehost-ingress-design.md`](07-rehost-ingress-design.md), [`tests/smoke_test_rehost.ps1`](../tests/smoke_test_rehost.ps1), [`evidence/logs/rehost-smoke-test-evidence.md`](../evidence/logs/rehost-smoke-test-evidence.md) |
 | Module 5 - Containerization and Configuration Remediation | Complete | [`Dockerfile`](../Dockerfile), [`docker-compose.yml`](../docker-compose.yml), [`docs/08-containerization-and-configuration-remediation.md`](08-containerization-and-configuration-remediation.md), [`inventory/runtime_environment_matrix.csv`](../inventory/runtime_environment_matrix.csv), [`evidence/logs/container-build.log`](../evidence/logs/container-build.log), [`evidence/logs/container-image-scan-plan.md`](../evidence/logs/container-image-scan-plan.md) |
 | Module 6 - CI/CD and Azure Migration Templates | Complete | [`azure-pipelines.yml`](../azure-pipelines.yml), [`pipelines/templates/`](../pipelines/templates/), [`infra/terraform/acr/`](../infra/terraform/acr/), [`infra/terraform/modules/acr/`](../infra/terraform/modules/acr/), [`docs/10-cicd-and-azure-migration-templates.md`](10-cicd-and-azure-migration-templates.md), [`docs/11-cicd-rollback-strategy.md`](11-cicd-rollback-strategy.md), [`evidence/logs/module6-pipeline-validation.log`](../evidence/logs/module6-pipeline-validation.log), [`evidence/logs/acr-image-evidence.md`](../evidence/logs/acr-image-evidence.md) |
+| Module 7 - Replatform to Managed Container Target | Complete | [`docs/12-replatform-container-apps.md`](12-replatform-container-apps.md), [`infra/terraform/container-apps/`](../infra/terraform/container-apps/), [`infra/container-apps/petclinic-containerapp.template.yaml`](../infra/container-apps/petclinic-containerapp.template.yaml), [`docs/replatform-container-apps-architecture.mmd`](replatform-container-apps-architecture.mmd), [`inventory/replatform_target_comparison.csv`](../inventory/replatform_target_comparison.csv), [`evidence/logs/container-app-deployment-summary.md`](../evidence/logs/container-app-deployment-summary.md), [`evidence/logs/container-app-health-evidence.md`](../evidence/logs/container-app-health-evidence.md) |
 
 ## Module 4 Live Endpoint
 
@@ -47,6 +49,22 @@ Validation evidence is captured in:
 
 Module 4 uses `centralus` and `Standard_D2s_v3`. The first target region, `eastus`, returned SKU/capacity restrictions for tested B-series and D-series VM sizes in this subscription. `centralus` reported no restriction for `Standard_D2s_v3`, so it was selected to complete the rehost deployment while preserving the required Azure VM landing pattern.
 
+## Module 7 Live Endpoint
+
+The deployed Azure Container Apps endpoint used for Module 7 validation is:
+
+<https://petclinic-container-app.victorioussand-ef83e08c.centralus.azurecontainerapps.io>
+
+Validation evidence is captured in:
+
+| Evidence | File |
+|---|---|
+| Deployment summary | [`evidence/logs/container-app-deployment-summary.md`](../evidence/logs/container-app-deployment-summary.md) |
+| Terraform outputs | [`evidence/logs/container-app-terraform-outputs.json`](../evidence/logs/container-app-terraform-outputs.json) |
+| Platform status | [`evidence/logs/container-app-status.json`](../evidence/logs/container-app-status.json) |
+| Revision traffic | [`evidence/logs/container-app-revisions.txt`](../evidence/logs/container-app-revisions.txt) |
+| Health checks | [`evidence/logs/container-app-health-evidence.md`](../evidence/logs/container-app-health-evidence.md) and [`evidence/logs/container-app-health-results.csv`](../evidence/logs/container-app-health-results.csv) |
+
 ## Future Modules
 
-The assignment also defines Modules 7-11 for replatforming, database migration, ingress/egress hardening, reengineering and cutover/hypercare. Those should continue from `main` using new module branches, then merge back to `main` after each module is complete.
+The assignment also defines Modules 8-11 for database migration, ingress/egress hardening, reengineering and cutover/hypercare. Those should continue from `main` using new module branches, then merge back to `main` after each module is complete.

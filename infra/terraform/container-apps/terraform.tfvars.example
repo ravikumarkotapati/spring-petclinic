@@ -1,0 +1,18 @@
+subscription_id     = "<azure-subscription-id>"
+resource_group_name = "rg-petclinic-containerapps-dev"
+location            = "centralus"
+
+acr_id           = "/subscriptions/<subscription-id>/resourceGroups/rg-petclinic-cicd-dev/providers/Microsoft.ContainerRegistry/registries/<acr-name>"
+acr_login_server = "<acr-name>.azurecr.io"
+image_repository = "spring-petclinic"
+image_tag        = "300c8f7"
+
+min_replicas     = 1
+max_replicas     = 2
+container_cpu    = 0.5
+container_memory = "1Gi"
+
+tags = {
+  owner       = "application-architect-assessment"
+  cost_center = "training"
+}

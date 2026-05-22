@@ -17,7 +17,7 @@ Start here: [`docs/00-github-submission-index.md`](docs/00-github-submission-ind
 | Module 3 - Migration Pattern Assessment | [`docs/03-migration-pattern-assessment.md`](docs/03-migration-pattern-assessment.md), [`inventory/migration_decision_matrix.csv`](inventory/migration_decision_matrix.csv), [`docs/09-adr-log.md`](docs/09-adr-log.md), [`docs/05-migration-wave-plan.md`](docs/05-migration-wave-plan.md), [`inventory/wave_plan.csv`](inventory/wave_plan.csv), [`docs/04-assumptions-risk-register.md`](docs/04-assumptions-risk-register.md), [`inventory/assumption_risk_register.csv`](inventory/assumption_risk_register.csv) |
 | Module 4 - Rehost to Azure VM | [`docs/06-rehost-runbook.md`](docs/06-rehost-runbook.md), [`docs/07-rehost-ingress-design.md`](docs/07-rehost-ingress-design.md), [`docs/rehost-ingress-design.mmd`](docs/rehost-ingress-design.mmd), [`infra/terraform/rehost-vm/main.tf`](infra/terraform/rehost-vm/main.tf), [`scripts/deploy_rehost_vm.ps1`](scripts/deploy_rehost_vm.ps1), [`tests/smoke_test_rehost.ps1`](tests/smoke_test_rehost.ps1), [`evidence/logs/rehost-smoke-test-evidence.md`](evidence/logs/rehost-smoke-test-evidence.md) |
 
-Module 1 local baseline uses `http://localhost:8081/` because Jenkins was already using port `8080` on the assessment machine.
+Module 1 local baseline uses `http://localhost:8081/` because Jenkins was already using port `8080` in the local baseline environment.
 
 Module 4 live Azure endpoint: <http://petclinic-rehost-qevd19.centralus.cloudapp.azure.com>.
 

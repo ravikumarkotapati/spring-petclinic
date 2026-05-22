@@ -41,17 +41,18 @@ Module 4 rehosts the Spring PetClinic application from the Module 1 local/on-pre
 
 ## Prerequisites
 
-Run these commands from PowerShell on your laptop:
+Run these commands from PowerShell on the deployment workstation:
 
 ```powershell
-cd E:\spring-petclinic
-git checkout module4-rehost-azure-vm
+$repoRoot = "<path-to-spring-petclinic-fork>"
+cd $repoRoot
+git checkout main
 git pull
 
-$subscriptionId = "eafa948e-b96e-405c-bf43-63117e6d3402"
+$subscriptionId = "<azure-subscription-id>"
 $resourceGroup = "rg-petclinic-rehost-dev"
 $location = "centralus"
-$adminCidr = "101.100.182.17/32"
+$adminCidr = "<trusted-admin-public-ip-cidr>"
 
 az account set --subscription $subscriptionId
 az account show --output table
@@ -71,19 +72,19 @@ ssh-keygen -t rsa -b 4096 -f "$env:USERPROFILE\.ssh\petclinic-azure-vm" -C "petc
 Use this before deployment if you want an explicit validation step:
 
 ```powershell
-cd E:\spring-petclinic\infra\terraform\rehost-vm
+cd "$repoRoot\infra\terraform\rehost-vm"
 terraform init -upgrade
 terraform fmt -recursive
 terraform validate
-cd E:\spring-petclinic
+cd $repoRoot
 ```
 
 ## Deploy
 
-This command deploys the VM landing pattern, clones this repository branch on the VM, builds the app with Maven, runs it as a Linux service, and places NGINX in front of it.
+This command deploys the VM landing pattern, clones the configured repository branch on the VM, builds the app with Maven, runs it as a Linux service, and places NGINX in front of it.
 
 ```powershell
-cd E:\spring-petclinic
+cd $repoRoot
 
 .\scripts\deploy_rehost_vm.ps1 `
   -SubscriptionId $subscriptionId `
@@ -96,14 +97,14 @@ cd E:\spring-petclinic
   -EnableVmBackup
 ```
 
-For least-privilege validation, replace `-HttpSourceIp "0.0.0.0/0"` with your IP CIDR when the evaluator does not need public access.
+For least-privilege validation, replace `-HttpSourceIp "0.0.0.0/0"` with an approved public CIDR when the evaluator does not need open public HTTP access.
 
 ## Smoke Test
 
 After deployment completes, wait 3 to 5 minutes for cloud-init, Maven build, systemd startup and NGINX to settle. Then run:
 
 ```powershell
-cd E:\spring-petclinic
+cd $repoRoot
 
 $outputs = Get-Content evidence\logs\rehost-deployment-outputs.json | ConvertFrom-Json
 $appUrl = $outputs.app_url.value
@@ -173,16 +174,16 @@ Because Key Vault purge protection is enabled, the vault name may remain reserve
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Design Azure VM landing pattern: VNet, subnet, NSG, VM, managed disk, Key Vault, monitoring and backup | Ready | `infra/terraform/rehost-vm/*.tf`, `docs/07-rehost-ingress-design.md` |
-| Deploy native runtime or containerized app on Azure VM | Ready to execute | `scripts/deploy_rehost_vm.ps1` deploys native Java runtime on Ubuntu VM with Terraform |
-| Place NGINX, Application Gateway or Load Balancer in front | Ready | NGINX reverse proxy in Terraform cloud-init template and ingress design document |
-| Configure app secrets and database endpoint through environment variables or Key Vault reference pattern | Ready | Key Vault secrets plus managed identity lookup rendered into systemd environment file |
+| Design Azure VM landing pattern: VNet, subnet, NSG, VM, managed disk, Key Vault, monitoring and backup | Complete | `infra/terraform/rehost-vm/*.tf`, `docs/07-rehost-ingress-design.md` |
+| Deploy native runtime or containerized app on Azure VM | Complete | `scripts/deploy_rehost_vm.ps1` deploys native Java runtime on Ubuntu VM with Terraform |
+| Place NGINX, Application Gateway or Load Balancer in front | Complete | NGINX reverse proxy in Terraform cloud-init template and ingress design document |
+| Configure app secrets and database endpoint through environment variables or Key Vault reference pattern | Complete | Key Vault secrets plus managed identity lookup rendered into systemd environment file |
 | Document what changed versus on-prem VM baseline | Complete | `What Changed Versus Module 1 On-Prem Baseline` section |
-| Provide smoke test evidence | Pending live deployment | Run `tests/smoke_test_rehost.ps1` after deployment to generate evidence files |
+| Provide smoke test evidence | Complete | `evidence/logs/rehost-smoke-test-evidence.md`, `evidence/logs/rehost-smoke-test-results.csv` |
 
 ## Completion Gate
 
-Module 4 is complete only after these generated files exist and are committed:
+Module 4 completion evidence is committed in these generated files:
 
 | Generated Evidence | How To Create |
 |---|---|

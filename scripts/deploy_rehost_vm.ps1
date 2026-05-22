@@ -17,7 +17,7 @@ param(
     [string]$HttpSourceIp = "0.0.0.0/0",
     [string]$VmSize = "Standard_D2s_v3",
     [string]$RepoUrl = "https://github.com/ravikumarkotapati/spring-petclinic.git",
-    [string]$RepoBranch = "module4-rehost-azure-vm",
+    [string]$RepoBranch = "main",
     [int]$AppPort = 8081,
 
     [ValidateSet("h2", "postgres", "mysql")]

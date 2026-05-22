@@ -33,7 +33,7 @@ variable "ssh_public_key" {
 }
 
 variable "admin_source_ip" {
-  description = "CIDR allowed to reach SSH. Use your public IP with /32 for least privilege."
+  description = "CIDR allowed to reach SSH. Use a trusted administrator public IP with /32 for least privilege."
   type        = string
 
   validation {
@@ -43,7 +43,7 @@ variable "admin_source_ip" {
 }
 
 variable "http_source_ip" {
-  description = "CIDR allowed to reach public HTTP ingress. Use 0.0.0.0/0 for evaluator access or your public IP /32 for least privilege."
+  description = "CIDR allowed to reach public HTTP ingress. Use 0.0.0.0/0 for evaluator access or a trusted public IP with /32 for least privilege."
   type        = string
   default     = "0.0.0.0/0"
 }
@@ -63,7 +63,7 @@ variable "repo_url" {
 variable "repo_branch" {
   description = "Git branch cloned by cloud-init on first boot."
   type        = string
-  default     = "module4-rehost-azure-vm"
+  default     = "main"
 }
 
 variable "app_port" {

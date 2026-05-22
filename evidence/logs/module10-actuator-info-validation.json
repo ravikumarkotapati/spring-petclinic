@@ -1,0 +1,29 @@
+{
+  "git": {
+    "branch": "module10-app-configuration-modernization",
+    "commit": {
+      "id": "c6b0cad",
+      "time": "2026-05-22T11:36:10Z"
+    }
+  },
+  "build": {
+    "encoding": {
+      "reporting": "UTF-8",
+      "source": "UTF-8"
+    },
+    "version": "4.0.0-SNAPSHOT",
+    "artifact": "spring-petclinic",
+    "java": {
+      "source": "17",
+      "target": "17"
+    },
+    "name": "petclinic",
+    "time": "2024-11-28T14:37:52Z",
+    "group": "org.springframework.samples"
+  },
+  "petclinicRuntime": {
+    "externalizedConfig": true,
+    "experimentalUi": false,
+    "configSource": "azure-app-configuration"
+  }
+}

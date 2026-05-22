@@ -79,3 +79,16 @@ This ADR log records Module 3 migration architecture decisions for the Spring Pe
 | Rationale | HTTPS edge ingress with WAF provides a production-grade public contract, while deny-by-default egress reduces blast radius and forces unresolved SMTP/API/file-share dependencies to be validated before cutover. |
 | Consequences | Requires DNS/TLS cutover planning, private endpoint/private DNS design for PaaS services, Azure Firewall or equivalent egress controls, and explicit exceptions for validated dependencies. |
 | Evidence | `docs/14-ingress-egress-network-design.md`, `inventory/ingress_inventory.csv`, `inventory/egress_inventory.csv`, `inventory/network_egress_allowlist.csv`, `docs/dns-tls-cutover-plan.md` |
+
+## ADR-0007: Move Runtime Configuration To Azure App Configuration
+
+| Field | Value |
+|---|---|
+| Status | Accepted |
+| Date | 2026-05-22 |
+| Decision | Move non-secret runtime configuration and feature flags to Azure App Configuration while keeping secrets in Azure Key Vault. |
+| Context | Modules 5-8 externalized database settings and moved the app to Container Apps plus PostgreSQL Flexible Server. Module 10 needs a small rearchitecture concern with clear blast radius and evidence. |
+| Options Considered | Keep platform env vars only, use Azure App Configuration plus Key Vault, add direct Spring Cloud Azure runtime client immediately, store all values in App Configuration |
+| Rationale | App Configuration gives centralized, labeled runtime config and feature flags while preserving Key Vault as the secret authority. The chosen pattern avoids adding an unvalidated framework dependency to the Spring Boot 4 application. |
+| Consequences | Adds runtime egress to App Configuration on HTTPS `443`, managed identity RBAC, App Configuration seeding/sync automation and new validation evidence through actuator info. |
+| Evidence | `docs/15-adr-app-configuration-modernization.md`, `docs/15-rearchitect-app-configuration-summary.md`, `docs/reengineered-config-architecture.mmd`, `inventory/module10_dependency_delta.json` |

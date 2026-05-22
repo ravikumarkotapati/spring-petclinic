@@ -1,0 +1,44 @@
+[
+  {
+    "key": "PETCLINIC_CONFIG_SOURCE",
+    "label": "prod",
+    "content_type": "text/plain",
+    "value": "azure-app-configuration",
+    "classification": "non-secret"
+  },
+  {
+    "key": "PETCLINIC_EXTERNALIZED_CONFIG",
+    "label": "prod",
+    "content_type": "text/plain",
+    "value": "true",
+    "classification": "non-secret"
+  },
+  {
+    "key": "PETCLINIC_FEATURE_EXPERIMENTAL_UI",
+    "label": "prod",
+    "content_type": "text/plain",
+    "value": "false",
+    "classification": "non-secret"
+  },
+  {
+    "key": "POSTGRES_URL",
+    "label": "prod",
+    "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+    "value": "{\"uri\":\"https://petclinicdbqevd19kv.vault.azure.net/secrets/petclinic-postgres-jdbc-url\"}",
+    "classification": "key-vault-reference"
+  },
+  {
+    "key": "POSTGRES_USER",
+    "label": "prod",
+    "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+    "value": "{\"uri\":\"https://petclinicdbqevd19kv.vault.azure.net/secrets/petclinic-postgres-username\"}",
+    "classification": "key-vault-reference"
+  },
+  {
+    "key": "POSTGRES_PASS",
+    "label": "prod",
+    "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+    "value": "{\"uri\":\"https://petclinicdbqevd19kv.vault.azure.net/secrets/petclinic-postgres-password\"}",
+    "classification": "key-vault-reference"
+  }
+]

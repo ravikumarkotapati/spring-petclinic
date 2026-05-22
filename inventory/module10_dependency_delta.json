@@ -1,0 +1,55 @@
+{
+  "module": "Module 10 - Rearchitect or Reengineer One Concern",
+  "concern": "Runtime configuration and feature flags",
+  "selected_modernization": "Move non-secret runtime configuration to Azure App Configuration while keeping secrets in Azure Key Vault.",
+  "code_and_configuration_changes": [
+    {
+      "type": "spring_profile",
+      "path": "src/main/resources/application-azure.properties",
+      "description": "Adds an Azure runtime profile that reads config-source, externalized-config and feature flag values from environment variables supplied by App Configuration."
+    },
+    {
+      "type": "application_code",
+      "path": "src/main/java/org/springframework/samples/petclinic/system/PetClinicRuntimeProperties.java",
+      "description": "Binds safe runtime configuration values with Spring Boot configuration properties."
+    },
+    {
+      "type": "application_code",
+      "path": "src/main/java/org/springframework/samples/petclinic/system/PetClinicRuntimeInfoContributor.java",
+      "description": "Publishes safe runtime configuration evidence through the actuator info endpoint without exposing secrets."
+    },
+    {
+      "type": "platform_template",
+      "path": "infra/container-apps/petclinic-containerapp-db-cutover.template.yaml",
+      "description": "Runs the container with postgres and azure profiles and injects non-secret App Configuration-backed settings."
+    },
+    {
+      "type": "iac",
+      "path": "infra/terraform/app-configuration/",
+      "description": "Defines Azure App Configuration store, labels, non-secret keys, Key Vault references and managed identity reader access."
+    }
+  ],
+  "new_runtime_dependencies": [
+    {
+      "flow_id": "F018",
+      "source": "petclinic-container-app",
+      "destination": "petclinic-config.azconfig.io",
+      "protocol": "TCP",
+      "destination_port": 443,
+      "dependency_type": "app_configuration",
+      "classification": "egress",
+      "control": "Managed identity with App Configuration Data Reader, enforced by private endpoint or Azure Firewall application rule."
+    }
+  ],
+  "secret_handling": {
+    "database_secrets": "Remain in Azure Key Vault or Container Apps secrets.",
+    "app_configuration_values": "Only non-secret flags and Key Vault reference metadata are stored in App Configuration.",
+    "committed_secret_values": "None."
+  },
+  "updated_outputs": [
+    "inventory/app_inventory.csv",
+    "inventory/egress_inventory.csv",
+    "inventory/network_egress_allowlist.csv",
+    "inventory/dependency_graph.mmd"
+  ]
+}

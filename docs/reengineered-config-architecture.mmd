@@ -1,0 +1,16 @@
+flowchart LR
+    User["User Browser"] -->|"HTTPS 443"| Edge["WAF-capable Edge<br/>Front Door or Application Gateway"]
+    Edge -->|"Managed ingress"| App["Azure Container Apps<br/>Spring PetClinic"]
+
+    Pipeline["CI/CD Pipeline"] -->|"seed keys + labels"| AppConfig["Azure App Configuration<br/>non-secret config + feature flags"]
+    Pipeline -->|"deploy revision"| App
+
+    App -->|"read config<br/>managed identity HTTPS 443"| AppConfig
+    AppConfig -->|"Key Vault references"| KeyVault["Azure Key Vault<br/>database secrets"]
+    App -->|"secret references<br/>managed identity HTTPS 443"| KeyVault
+    App -->|"JDBC TLS 5432"| Postgres["Azure Database for PostgreSQL<br/>Flexible Server"]
+    App -->|"logs + metrics"| Monitor["Azure Monitor<br/>Log Analytics"]
+
+    AppConfig -.->|"PETCLINIC_CONFIG_SOURCE"| App
+    AppConfig -.->|"PETCLINIC_EXTERNALIZED_CONFIG"| App
+    AppConfig -.->|"PETCLINIC_FEATURE_EXPERIMENTAL_UI"| App

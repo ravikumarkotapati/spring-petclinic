@@ -17,7 +17,13 @@ properties:
       - name: spring-petclinic
         env:
           - name: SPRING_PROFILES_ACTIVE
-            value: postgres
+            value: postgres,azure
+          - name: PETCLINIC_CONFIG_SOURCE
+            value: azure-app-configuration
+          - name: PETCLINIC_EXTERNALIZED_CONFIG
+            value: "true"
+          - name: PETCLINIC_FEATURE_EXPERIMENTAL_UI
+            value: "false"
           - name: POSTGRES_URL
             secretRef: petclinic-postgres-jdbc-url
           - name: POSTGRES_USER

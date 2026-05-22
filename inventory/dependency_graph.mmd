@@ -5,6 +5,10 @@ flowchart LR
     db_postgresql_localhost_5432["postgresql<br/>localhost:5432<br/>petclinic"]
     db_postgresql_postgres_db_vm_5432["postgresql<br/>postgres-db-vm:5432<br/>petclinic"]
     dns_resolver["dns-resolver"]
+    azure_app_configuration["Azure App Configuration<br/>runtime config + feature flags"]
+    azure_container_apps["Azure Container Apps<br/>Spring PetClinic"]
+    azure_key_vault["Azure Key Vault<br/>database secret references"]
+    azure_postgresql["Azure Database for PostgreSQL<br/>Flexible Server"]
     github_com["github.com"]
     local_disk["Local Disk<br/>config, logs, static resources"]
     mysql_db_vm["mysql-db-vm"]
@@ -28,3 +32,7 @@ flowchart LR
     onprem_petclinic_vm -->|"egress UDP/53"| dns_resolver
     onprem_petclinic_vm -->|"egress TCP/25"| smtp_relay_local
     unknown_client -->|"ingress_unknown TCP/8443"| onprem_petclinic_vm
+    azure_container_apps -->|"config HTTPS/443"| azure_app_configuration
+    azure_app_configuration -->|"Key Vault references"| azure_key_vault
+    azure_container_apps -->|"secret HTTPS/443"| azure_key_vault
+    azure_container_apps -->|"JDBC TLS/5432"| azure_postgresql

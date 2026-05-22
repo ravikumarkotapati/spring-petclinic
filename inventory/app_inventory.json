@@ -37,7 +37,9 @@
     ],
     "kubernetes_files": [
       "k8s/db.yml",
-      "k8s/petclinic.yml"
+      "k8s/petclinic.yml",
+      "k8s/ingress.yaml",
+      "k8s/networkpolicy-egress.yaml"
     ],
     "ci_cd_files": [
       ".github/workflows/deploy-and-test-cluster.yml",
@@ -276,6 +278,7 @@
     "config_files": [
       "src/main/resources/application-mysql.properties",
       "src/main/resources/application-postgres.properties",
+      "src/main/resources/application-azure.properties",
       "src/main/resources/application.properties"
     ],
     "database_schema_files": [
@@ -435,6 +438,24 @@
         "key": "spring.datasource.password",
         "env_var": "POSTGRES_PASS",
         "default_value": "pe***ic"
+      },
+      {
+        "file": "src/main/resources/application-azure.properties",
+        "key": "petclinic.runtime.config-source",
+        "env_var": "PETCLINIC_CONFIG_SOURCE",
+        "default_value": "azure-app-configuration"
+      },
+      {
+        "file": "src/main/resources/application-azure.properties",
+        "key": "petclinic.runtime.externalized-config",
+        "env_var": "PETCLINIC_EXTERNALIZED_CONFIG",
+        "default_value": "true"
+      },
+      {
+        "file": "src/main/resources/application-azure.properties",
+        "key": "petclinic.runtime.experimental-ui",
+        "env_var": "PETCLINIC_FEATURE_EXPERIMENTAL_UI",
+        "default_value": "false"
       }
     ],
     "server_ports": [],
@@ -1537,14 +1558,14 @@
   "summary": {
     "dependency_counts": {
       "maven_dependencies": 24,
-      "config_files": 3,
+      "config_files": 4,
       "database_connections": 3,
       "urls": 87,
       "secret_candidates": 2,
       "docker_files": 2,
-      "kubernetes_files": 2,
+      "kubernetes_files": 4,
       "ci_cd_files": 3,
-      "network_flows": 8,
+      "network_flows": 9,
       "unknown_flows": 1
     },
     "key_findings": [
@@ -1552,7 +1573,8 @@
       "Database profiles exist for H2, PostgreSQL and MySQL; PostgreSQL/MySQL sample credentials are present in local config and compose files.",
       "Local app ingress was observed on TCP/8081 because Jenkins was already using TCP/8080.",
       "Kubernetes manifests and GitHub Actions workflow exist; Azure DevOps pipeline will be added in a later module.",
-      "Observed SMTP-like and TCP/8443 flows require app-team validation because they are not explained by the source scan."
+      "Observed SMTP-like and TCP/8443 flows require app-team validation because they are not explained by the source scan.",
+      "Module 10 adds Azure App Configuration as a planned runtime dependency for non-secret configuration and feature flags; database secrets remain in Key Vault."
     ]
   }
 }

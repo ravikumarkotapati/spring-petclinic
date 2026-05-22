@@ -1,5 +1,9 @@
 {
   "nodes": [
+    "azure-app-configuration",
+    "azure-container-apps",
+    "azure-key-vault",
+    "azure-postgresql-flexible-server",
     "dns-resolver",
     "github.com",
     "local-disk",
@@ -131,6 +135,21 @@
       "confidence": "medium",
       "control_recommendation": "Validate source system, listener ownership, TLS need and firewall rule before migration.",
       "protocol_port": "TCP/8443"
+    },
+    {
+      "flow_id": "F018",
+      "source": "azure-container-apps",
+      "destination": "azure-app-configuration",
+      "protocol": "TCP",
+      "destination_port": "443",
+      "process": "managed-identity",
+      "observed_count": "planned",
+      "description": "Runtime non-secret configuration and feature flag retrieval",
+      "classification": "egress",
+      "dependency_type": "app_configuration",
+      "confidence": "high",
+      "control_recommendation": "Allow only from Container Apps environment to Azure App Configuration through private endpoint or approved Azure Firewall application rule; grant App Configuration Data Reader to managed identity.",
+      "protocol_port": "TCP/443"
     }
   ]
 }

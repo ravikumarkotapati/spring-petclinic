@@ -1,0 +1,64 @@
+# Module 10 Validation Evidence
+
+Validation date: 2026-05-22
+
+## Scope
+
+This evidence validates the Module 10 runtime configuration modernization:
+
+- New `azure` Spring profile loads non-secret runtime settings from environment variables supplied by the Azure App Configuration pattern.
+- Safe runtime configuration values are visible through `/actuator/info`.
+- Health endpoint remains available.
+- Java code compiles successfully.
+
+## Commands Run
+
+| Check | Command | Result |
+|---|---|---|
+| Terraform formatting | `C:\terraform\terraform.exe fmt -recursive infra\terraform\app-configuration` | Passed |
+| Terraform init | `C:\terraform\terraform.exe init -backend=false` from `infra\terraform\app-configuration` | Passed |
+| Terraform validate | `C:\terraform\terraform.exe validate` from `infra\terraform\app-configuration` | Passed |
+| PowerShell script parse | Parser validation on `scripts/sync_app_configuration_to_container_app.ps1` | Passed |
+| CSV parse | `ConvertFrom-Csv` on updated inventories | Passed |
+| JSON parse | `ConvertFrom-Json` on `inventory/module10_dependency_delta.json` and `inventory/dependency_graph.json` | Passed |
+| Full Maven package | `.\mvnw.cmd -DskipTests package` | Blocked by existing repository-wide `nohttp` findings in prior HTTP evidence and Terraform provider caches |
+| Java compile | `.\mvnw.cmd "-DskipTests" "-Dcheckstyle.skip=true" compile` | Passed |
+| Runtime validation | `.\mvnw.cmd -DskipTests -Dcheckstyle.skip=true spring-boot:run -Dspring-boot.run.profiles=azure -Dspring-boot.run.arguments=--server.port=8091` | Passed |
+
+## Runtime Validation Output
+
+Startup log file:
+
+- `evidence/logs/module10-runtime-startup.log`
+
+Health evidence file:
+
+- `evidence/logs/module10-actuator-health-validation.json`
+
+Key result:
+
+```json
+{
+  "status": "UP"
+}
+```
+
+Actuator info evidence file:
+
+- `evidence/logs/module10-actuator-info-validation.json`
+
+Key runtime evidence:
+
+```json
+{
+  "petclinicRuntime": {
+    "externalizedConfig": true,
+    "experimentalUi": false,
+    "configSource": "azure-app-configuration"
+  }
+}
+```
+
+## Notes
+
+The full Maven `package` target is not used as the primary validation signal here because the repository contains assessment evidence with plain HTTP endpoints and local Terraform provider cache files that trigger the upstream `nohttp` Checkstyle rule. The Module 10 Java code passed the repository formatter and compiled successfully when that repository-wide documentation check was skipped.

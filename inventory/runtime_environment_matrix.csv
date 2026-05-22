@@ -1,6 +1,8 @@
 Variable,Required,Secret,Default/Example,Applies To,Purpose,Source Of Value
 SERVER_PORT,Yes,No,8081,Container and Azure VM,Application HTTP port,Compose or platform app setting
 SPRING_PROFILES_ACTIVE,Yes,No,postgres,Container and Azure VM,Selects runtime database profile,Compose or platform app setting
+PETCLINIC_CONFIG_SOURCE,No,No,azure-app-configuration,Azure container runtime,Identifies external configuration source,Azure App Configuration projected as environment variable
+PETCLINIC_EXTERNALIZED_CONFIG,No,No,true,Azure container runtime,Confirms runtime config was externalized for migration,Azure App Configuration projected as environment variable
 POSTGRES_URL,When postgres profile is used,No,jdbc:postgresql://postgres:5432/petclinic,Container,Externalized PostgreSQL JDBC URL,Compose env or Key Vault/App Configuration
 POSTGRES_USER,When postgres profile is used,No,petclinic,Container,PostgreSQL username,Compose env or Key Vault/App Configuration
 POSTGRES_PASS,When postgres profile is used,Yes,<not committed>,Container,PostgreSQL password,Local .env or secret store

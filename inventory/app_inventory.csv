@@ -31,6 +31,15 @@ docker,file,.devcontainer/Dockerfile
 docker,file,docker-compose.yml
 kubernetes,file,k8s/db.yml
 kubernetes,file,k8s/petclinic.yml
+kubernetes,file,k8s/ingress.yaml
+kubernetes,file,k8s/networkpolicy-egress.yaml
 ci_cd,file,.github/workflows/deploy-and-test-cluster.yml
 ci_cd,file,.github/workflows/gradle-build.yml
 ci_cd,file,.github/workflows/maven-build.yml
+config_file,file,src/main/resources/application-azure.properties
+azure_config,key,PETCLINIC_CONFIG_SOURCE
+azure_config,key,PETCLINIC_EXTERNALIZED_CONFIG
+azure_config,key,PETCLINIC_FEATURE_EXPERIMENTAL_UI
+azure_dependency,service,Azure App Configuration
+azure_dependency,service,Azure Key Vault
+azure_dependency,service,Azure Database for PostgreSQL Flexible Server

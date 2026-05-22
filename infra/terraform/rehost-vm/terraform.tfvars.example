@@ -1,13 +1,13 @@
-﻿{
+{
   "subscription_id": "eafa948e-b96e-405c-bf43-63117e6d3402",
   "resource_group_name": "rg-petclinic-rehost-dev",
-  "location": "eastus",
+  "location": "centralus",
   "workload_name": "petclinic-rehost",
   "admin_username": "azureuser",
   "ssh_public_key": "ssh-rsa REPLACE_WITH_PUBLIC_KEY petclinic-rehost",
   "admin_source_ip": "101.100.182.17/32",
   "http_source_ip": "0.0.0.0/0",
-  "vm_size": "Standard_D2s_v5",
+  "vm_size": "Standard_D2s_v3",
   "repo_url": "https://github.com/ravikumarkotapati/spring-petclinic.git",
   "repo_branch": "module4-rehost-azure-vm",
   "app_port": 8081,

@@ -30,6 +30,7 @@ Module 4 rehosts the Spring PetClinic application from the Module 1 local/on-pre
 | Network | Dedicated VNet `10.40.0.0/16` and app subnet `10.40.1.0/24` |
 | Ingress | Standard public IP on TCP `80`, NSG allow rule, NGINX reverse proxy |
 | App tier | Ubuntu 22.04 Azure VM running Java 17 and Spring PetClinic as a systemd service |
+| Region and VM size | `centralus` with `Standard_D2s_v3`; selected because `eastus` returned SKU/capacity restrictions for the tested B-series and D-series VM sizes in this subscription, while `centralus` reported no restriction for `Standard_D2s_v3` |
 | Internal app port | `8081`, matching the Module 1 local baseline port decision |
 | Secrets/config | Azure Key Vault secrets read at runtime by user-assigned managed identity |
 | Database | H2 for Module 4 smoke test by default; PostgreSQL/MySQL endpoint can be supplied through Key Vault-backed parameters |
@@ -49,7 +50,7 @@ git pull
 
 $subscriptionId = "eafa948e-b96e-405c-bf43-63117e6d3402"
 $resourceGroup = "rg-petclinic-rehost-dev"
-$location = "eastus"
+$location = "centralus"
 $adminCidr = "101.100.182.17/32"
 
 az account set --subscription $subscriptionId
@@ -88,6 +89,7 @@ cd E:\spring-petclinic
   -SubscriptionId $subscriptionId `
   -ResourceGroup $resourceGroup `
   -Location $location `
+  -VmSize "Standard_D2s_v3" `
   -SshPublicKeyPath "$env:USERPROFILE\.ssh\petclinic-azure-vm.pub" `
   -AdminSourceIp $adminCidr `
   -HttpSourceIp "0.0.0.0/0" `

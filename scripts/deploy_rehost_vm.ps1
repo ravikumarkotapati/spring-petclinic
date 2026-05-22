@@ -4,7 +4,7 @@ param(
     [string]$SubscriptionId,
 
     [string]$ResourceGroup = "rg-petclinic-rehost-dev",
-    [string]$Location = "eastus",
+    [string]$Location = "centralus",
     [string]$WorkloadName = "petclinic-rehost",
     [string]$AdminUsername = "azureuser",
 
@@ -15,7 +15,7 @@ param(
     [string]$AdminSourceIp,
 
     [string]$HttpSourceIp = "0.0.0.0/0",
-    [string]$VmSize = "Standard_D2s_v5",
+    [string]$VmSize = "Standard_D2s_v3",
     [string]$RepoUrl = "https://github.com/ravikumarkotapati/spring-petclinic.git",
     [string]$RepoBranch = "module4-rehost-azure-vm",
     [int]$AppPort = 8081,

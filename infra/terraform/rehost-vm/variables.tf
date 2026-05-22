@@ -12,7 +12,7 @@ variable "resource_group_name" {
 variable "location" {
   description = "Azure region for all resources."
   type        = string
-  default     = "eastus"
+  default     = "centralus"
 }
 
 variable "workload_name" {
@@ -51,7 +51,7 @@ variable "http_source_ip" {
 variable "vm_size" {
   description = "Azure VM size."
   type        = string
-  default     = "Standard_D2s_v5"
+  default     = "Standard_D2s_v3"
 }
 
 variable "repo_url" {

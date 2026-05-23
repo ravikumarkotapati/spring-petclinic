@@ -14,7 +14,7 @@ Evidence:
 | Evidence | File |
 |---|---|
 | Native migration project export | `native-pg-dump-project-export.json` |
-| Migration runbook | `../../docs/db-migration-runbook.md` |
+| Migration runbook | `../../docs/08.03-db-migration-runbook.md` |
 | Local pg_dump/pg_restore rehearsal script | `../../scripts/db_migrate/run_local_pg_migration.ps1` |
 | Migration log | `../logs/db-migration-log.md` |
 | Throughput and error evidence | `../logs/db-migration-throughput.csv` |

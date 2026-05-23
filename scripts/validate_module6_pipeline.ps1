@@ -11,8 +11,8 @@ $requiredFiles = @(
     "infra/terraform/acr/main.tf",
     "infra/terraform/acr/variables.tf",
     "infra/terraform/modules/acr/main.tf",
-    "docs/10-cicd-and-azure-migration-templates.md",
-    "docs/11-cicd-rollback-strategy.md"
+    "docs/06.01-cicd-and-azure-migration-templates.md",
+    "docs/06.02-cicd-rollback-strategy.md"
 )
 
 $checks = New-Object System.Collections.Generic.List[string]

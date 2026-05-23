@@ -1,4 +1,4 @@
-﻿Module 6 pipeline validation
+Module 6 pipeline validation
 Captured at: 2026-05-22T12:40:07+08:00
 
 Checks:
@@ -8,8 +8,8 @@ Checks:
 - PASS file exists: infra/terraform/acr/main.tf
 - PASS file exists: infra/terraform/acr/variables.tf
 - PASS file exists: infra/terraform/modules/acr/main.tf
-- PASS file exists: docs/10-cicd-and-azure-migration-templates.md
-- PASS file exists: docs/11-cicd-rollback-strategy.md
+- PASS file exists: docs/06.01-cicd-and-azure-migration-templates.md
+- PASS file exists: docs/06.02-cicd-rollback-strategy.md
 - PASS pipeline stage present: Discovery
 - PASS pipeline stage present: Build
 - PASS pipeline stage present: Test

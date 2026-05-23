@@ -122,9 +122,9 @@ def compare(source: dict[str, list[dict]], target: dict[str, list[dict]]) -> lis
 def write_outputs(output_dir: Path, result: dict) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    json_path = output_dir / "db-data-validation-results.json"
-    csv_path = output_dir / "db-data-validation-results.csv"
-    md_path = output_dir / "db-data-validation-results.md"
+    json_path = output_dir / "08.20-db-data-validation-results.json"
+    csv_path = output_dir / "08.20-db-data-validation-results.csv"
+    md_path = output_dir / "08.20-db-data-validation-results.md"
 
     json_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
 

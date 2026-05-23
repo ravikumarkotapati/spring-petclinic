@@ -1,5 +1,5 @@
 param(
-    [string]$EvidencePath = "evidence/logs/module6-pipeline-validation.log"
+    [string]$EvidencePath = "evidence/logs/06.06-pipeline-validation.log"
 )
 
 $ErrorActionPreference = "Stop"

@@ -2,8 +2,8 @@ param(
     [Parameter(Mandatory = $true)]
     [string]$EndpointUrl,
 
-    [string]$EvidenceMarkdownPath = "evidence/logs/container-app-health-evidence.md",
-    [string]$EvidenceCsvPath = "evidence/logs/container-app-health-results.csv"
+    [string]$EvidenceMarkdownPath = "evidence/logs/07.07-container-app-health-evidence.md",
+    [string]$EvidenceCsvPath = "evidence/logs/07.08-container-app-health-results.csv"
 )
 
 $ErrorActionPreference = "Stop"

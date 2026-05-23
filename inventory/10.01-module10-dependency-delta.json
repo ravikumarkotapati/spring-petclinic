@@ -47,9 +47,9 @@
     "committed_secret_values": "None."
   },
   "updated_outputs": [
-    "inventory/app_inventory.csv",
-    "inventory/egress_inventory.csv",
-    "inventory/network_egress_allowlist.csv",
-    "inventory/dependency_graph.mmd"
+    "inventory/02.01-app-inventory.csv",
+    "inventory/02.03-egress-inventory.csv",
+    "inventory/09.02-network-egress-allowlist.csv",
+    "inventory/02.02-dependency-graph.mmd"
   ]
 }

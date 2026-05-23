@@ -15,8 +15,8 @@ fi
 APP_URL="${APP_URL%/}"
 mkdir -p "${OUTPUT_DIR}"
 
-CSV_PATH="${OUTPUT_DIR}/module11-smoke-test-results.csv"
-MD_PATH="${OUTPUT_DIR}/module11-smoke-test-evidence.md"
+CSV_PATH="${OUTPUT_DIR}/11.02-smoke-test-results.csv"
+MD_PATH="${OUTPUT_DIR}/11.01-smoke-test-evidence.md"
 CAPTURED_AT="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 
 tests=(

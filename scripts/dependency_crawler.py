@@ -724,10 +724,10 @@ def main(argv: list[str]) -> int:
     app_inventory["summary"] = build_summary(pom, source_scan, artifacts, classified_flows)
 
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "app_inventory.json").write_text(json.dumps(app_inventory, indent=2), encoding="utf-8")
+    (out_dir / "02.01-app-inventory.json").write_text(json.dumps(app_inventory, indent=2), encoding="utf-8")
 
     write_csv(
-        out_dir / "app_inventory.csv",
+        out_dir / "02.01-app-inventory.csv",
         build_app_inventory_csv(app_inventory),
         ["category", "name", "value"],
     )
@@ -754,10 +754,10 @@ def main(argv: list[str]) -> int:
         "control_recommendation",
         "description",
     ]
-    write_csv(out_dir / "ingress_inventory.csv", ingress_rows, flow_fields)
-    write_csv(out_dir / "egress_inventory.csv", egress_rows, flow_fields)
+    write_csv(out_dir / "09.01-ingress-inventory.csv", ingress_rows, flow_fields)
+    write_csv(out_dir / "02.03-egress-inventory.csv", egress_rows, flow_fields)
     write_csv(
-        out_dir / "database_inventory.csv",
+        out_dir / "02.04-database-inventory.csv",
         database_rows,
         [
             "source",
@@ -775,8 +775,8 @@ def main(argv: list[str]) -> int:
     )
 
     graph = build_mermaid_graph(classified_flows, database_rows)
-    (out_dir / "dependency_graph.mmd").write_text(graph, encoding="utf-8")
-    (out_dir / "dependency_graph.json").write_text(
+    (out_dir / "02.02-dependency-graph.mmd").write_text(graph, encoding="utf-8")
+    (out_dir / "02.02-dependency-graph.json").write_text(
         json.dumps(
             {
                 "nodes": sorted(
@@ -791,10 +791,13 @@ def main(argv: list[str]) -> int:
         encoding="utf-8",
     )
 
-    print(f"Wrote {out_dir / 'app_inventory.json'}")
-    print(f"Wrote {out_dir / 'egress_inventory.csv'}")
-    print(f"Wrote {out_dir / 'database_inventory.csv'}")
-    print(f"Wrote {out_dir / 'dependency_graph.mmd'}")
+    print(f"Wrote {out_dir / '02.01-app-inventory.json'}")
+    print(f"Wrote {out_dir / '02.01-app-inventory.csv'}")
+    print(f"Wrote {out_dir / '09.01-ingress-inventory.csv'}")
+    print(f"Wrote {out_dir / '02.03-egress-inventory.csv'}")
+    print(f"Wrote {out_dir / '02.04-database-inventory.csv'}")
+    print(f"Wrote {out_dir / '02.02-dependency-graph.mmd'}")
+    print(f"Wrote {out_dir / '02.02-dependency-graph.json'}")
     return 0
 
 

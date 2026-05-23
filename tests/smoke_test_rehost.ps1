@@ -64,8 +64,8 @@ foreach ($endpoint in $endpoints) {
     })
 }
 
-$csvPath = Join-Path $OutputDirectory "rehost-smoke-test-results.csv"
-$mdPath = Join-Path $OutputDirectory "rehost-smoke-test-evidence.md"
+$csvPath = Join-Path $OutputDirectory "04.04-rehost-smoke-test-results.csv"
+$mdPath = Join-Path $OutputDirectory "04.03-rehost-smoke-test-evidence.md"
 $results | Export-Csv -NoTypeInformation -Encoding UTF8 -Path $csvPath
 
 $markdown = New-Object System.Collections.Generic.List[string]

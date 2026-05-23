@@ -11,7 +11,7 @@ param(
     [string]$ImageRepository = "spring-petclinic",
     [string]$SourceImage = "petclinic:module5-local",
     [string]$ImageTag = "",
-    [string]$EvidencePath = "evidence/logs/acr-image-evidence.md"
+    [string]$EvidencePath = "evidence/logs/06.01-acr-image-evidence.md"
 )
 
 $ErrorActionPreference = "Stop"

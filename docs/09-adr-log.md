@@ -91,4 +91,4 @@ This ADR log records Module 3 migration architecture decisions for the Spring Pe
 | Options Considered | Keep platform env vars only, use Azure App Configuration plus Key Vault, add direct Spring Cloud Azure runtime client immediately, store all values in App Configuration |
 | Rationale | App Configuration gives centralized, labeled runtime config and feature flags while preserving Key Vault as the secret authority. The chosen pattern avoids adding an unvalidated framework dependency to the Spring Boot 4 application. |
 | Consequences | Adds runtime egress to App Configuration on HTTPS `443`, managed identity RBAC, App Configuration seeding/sync automation and new validation evidence through actuator info. |
-| Evidence | `docs/15-adr-app-configuration-modernization.md`, `docs/15-rearchitect-app-configuration-summary.md`, `docs/reengineered-config-architecture.png`, `inventory/module10_dependency_delta.json` |
+| Evidence | `docs/15-adr-app-configuration-modernization.md`, `docs/15-rearchitect-app-configuration-summary.md`, `docs/reengineered-config-architecture.md`, `inventory/module10_dependency_delta.json` |

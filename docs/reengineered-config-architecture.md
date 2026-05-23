@@ -1,5 +1,9 @@
 # Reengineered Runtime Configuration Architecture
 
+This page documents the Module 10 modernization of one monolith concern: runtime configuration and feature flags. The application keeps its Spring Boot monolith shape, but non-secret runtime values move to an Azure App Configuration pattern while database secrets remain protected through Azure Key Vault.
+
+The design reduces hardcoded configuration drift, gives operations a central place to manage runtime values, and keeps the blast radius small because the application code change is limited to safe runtime metadata and configuration binding.
+
 ![Module 10 reengineered runtime configuration architecture](reengineered-config-architecture.png)
 
 ## Components

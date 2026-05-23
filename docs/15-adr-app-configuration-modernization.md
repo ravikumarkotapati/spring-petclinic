@@ -83,5 +83,5 @@ Rollback is configuration-only:
 - `infra/app-configuration/petclinic-appconfig-keys.json`
 - `infra/container-apps/petclinic-containerapp-db-cutover.template.yaml`
 - `docs/15-rearchitect-config-risk-benefit.md`
-- `docs/reengineered-config-architecture.png`
+- `docs/reengineered-config-architecture.md`
 - `inventory/module10_dependency_delta.json`

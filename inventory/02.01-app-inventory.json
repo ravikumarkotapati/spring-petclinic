@@ -309,7 +309,7 @@
       {
         "file": "src/main/resources/application-mysql.properties",
         "key": "spring.datasource.password",
-        "value": "${MYSQL_PASS:petclinic}"
+        "value": "${MYSQL_PASS}"
       },
       {
         "file": "src/main/resources/application-mysql.properties",
@@ -334,7 +334,7 @@
       {
         "file": "src/main/resources/application-postgres.properties",
         "key": "spring.datasource.password",
-        "value": "${POSTGRES_PASS:petclinic}"
+        "value": "${POSTGRES_PASS}"
       },
       {
         "file": "src/main/resources/application-postgres.properties",

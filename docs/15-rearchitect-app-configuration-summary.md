@@ -34,7 +34,7 @@ Before this change, PetClinic supported environment-variable based overrides for
 |---|---|
 | Code or configuration change | `src/main/resources/application-azure.properties`, `src/main/java/org/springframework/samples/petclinic/system/PetClinicRuntimeProperties.java`, `src/main/java/org/springframework/samples/petclinic/system/PetClinicRuntimeInfoContributor.java`, `infra/container-apps/petclinic-containerapp-db-cutover.template.yaml`, `scripts/sync_app_configuration_to_container_app.ps1` |
 | ADR | `docs/15-adr-app-configuration-modernization.md` |
-| Updated diagram | `docs/reengineered-config-architecture.md`, `docs/reengineered-config-architecture.mmd` |
+| Updated diagram | `docs/reengineered-config-architecture.png`, `docs/reengineered-config-architecture.md` |
 | Risk/benefit assessment | `docs/15-rearchitect-config-risk-benefit.md` |
 | Validation evidence | `evidence/logs/module10-validation.md` |
 | Updated dependency crawler output | `inventory/module10_dependency_delta.json`, `inventory/app_inventory.csv`, `inventory/egress_inventory.csv`, `inventory/dependency_graph.mmd`, `inventory/network_egress_allowlist.csv` |

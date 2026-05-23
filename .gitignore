@@ -67,3 +67,6 @@ terraform.tfvars.json
 .env
 *.env
 !.env.example
+
+### Local architecture source exports ###
+Architecture/

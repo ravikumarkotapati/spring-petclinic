@@ -154,9 +154,7 @@ Current-State Architecture
 
 The current-state architecture is documented in:
 
-
-
-docs/current-state-architecture.mmd
+![Module 1 current-state architecture](current-state-architecture.png)
 
 Evidence Index
 
@@ -182,7 +180,7 @@ evidence/screenshots/	Browser-based endpoint evidence
 
 inventory/current\_state\_inventory.md	Current-state inventory table
 
-docs/current-state-architecture.mmd	Current-state architecture diagram
+docs/current-state-architecture.png	Current-state architecture diagram
 
 Assumptions and Open Questions
 
